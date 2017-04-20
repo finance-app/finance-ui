@@ -1,0 +1,27 @@
+<Button class="fa btn-primary" [text]="('fa-plus' | fonticon) + ' New'" routerLink="/{{path}}/new"></Button>
+<StackLayout *ngFor="let filter of filters">
+  <app-filter [properties]="filter"></app-filter>
+</StackLayout>
+<!--div class="btn-toolbar" role="toolbar">
+  <div class="btn-group mr-2" role="group">
+    <button type="button" class="btn btn-primary" (click)="update()"><fa-icon icon="undo"></fa-icon><span class="d-none d-sm-inline"> Update</span></button>
+  </div>
+  <div class="btn-group mr-2" role="group">
+    <button type="button" class="btn btn-success" routerLink="/{{path}}/new"><fa-icon icon="plus"></fa-icon><span class="d-none d-sm-inline"> New</span></button>
+  </div>
+
+  <div role="group" *ngFor="let filter of filters" class="btn-group d-none d-sm-inline mr-2">
+    <app-filter [properties]="filter"></app-filter>
+  </div>
+
+  <div role="group" class="btn-group d-sm-none d-md-none d-lg-none d-xl-none" *ngIf="filters.length > 0">
+    <button class="btn btn-secondary" type="button" (click)="filtersCollapsed = !filtersCollapsed" [attr.aria-expanded]="!filtersCollapsed" aria-controls="filters" aria-expanded="false" aria-label="Open filters">Filters</button>
+  </div>
+
+  <div class="collapse d-sm-none d-md-none d-lg-none d-xl-none" id="filters" [ngbCollapse]="filtersCollapsed">
+    <br>
+    <div class="btn-group mr-2" role="group" *ngFor="let filter of filters">
+      <app-filter [properties]="filter"></app-filter><br><br>
+    </div>
+  </div>
+</div-->

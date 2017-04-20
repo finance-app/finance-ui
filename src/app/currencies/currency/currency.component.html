@@ -1,0 +1,21 @@
+<div *ngIf="currency | async; let currency; else loading">
+  <div class="text-center">
+    <h3>Currency {{currency.name}}</h3>
+  </div>
+  <br>
+  <button type="button" class="btn btn-primary" routerLink="./edit"><fa-icon icon="edit"></fa-icon> Edit</button>
+  <button type="button" class="btn btn-danger" (click)="delete(currency)"><fa-icon icon="trash-alt"></fa-icon> Delete</button>
+  <button type="button" class="btn btn-secondary pull-right" (click)="locationService.back()"><fa-icon icon="undo"></fa-icon> Back</button>
+  <br><br>
+  Name: {{ currency.name }}<br>
+  Symbol: {{ currency.symbol }}<br>
+  Incomes: <span [ngClass]="{'text-success': currency.incomes_balance > 0}">{{currency.incomes_balance > 0 ? '+' + currency.incomes_balance : '0.0'}}</span><br>
+  Expenses: <span [ngClass]="{'text-danger': currency.expenses_balance < 0}">{{currency.expenses_balance ? currency.expenses_balance : '0.0'}}</span><br>
+  Balance: <span [ngClass]="{'text-success': currency.balance > 0, 'text-danger': currency.balance < 0}">{{currency.balance ? (currency.balance > 0 ? '+' + currency.balance : currency.balance) : '0.0'}}</span><br>
+  <br>
+  Budgets:<br>
+  <budgets-table [budgets]="budgets"></budgets-table>
+  Accounts:<br>
+  <accounts-table [accounts]="accounts"></accounts-table>
+</div>
+<ng-template #loading>Loading currency...</ng-template>

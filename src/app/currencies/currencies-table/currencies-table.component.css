@@ -1,0 +1,8 @@
+.actions::after {
+  border: 0;
+  margin: 0;
+}
+
+.actions {
+  cursor: pointer;
+}

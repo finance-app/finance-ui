@@ -1,0 +1,15 @@
+<div *ngIf="transactionCategory">
+  <div class="text-center">
+    <h3>Transaction Category {{transactionCategory.name}}</h3>
+  </div>
+  <br>
+  <button type="button" class="btn btn-primary" routerLink="./edit"><fa-icon icon="edit"></fa-icon><span class="d-none d-sm-inline"> Edit</span></button>
+  <button type="button" class="btn btn-danger" (click)="delete(transactionCategory)"><fa-icon icon="trash-alt"></fa-icon><span class="d-none d-sm-inline"> Delete</span></button>
+  <button type="button" class="btn btn-secondary pull-right" (click)="locationService.back()"><fa-icon icon="undo"></fa-icon> Back</button>
+  <br><br>
+  Name: {{ transactionCategory.name }}<br>
+  Comment: {{ transactionCategory.comment }}<br>
+  Incomes: <span [ngClass]="{'text-success': transactionCategory.incomes_balance > 0}">{{transactionCategory.incomes_balance > 0 ? '+' + transactionCategory.incomes_balance : '0.0'}}</span><br>
+  Expenses: <span [ngClass]="{'text-danger': transactionCategory.expenses_balance < 0}">{{transactionCategory.expenses_balance ? transactionCategory.expenses_balance : '0.0'}}</span><br>
+  Balance: <span [ngClass]="{'text-success': transactionCategory.balance > 0, 'text-danger': transactionCategory.balance < 0}">{{transactionCategory.balance ? (transactionCategory.balance > 0 ? '+' + transactionCategory.balance : transactionCategory.balance) : '0.0'}}</span><br>
+</div>

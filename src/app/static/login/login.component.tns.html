@@ -1,0 +1,22 @@
+<GridLayout rows="auto, *">
+  <StackLayout class="container" row="1">
+    <StackLayout (submit)="submit()" [formGroup]="formGroup" novalidate horizontalAlignment="center" verticalAlignment="center">
+      <Image class="logo" style="width: 35%" src="~/assets/logo.png"></Image>
+      <Label class="h2 text-center" text="Sign in to the Finance"></Label>
+
+      <StackLayout class="input-field">
+        <TextField class="input my-input" formControlName="email" hint="Email" keyboardType="email" autocorrect="false" autocapitalizationType="none" id="email" returnKeyType="next" [ngClass]="{'is-valid': isValid('email'), 'is-invalid': isInvalid('email')}" autofocus></TextField>
+        <StackLayout class="hr-light"></StackLayout>
+        <Label *ngIf="isInvalid('email') && formGroup.controls.email.errors.required" class="text-danger" text="Email is required."></Label>
+      </StackLayout>
+
+      <StackLayout class="input-field">
+        <TextField #password class="input my-input" formControlName="password" hint="Password" secure="true" id="password" returnKeyType="done" (returnPress)="submit()" [ngClass]="{'is-valid': isValid('password'), 'is-invalid': isInvalid('password')}"></TextField>
+        <StackLayout class="hr-light"></StackLayout>
+        <Label *ngIf="isInvalid('password') && formGroup.controls.password.errors.required" class="text-danger" text="Password is required."></Label>
+      </StackLayout>
+
+      <Button text="{{ this.inProgress ? 'Signing in...' : 'Sign in'}}" [isEnabled]="!this.inProgress" (tap)="submit()" class="btn btn-primary m-t-20 login-button"></Button>
+    </StackLayout>
+  </StackLayout>
+</GridLayout>

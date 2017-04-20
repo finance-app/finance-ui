@@ -1,0 +1,117 @@
+<RadSideDrawer [drawerTransition]="sideDrawerTransition" (drawerClosed)="closeAll()">
+  <GridLayout tkDrawerContent rows="auto, *" class="sidedrawer sidedrawer-left">
+    <StackLayout row="0" class="sidedrawer-header">
+      <Image class="sidedrawer-header-image" src="~/assets/logo.png"></Image>
+      <Label class="sidedrawer-header-brand" text="{{authService.currentUser() || 'User'}}" textWrap="true"></Label>
+    </StackLayout>
+    <ScrollView row="1">
+      <StackLayout class="sidedrawer-content">
+        <GridLayout columns="auto, *" class="sidedrawer-list-item" [class.selected]="isPageSelected('Overview')" (tap)="onNavItemTap('/overview', 'Overview')">
+          <Label col="0" [text]="'fa-home' | fonticon" class="fa"></Label>
+          <Label col="1" text="Overview" class="p-r-10"></Label>
+        </GridLayout>
+
+        <GridLayout columns="auto, *" class="sidedrawer-list-item" [class.selected]="isPageSelected('Transactions')" (tap)="onNavItemTap('/transactions', 'Transactions')">
+          <Label col="0" [text]="'fa-exchange-alt' | fonticon" class="fa"></Label>
+          <Label col="1" text="Transactions" class="p-r-10"></Label>
+        </GridLayout>
+
+        <GridLayout columns="auto, *" class="sidedrawer-list-item" [class.selected]="isPageSelected('Targets')" (tap)="onNavItemTap('/targets', 'Targets')">
+          <Label col="0" [text]="'fa-shopping-cart' | fonticon" class="fa"></Label>
+          <Label col="1" text="Targets" class="p-r-10"></Label>
+        </GridLayout>
+
+        <GridLayout columns="auto, *" class="sidedrawer-list-item" [class.selected]="isPageSelected('Categories')" (tap)="onNavItemTap('/categories', 'Categories')">
+          <Label col="0" [text]="'fa-tags' | fonticon" class="fa"></Label>
+          <Label col="1" text="Categories" class="p-r-10"></Label>
+        </GridLayout>
+
+        <GridLayout columns="auto, *" class="sidedrawer-list-item" [class.selected]="isPageSelected('Accounts')" (tap)="onNavItemTap('/accounts', 'Accounts')">
+          <Label col="0" [text]="'fa-piggy-bank' | fonticon" class="fa"></Label>
+          <Label col="1" text="Accounts" class="p-r-10"></Label>
+        </GridLayout>
+
+        <GridLayout columns="auto, *, auto" class="sidedrawer-list-item" (tap)="toggleTimeframes()">
+          <Label col="0" [text]="'fa-clock' | fonticon" class="fa"></Label>
+          <Label col="1" text="Timeframes" class="p-r-10"></Label>
+          <Label col="2" [text]="((timeframesOpened || isPageSelected('Periods') || isPageSelected('Budgets')) ? 'fa-angle-down' : 'fa-angle-up') | fonticon" class="fa text-right"></Label>
+        </GridLayout>
+
+        <StackLayout visibility="{{(timeframesOpened || isPageSelected('Periods') || isPageSelected('Budgets')) ? 'visible' : 'collapsed'}}">
+
+          <GridLayout columns="auto, *" class="sidedrawer-list-item sidedrawer-list-item-nested" [class.selected]="isPageSelected('Periods')" (tap)="onNavItemTap('/periods', 'Periods')">
+            <Label col="0" [text]="'fa-calendar-alt' | fonticon" class="fa"></Label>
+            <Label col="1" text="Periods" class="p-r-10"></Label>
+          </GridLayout>
+
+          <GridLayout columns="auto, *" class="sidedrawer-list-item sidedrawer-list-item-nested" [class.selected]="isPageSelected('Budgets')" (tap)="onNavItemTap('/budgets', 'Budgets')">
+            <Label col="0" [text]="'fa-money-bill-alt' | fonticon" class="fa"></Label>
+            <Label col="1" text="Budgets" class="p-r-10"></Label>
+          </GridLayout>
+
+        </StackLayout>
+
+        <StackLayout class="hr-light"></StackLayout>
+
+        <GridLayout columns="auto, *, auto" class="sidedrawer-list-item" (tap)="togglePeriods()" *ngIf="(timeframeService.currentPeriod | async) || {}; let currentPeriod">
+          <Label col="0" [text]="'fa-calendar-alt' | fonticon" class="fa"></Label>
+          <Label col="1" text="Current period: {{currentPeriod.name || 'All' }}" class="p-r-10"></Label>
+          <Label col="2" [text]="(periodsOpened ? 'fa-angle-down' : 'fa-angle-up') | fonticon" class="fa text-right"></Label>
+        </GridLayout>
+
+        <StackLayout visibility="{{periodsOpened ? 'visible' : 'collapsed'}}">
+
+          <GridLayout columns="auto, *" class="sidedrawer-list-item sidedrawer-list-item-nested" (tap)="timeframeService.isCurrentPeriod() || timeframeService.selectPeriod(); togglePeriods()" [ngClass]="{'selected': timeframeService.isCurrentPeriod() }">
+            <Label col="0" [text]="'fa-arrow-right' | fonticon" class="fa"></Label>
+            <Label col="1" text="All" class="p-r-10"></Label>
+          </GridLayout>
+
+          <GridLayout columns="auto, *" class="sidedrawer-list-item sidedrawer-list-item-nested" *ngFor="let period of timeframeService.periods | async" [ngClass]="{'selected': timeframeService.isCurrentPeriod(period) }" (tap)="timeframeService.isCurrentPeriod(period) || timeframeService.selectPeriod(period); togglePeriods()">
+            <Label col="0" [text]="'fa-arrow-right' | fonticon" class="fa"></Label>
+            <Label col="1" text="{{period.name}}" class="p-r-10"></Label>
+          </GridLayout>
+
+        </StackLayout>
+
+        <GridLayout columns="auto, *, auto" class="sidedrawer-list-item" (tap)="toggleBudgets()" *ngIf="(timeframeService.currentBudget | async) || {}; let currentBudget">
+          <Label col="0" [text]="'fa-money-bill-alt' | fonticon" class="fa"></Label>
+          <Label col="1" text="Current budget: {{currentBudget.name ? currentBudget.name + ' (' + currentBudget.currency.name + ')' : 'All' }}" class="p-r-10"></Label>
+          <Label col="2" [text]="(budgetsOpened ? 'fa-angle-down' : 'fa-angle-up') | fonticon" class="fa text-right"></Label>
+        </GridLayout>
+
+        <StackLayout visibility="{{budgetsOpened ? 'visible' : 'collapsed'}}">
+
+          <GridLayout columns="auto, *" class="sidedrawer-list-item sidedrawer-list-item-nested" (tap)="timeframeService.isCurrentBudget() || timeframeService.selectBudget(); toggleBudgets()" [ngClass]="{'selected': timeframeService.isCurrentBudget() }">
+            <Label col="0" [text]="'fa-arrow-right' | fonticon" class="fa"></Label>
+            <Label col="1" text="All" class="p-r-10"></Label>
+          </GridLayout>
+
+          <GridLayout columns="auto, *" class="sidedrawer-list-item sidedrawer-list-item-nested" *ngFor="let budget of timeframeService.budgets | async" [ngClass]="{'selected': timeframeService.isCurrentBudget(budget) }" (tap)="timeframeService.isCurrentBudget(budget) || timeframeService.selectBudget(budget); toggleBudgets()">
+            <Label col="0" [text]="'fa-arrow-right' | fonticon" class="fa"></Label>
+            <Label col="1" text="{{budget.name}} ({{budget.currency.name}})" class="p-r-10"></Label>
+          </GridLayout>
+
+        </StackLayout>
+
+        <StackLayout class="hr-light"></StackLayout>
+
+        <GridLayout columns="auto, *" class="sidedrawer-list-item" [class.selected]="isPageSelected('Currencies')" (tap)="onNavItemTap('/currencies', 'Currencies')">
+          <Label col="0" [text]="'fa-dollar-sign' | fonticon" class="fa"></Label>
+          <Label col="1" text="Currencies" class="p-r-10"></Label>
+        </GridLayout>
+
+        <GridLayout columns="auto, *" class="sidedrawer-list-item" [class.selected]="isPageSelected('TODO')" (tap)="onNavItemTap('/todo', 'TODO')">
+          <Label col="0" [text]="'fa-clipboard-list' | fonticon" class="fa"></Label>
+          <Label col="1" text="TODO" class="p-r-10"></Label>
+        </GridLayout>
+
+        <GridLayout columns="auto, *" class="sidedrawer-list-item" (tap)="logout()">
+          <Label col="0" [text]="'fa-sign-out-alt' | fonticon" class="fa"></Label>
+          <Label col="1" text="Sign out" class="p-r-10"></Label>
+        </GridLayout>
+      </StackLayout>
+    </ScrollView>
+  </GridLayout>
+
+  <page-router-outlet tkMainContent class="page page-content"></page-router-outlet>
+</RadSideDrawer>

@@ -1,0 +1,6 @@
+<GridLayout backgroundColor="white">
+  <Label text="Are you sure?" class="label"></Label>
+  <Label text="Are you sure you want to {{settings.action}} {{settings.objectType}} {{settings.name}}?" class="label"></Label>
+  <Button (tap)="close(false)" text="Close"></Button>
+  <Button (tap)="close(true)" text="{{settings.confirmText}}"></Button>
+</GridLayout>

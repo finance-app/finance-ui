@@ -1,0 +1,97 @@
+<div class="table-responsive" *showItBootstrap="['md', 'lg', 'xl']">
+  <table class="table table-bordered table-striped table-hover">
+    <thead class="thead-inverse">
+      <tr>
+        <th *ngFor="let row of rows" (click)="sortBy(row)">{{row.title}} <fa-icon [icon]="sortIcon(row)"></fa-icon></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let object of elements | async; trackBy: trackById" [ngClass]="active_row_class ? active_row_class(object, false) : ({'table-success': active_row ? active_row(object) : false})">
+        <td *ngFor="let row of object.rows">
+
+          <a *ngIf="row.routerLink"
+            [routerLink]="row.routerLink"
+            [queryParams]="row.queryParams"
+            [ngClass]="row.ngClass"
+          >{{row.value}}</a>
+
+          <span *ngIf="row.routerLink === undefined"
+            [ngClass]="row.ngClass"
+          >{{row.value}}</span>
+
+        </td>
+        <td ngbDropdown placement="bottom-right" class="text-center">
+          <h5 class="actions font-weight-bold text-secondary" ngbDropdownToggle>⋮</h5>
+          <div class="dropdown-menu dropdown-menu-left" ngbDropdownMenu>
+            <button *ngFor="let action of object.actions"
+              class="btn dropdown-item"
+              [ngClass]="action.ngClass"
+              (click)="action.click(object)"
+              [disabled]="action.disabled"
+              [routerLink]="action.routerLink"
+              [queryParams]="action.queryParams"
+            >
+              <fa-icon [icon]="action.icon"></fa-icon> {{evaluate(action.title, object)}}
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<ng-container *showItBootstrap="['xs', 'sm']">
+  <div ngbDropdown class="d-inline-block dropdown btn-group" role="group">
+    <button class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" [id]="'sort'" ngbDropdownToggle>Sort: {{ sort_title }}</button>
+    <div class="dropdown-menu" ngbDropdownMenu [attr.aria-labelledby]="'sort'">
+      <ng-container *ngFor="let row of rows">
+        <button class="dropdown-item" [class.active]="sort_status[row.title] === false" (click)="sortBy(row, false)">{{ row.title }} ASC</button>
+        <button class="dropdown-item" [class.active]="sort_status[row.title] === true" (click)="sortBy(row, true)">{{ row.title }} DESC</button>
+      </ng-container>
+    </div>
+  </div>
+  <br><br>
+</ng-container>
+<div *showItBootstrap="['xs', 'sm']">
+  <div class="card mt-1" *ngFor="let object of elements | async; trackBy: trackById" [ngClass]="active_row_class ? active_row_class(object, true) : {'border-success': active_row ? active_row(object) : false}">
+    <div class="card-header" [ngClass]="active_row_text_class || {'bg-success': true, 'text-white': true}" *ngIf="active_row ? active_row(object) : false">{{active_row_text || 'Active'}}</div>
+    <div class="card-body">
+      <div class="card-title">
+        <div class="row">
+          <div class="col-10">
+            <h5><a [routerLink]="[object.id]">{{object.card_title}}</a></h5>
+          </div>
+          <div class="col-1" style="max-width: 100%;" ngbDropdown placement="bottom-right">
+            <h5 class="actions font-weight-bold text-secondary" ngbDropdownToggle>⋮</h5>
+            <div class="dropdown-menu dropdown-menu-left" ngbDropdownMenu>
+              <button *ngFor="let action of object.actions"
+                class="btn dropdown-item"
+                [ngClass]="action.ngClass"
+                (click)="action.click(object)"
+                [disabled]="action.disabled"
+                [routerLink]="action.routerLink"
+                [queryParams]="action.queryParams"
+              >
+                <fa-icon [icon]="action.icon"></fa-icon> {{evaluate(action.title, object)}}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h6 *ngIf="card_subtitle" class="card-subtitle mb-2 text-muted">{{object.card_subtitle}}</h6>
+      <div class="card-text">
+        <div *ngFor="let card of object.cards">
+
+          <span *ngIf="card.routerLink && card.value">{{card.title}}: <a
+            [routerLink]="card.routerLink"
+            [queryParams]="card.queryParams"
+            [ngClass]="card.ngClass"
+          >{{card.value}}</a></span>
+
+          <span *ngIf="card.routerLink === undefined && card.value">
+            {{card.title}}: <span [ngClass]="card.ngClass">{{card.value}}</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

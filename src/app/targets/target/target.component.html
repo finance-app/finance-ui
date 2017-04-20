@@ -1,0 +1,15 @@
+<div *ngIf="target">
+  <div class="text-center">
+    <h3>Target {{target.name}}</h3>
+  </div>
+  <br>
+  <button type="button" class="btn btn-primary" routerLink="./edit"><fa-icon icon="edit"></fa-icon><span class="d-none d-sm-inline"> Edit</span></button>
+  <button type="button" class="btn btn-danger" (click)="delete(target)"><fa-icon icon="trash-alt"></fa-icon><span class="d-none d-sm-inline"> Delete</span></button>
+  <button type="button" class="btn btn-secondary pull-right" (click)="locationService.back()"><fa-icon icon="undo"></fa-icon> Back</button>
+  <br><br>
+  Name: {{ target.name }}<br>
+  Comment: {{ target.comment }}<br>
+  Incomes: <span [ngClass]="{'text-success': target.incomes_balance > 0}">{{target.incomes_balance > 0 ? '+' + target.incomes_balance : '0.0'}}</span><br>
+  Expenses: <span [ngClass]="{'text-danger': target.expenses_balance < 0}">{{target.expenses_balance ? target.expenses_balance : '0.0'}}</span><br>
+  Balance: <span [ngClass]="{'text-success': target.balance > 0, 'text-danger': target.balance < 0}">{{target.balance ? (target.balance > 0 ? '+' + target.balance : target.balance) : '0.0'}}</span><br>
+</div>

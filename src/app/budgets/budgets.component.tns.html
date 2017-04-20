@@ -1,0 +1,12 @@
+<ActionBar class="action-bar">
+  <NavigationButton icon="~/assets/ic_menu.png" (tap)="onDrawerButtonTap()"></NavigationButton>
+  <Label class="action-bar-title" text="Budgets"></Label>
+</ActionBar>
+
+<StackLayout>
+  <index title="Budgets">
+    <table-header [filters]="filters" [update]="update.bind(this)" path="budgets" index-body></table-header>
+    <StackLayout class="hr-light m-10" index-body></StackLayout>
+    <budgets-table [budgets]="budgets" [update]="update.bind(this)" index-body></budgets-table>
+  </index>
+</StackLayout>

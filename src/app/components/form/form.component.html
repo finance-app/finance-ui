@@ -1,0 +1,94 @@
+<div class="row">
+  <div class="col-xl-7 col-lg-8 col-md-9 col-sm-10 col-xs-11 text-center mx-auto">
+    <h2 *ngIf="formData.title">{{formData.title}}</h2>
+    <h2 *ngIf="!formData.title">{{ updating ? 'Update ' + formData.name + ' ' + (formData.instanceName || '') : 'Create new ' + formData.name}}</h2>
+    <form novalidate [formGroup]="formGroup" *ngIf="formGroup">
+      <div class="form-group row" *ngFor="let field of formData.fields">
+        <label *ngIf="field.label" class="col-sm-3 col-form-label" [for]="field.id">{{field.label}}</label>
+        <div class="col-sm-9">
+
+          <!-- TEXT/NUMBER TYPE -->
+          <input *ngIf="(field.type == 'text' || field.type == 'number') && !field.autofocus" [type]="field.type" [id]="field.id" class="form-control" [placeholder]="field.placeholder || ''" [formControlName]="field.id" [min]="field.min | async" [ngClass]="{'is-valid': isValid(field.id), 'is-invalid': isInvalid(field.id)}">
+          <input *ngIf="(field.type == 'text' || field.type == 'number') && field.autofocus" [type]="field.type" [id]="field.id" class="form-control" [placeholder]="field.placeholder || ''" [formControlName]="field.id" autofocus [min]="field.min | async" [ngClass]="{'is-valid': isValid(field.id), 'is-invalid': isInvalid(field.id)}" #autofocusField>
+
+          <!-- SELECT TYPE -->
+          <div *ngIf="field.type == 'select'" class="input-group">
+            <select *ngIf="!field.autofocus" class="form-control" [id]="field.id" [formControlName]="field.id" [ngClass]="{'is-valid': isValid(field.id), 'is-invalid': isInvalid(field.id)}">
+              <option [ngValue]="null" [disabled]="field.validators ? (field.validators.indexOf(requiredFn, 0) === -1 ? null : true) : null">{{field.placeholder}}</option>
+              <option *ngFor="let i of field.options | async" [ngValue]="field.value ? field.value(i) : i">{{field.description(i)}}</option>
+            </select>
+            <select *ngIf="field.autofocus" class="form-control" [id]="field.id" [formControlName]="field.id" [ngClass]="{'is-valid': isValid(field.id), 'is-invalid': isInvalid(field.id)}" autofocus #autofocusField>
+              <option [ngValue]="null" [disabled]="field.validators ? (field.validators.indexOf(requiredFn, 0) === -1 ? null : true) : null">{{field.placeholder}}</option>
+              <option *ngFor="let i of field.options | async" [ngValue]="field.value ? field.value(i) : i">{{field.description(i)}}</option>
+            </select>
+            <span class="input-group-btn" *ngIf="field.addButton">
+              <button type="button" class="btn btn-success" (click)="field.addButton(formGroup)">
+                <fa-icon icon="plus"></fa-icon>
+              </button>
+            </span>
+          </div>
+
+          <!-- DATE TYPE -->
+          <div *ngIf="field.type == 'date'" class="input-group">
+            <input *ngIf="!field.autofocus" class="form-control" type="date" [formControlName]="field.id" [ngClass]="{'is-valid': isValid(field.id), 'is-invalid': isInvalid(field.id)}" [id]="field.id" [min]="field.min | async" [max]="field.max | async">
+            <input *ngIf="field.autofocus" class="form-control" type="date" [formControlName]="field.id" [ngClass]="{'is-valid': isValid(field.id), 'is-invalid': isInvalid(field.id)}" [id]="field.id" [min]="field.min | async" [max]="field.max | async" autofocus #autofocusField>
+          </div>
+
+          <!-- RADIO TYPE -->
+          <div *ngIf="field.type == 'radio'">
+            <div class="form-check form-check-inline" *ngFor="let i of field.options | async">
+              <label class="form-check-label">
+                <input *ngIf="!field.autofocus"class="form-check-input" type="radio" [name]="field.id" [id]="field.value ? field.value(i) : i" [value]="field.value ? field.value(i) : i" [formControlName]="field.id" [ngClass]="{'is-valid': isValid(field.id), 'is-invalid': isInvalid(field.id)}">
+                <input *ngIf="field.autofocus"class="form-check-input" type="radio" [name]="field.id" [id]="field.value ? field.value(i) : i" [value]="field.value ? field.value(i) : i" [formControlName]="field.id" [ngClass]="{'is-valid': isValid(field.id), 'is-invalid': isInvalid(field.id)}" autofocus #autofocusField>
+                {{field.description(i)}}
+                </label>
+            </div>
+          </div>
+
+          <!-- CHECKBOX TYPE -->
+          <div *ngIf="field.type == 'checkbox'">
+            <input type="checkbox" class="form-check-input" [name]="field.id" [id]="field.value ? field.value(i) : i" [formControlName]="field.id" [ngClass]="{'is-valid': isValid(field.id), 'is-invalid': isInvalid(field.id)}" autofocus #autofocusField>
+          </div>
+
+          <!-- FEEDBACK -->
+          <div class="invalid-feedback d-block" *ngIf="isInvalid(field.id)">
+            <div *ngIf="formGroup.controls[field.id].errors.required">
+              {{field.label || field.id | capitalize}} is required.
+            </div>
+            <div *ngIf="formGroup.controls[field.id].errors.minlength">
+              {{field.label || field.id | capitalize}} must have at least {{formGroup.controls[field.id].errors.minlength.requiredLength}} characters.
+            </div>
+            <div *ngIf="formGroup.controls[field.id].errors.maxlength">
+              {{field.label || field.id | capitalize}} must have at most {{formGroup.controls[field.id].errors.maxlength.requiredLength}} characters.
+            </div>
+            <div *ngIf="formGroup.controls[field.id].errors.other">
+              <div *ngFor="let error of formGroup.controls[field.id].errors.other">
+                {{field.label || field.id | capitalize}} {{error}}.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CONTROLS -->
+      <div class="row">
+        <div class="col">
+          <button class="btn btn-success" type="button" (click)="next = true; submit()" [disabled]="updating || inProgress" *ngIf="formData.nextButton != false">
+            <fa-icon icon="plus"></fa-icon> {{ (inProgress && next) ? 'Creating...' : 'Next' }}
+          </button>
+        </div>
+        <div class="col">
+          <button class="btn btn-secondary" type="button" (click)="location.back()">
+            <fa-icon icon="undo"></fa-icon> Back
+          </button>
+        </div>
+        <div class="col">
+          <button class="btn btn-success" type="submit" [disabled]="inProgress || (updating && !formGroup.dirty)" (click)="submit()">
+            <fa-icon icon="check"></fa-icon> {{ rightButtonText() }}
+          </button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>

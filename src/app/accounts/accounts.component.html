@@ -1,0 +1,6 @@
+<index title="Accounts">
+  <div [chart]="balancesChart" index-header></div>
+  <table-header [filters]="filters" [update]="update.bind(this)" path="accounts" index-body></table-header>
+  <br index-body>
+  <accounts-table [accounts]="accounts" index-body></accounts-table>
+</index>

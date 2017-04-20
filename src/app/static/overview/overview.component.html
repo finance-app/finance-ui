@@ -1,0 +1,92 @@
+<div class="row">
+  <div class="col-sm-3 col-6">
+    <div class="card text-center mt-3">
+      <div class="card-header"><h5>Money for period</h5></div>
+      <div class="card-body">
+        <div class="card-text" [ngClass]="{'text-success': ((data.incomes?.fixed || 0) + (data.expenses?.fixed || 0)).toFixed(2) > 0, 'text-danger': ((data.incomes?.fixed || 0) + (data.expenses?.fixed || 0)).toFixed(2) < 0}">
+          <h3>{{((data.incomes?.fixed || 0) + (data.expenses?.fixed || 0)).toFixed(2)}} {{period?.budget?.currency.symbol}}</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-3 col-6">
+    <div class="card text-center mt-3">
+      <div class="card-header"><h5>Money spent</h5></div>
+      <div class="card-body">
+        <div class="card-text" [ngClass]="{'text-success': ((data.expenses?.flexible || 0) + (data.expenses?.discretionary || 0)).toFixed(2) > 0, 'text-danger': ((data.expenses?.flexible || 0) + (data.expenses?.discretionary || 0)).toFixed(2) < 0}">
+          <h3>{{((data.expenses?.flexible || 0) + (data.expenses?.discretionary || 0)).toFixed(2)}} {{period?.budget?.currency.symbol}}</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-3 col-6">
+    <div class="card text-center mt-3">
+      <div class="card-header"><h5>Money left</h5></div>
+      <div class="card-body">
+        <div class="card-text" [ngClass]="{'text-success': ((data.incomes?.fixed || 0) + (data.expenses?.fixed || 0) + (data.expenses?.discretionary || 0) + (data.expenses?.flexible || 0)).toFixed(2) > 0, 'text-danger': ((data.incomes?.fixed || 0) + (data.expenses?.fixed || 0) + (data.expenses?.discretionary || 0) + (data.expenses?.flexible || 0)).toFixed(2) < 0}">
+          <h3>{{((data.incomes?.fixed || 0) + (data.expenses?.fixed || 0) + (data.expenses?.discretionary || 0) + (data.expenses?.flexible || 0)).toFixed(2)}} {{period?.budget?.currency.symbol}}</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-3 col-6">
+    <div class="card text-center mt-3">
+      <div class="card-header"><h5>Current accounts</h5></div>
+      <div class="card-body">
+        <div class="card-text" [ngClass]="{'text-success': (accounts.balance_total || 0) > 0, 'text-danger': (accounts.balance_total || 0) < 0}">
+          <h3>{{(accounts.balance_total || 0)}} {{period?.budget?.currency.symbol}}</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="col-sm-3">
+    <div class="card mt-3">
+      <div class="card-header">Incomes:<span class="text-success"> +{{((data.incomes?.fixed || 0) + (data.incomes?.flexible || 0) + (data.incomes?.discretionary || 0)).toFixed(2)}} {{period?.budget?.currency.symbol}}</span></div>
+      <div class="card-body">
+        <p class="card-text">
+        <span *ngIf="data.incomes?.fixed">Fixed: <span class="text-success">+{{data['incomes']['fixed']}} {{period?.budget?.currency.symbol}}</span><br></span>
+          <span *ngIf="data.incomes?.flexible">Flexible: <span class="text-success">+{{data['incomes']['flexible']}} {{period?.budget?.currency.symbol}}</span><br></span>
+          <span *ngIf="data.incomes?.discretionary">Discretionary: <span class="text-success">+{{data['incomes']['discretionary']}} {{period?.budget?.currency.symbol}}</span><br></span>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-3">
+    <div class="card mt-3">
+      <div class="card-header">Expenses:<span class="text-danger"> {{((data.expenses?.fixed || 0) + (data.expenses?.flexible || 0) + (data.expenses?.discretionary || 0)).toFixed(2)}} {{period?.budget?.currency.symbol}}</span></div>
+      <div class="card-body">
+        <p class="card-text">
+          <span *ngIf="data.expenses?.fixed">Fixed: <span class="text-danger">{{data['expenses']['fixed']}} {{period?.budget?.currency.symbol}}</span><br></span>
+          <span *ngIf="data.expenses?.flexible">Flexible: <span class="text-danger">{{data['expenses']['flexible']}} {{period?.budget?.currency.symbol}}</span><br></span>
+          <span *ngIf="data.expenses?.discretionary">Discretionary: <span class="text-danger">{{data['expenses']['discretionary']}} {{period?.budget?.currency.symbol}}</span><br></span>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-3">
+    <div class="card mt-3">
+      <div class="card-header">Balance: <span *ngIf="data.incomes && data.expenses">{{((data.incomes?.fixed || 0) + (data.incomes?.flexible || 0) + (data.incomes?.discretionary || 0) + (data.expenses?.fixed || 0) + (data.expenses?.flexible || 0) + (data.expenses?.discretionary || 0)).toFixed(2)}} {{period?.budget?.currency.symbol}}</span></div>
+      <div class="card-body">
+        <p class="card-text">
+          <span>Money available for period: {{((data.incomes?.fixed || 0) + (data.expenses?.fixed || 0)).toFixed(2)}} {{period?.budget?.currency.symbol}}</span><br>
+          <span>Money left: {{((data.incomes?.fixed || 0) + (data.expenses?.fixed || 0) + (data.expenses?.discretionary || 0) + (data.expenses?.flexible || 0)).toFixed(2)}} {{period?.budget?.currency.symbol}}</span><br>
+          <span>Money spent: {{((data.expenses?.flexible || 0) + (data.expenses?.discretionary || 0)).toFixed(2)}} {{period?.budget?.currency.symbol}}</span><br>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-3">
+    <div class="card mt-3">
+      <div class="card-header">Accounts: {{((accounts.balance_total || 0) + (accounts.savings_total || 0)).toFixed(2)}}{{period?.budget?.currency.symbol}}</div>
+      <div class="card-body">
+        <p class="card-text">
+          <span>Current: {{(accounts.balance_total || 0)}}{{period?.budget?.currency.symbol}}</span><br>
+          <span>Savings: {{(accounts.savings_total || 0)}}{{period?.budget?.currency.symbol}}</span><br>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

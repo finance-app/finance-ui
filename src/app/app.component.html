@@ -1,0 +1,85 @@
+<nav class="navbar navbar-dark bg-dark navbar-expand-lg navbar-fixed-top mb-4" *ngIf="auth.loggedInObservable | async">
+
+  <a class="navbar-brand" routerLink="/" (click)="navbarCollapsed = true">
+    <img src="/assets/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
+    Finance
+  </a>
+
+  <button class="navbar-toggler navbar-toggler-right" type="button" (click)="navbarCollapsed = !navbarCollapsed" [attr.aria-expanded]="!navbarCollapsed" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div [ngbCollapse]="navbarCollapsed" class="collapse navbar-collapse" id="navbarContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="transactions" routerLinkActive="active" (click)="navbarCollapsed = true">Transactions</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="targets" routerLinkActive="active" (click)="navbarCollapsed = true">Targets</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="transaction_categories" routerLinkActive="active" (click)="navbarCollapsed = true">Categories</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="accounts" routerLinkActive="active" (click)="navbarCollapsed = true">Accounts</a>
+      </li>
+      <li class="nav-item dropdown">
+        <div ngbDropdown class="d-inline-block">
+          <a class="nav-link dropdown-toggle" id="timeframesMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ngbDropdownToggle>
+            Timeframes
+          </a>
+          <div class="dropdown-menu dropdown-menu bg-dark" aria-labelledby="timeframesMenu" ngbDropdownMenu>
+            <a class="nav-link dropdown-item bg-dark" routerLink="periods" routerLinkActive="active" (click)="navbarCollapsed = true">Periods</a>
+            <a class="nav-link dropdown-item bg-dark" routerLink="budgets" routerLinkActive="active" (click)="navbarCollapsed = true">Budgets</a>
+          </div>
+        </div>
+      </li>
+    </ul>
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item dropdown">
+        <div ngbDropdown class="d-inline-block">
+          <a class="nav-link dropdown-toggle" id="periodMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ngbDropdownToggle *ngIf="(timeframeService.currentPeriod | async) || {}; let currentPeriod">
+            Period: {{currentPeriod.name || 'All' }}
+          </a>
+          <div class="dropdown-menu dropdown-menu bg-dark" aria-labelledby="periodMenu" ngbDropdownMenu>
+            <a class="nav-link dropdown-item bg-dark" (click)="timeframeService.isCurrentPeriod() || timeframeService.selectPeriod()" [ngClass]="{'active disabled': timeframeService.isCurrentPeriod() }">All</a>
+            <a class="nav-link dropdown-item bg-dark" [ngClass]="{'active disabled': timeframeService.isCurrentPeriod(period) }" (click)="timeframeService.isCurrentPeriod(period) || timeframeService.selectPeriod(period)" *ngFor="let period of timeframeService.periods | async">{{period.name}}</a>
+          </div>
+        </div>
+      </li>
+      <li class="nav-item dropdown">
+        <div ngbDropdown class="d-inline-block">
+          <a class="nav-link dropdown-toggle" id="budgetMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ngbDropdownToggle *ngIf="(timeframeService.currentBudget | async) || {}; let currentBudget">
+            Budget: {{currentBudget.name ? currentBudget.name + ' (' + currentBudget.currency.name + ')' : 'All' }}
+          </a>
+          <div class="dropdown-menu dropdown-menu bg-dark" aria-labelledby="budgetMenu" ngbDropdownMenu>
+            <a class="nav-link dropdown-item bg-dark" (click)="timeframeService.isCurrentBudget() || timeframeService.selectBudget()" [ngClass]="{'active disabled': timeframeService.isCurrentBudget() }">All</a>
+            <a class="nav-link dropdown-item bg-dark" [ngClass]="{'active disabled': timeframeService.isCurrentBudget(budget) }" (click)="timeframeService.isCurrentBudget(budget) || timeframeService.selectBudget(budget)" *ngFor="let budget of timeframeService.budgets | async">{{budget.name}} ({{budget.currency.name}})</a>
+          </div>
+        </div>
+      </li>
+      <li class="nav-item dropdown">
+        <div ngbDropdown class="d-inline-block">
+          <a class="nav-link dropdown-toggle" id="userMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ngbDropdownToggle>
+            {{auth.currentUser() || 'User' }}
+          </a>
+          <div class="dropdown-menu dropdown-menu bg-dark" aria-labelledby="userMenu" ngbDropdownMenu>
+            <a class="nav-link dropdown-item bg-dark" routerLink="todo" routerLinkActive="active" (click)="navbarCollapsed = true">TODO</a>
+            <a class="nav-link dropdown-item bg-dark" routerLink="currencies" routerLinkActive="active" (click)="navbarCollapsed = true">Currencies</a>
+            <a class="nav-link dropdown-item bg-dark" (click)="auth.logout()">Log out</a>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
+<main class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="col-lg-11 col-md-12 col-xs-12 col-sm-12">
+      <br *ngIf="!(auth.loggedInObservable | async)">
+      <app-alerts></app-alerts>
+      <router-outlet></router-outlet>
+      <br>
+    </div>
+  </div>
+</main>

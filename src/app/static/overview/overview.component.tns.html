@@ -1,0 +1,28 @@
+<ActionBar class="action-bar">
+  <NavigationButton icon="~/assets/ic_menu.png" (tap)="onDrawerButtonTap()"></NavigationButton>
+  <Label class="action-bar-title" text="Overview"></Label>
+</ActionBar>
+
+<StackLayout class="page">
+  <GridLayout columns="*, auto" rows="auto, *">
+    <StackLayout col="0" row="0">
+      <Label class="font-weight-bold h2" text="Money for period"></Label>
+      <Label [ngClass]="{'text-success': ((data.incomes?.fixed || 0) + (data.expenses?.fixed || 0)).toFixed(2) > 0, 'text-danger': ((data.incomes?.fixed || 0) + (data.expenses?.fixed || 0)).toFixed(2) < 0}" text="{{((data.incomes?.fixed || 0) + (data.expenses?.fixed || 0)).toFixed(2)}} {{period?.budget?.currency.symbol}}" class="h3"></Label>
+    </StackLayout>
+
+    <StackLayout col="1" row="0">
+      <Label class="font-weight-bold h2" text="Money spent"></Label>
+      <Label [ngClass]="{'text-success': ((data.expenses?.flexible || 0) + (data.expenses?.discretionary || 0)).toFixed(2) > 0, 'text-danger': ((data.expenses?.flexible || 0) + (data.expenses?.discretionary || 0)).toFixed(2) < 0}" text="{{((data.expenses?.flexible || 0) + (data.expenses?.discretionary || 0)).toFixed(2)}} {{period?.budget?.currency.symbol}}" class="h3"></Label>
+    </StackLayout>
+
+    <StackLayout col="0" row="1">
+      <Label class="font-weight-bold h2" text="Money left"></Label>
+      <Label [ngClass]="{'text-success': ((data.incomes?.fixed || 0) + (data.expenses?.fixed || 0) + (data.expenses?.discretionary || 0) + (data.expenses?.flexible || 0)).toFixed(2) > 0, 'text-danger': ((data.incomes?.fixed || 0) + (data.expenses?.fixed || 0) + (data.expenses?.discretionary || 0) + (data.expenses?.flexible || 0)).toFixed(2) < 0}" text="{{((data.incomes?.fixed || 0) + (data.expenses?.fixed || 0) + (data.expenses?.discretionary || 0) + (data.expenses?.flexible || 0)).toFixed(2)}} {{period?.budget?.currency.symbol}}" class="h3"></Label>
+    </StackLayout>
+
+    <StackLayout col="1" row="1">
+      <Label class="font-weight-bold h2" text="Current accounts"></Label>
+      <Label [ngClass]="{'text-success': (accounts.balance_total || 0) > 0, 'text-danger': (accounts.balance_total || 0) < 0}" text="{{(accounts.balance_total || 0)}} {{period?.budget?.currency.symbol}}" class="h3"></Label>
+    </StackLayout>
+  </GridLayout>
+</StackLayout>

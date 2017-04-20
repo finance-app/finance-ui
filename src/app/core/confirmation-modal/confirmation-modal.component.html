@@ -1,0 +1,13 @@
+<div class="modal-header">
+  <h4 class="modal-title">Are you sure?</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <p>Are you sure you want to {{settings.action}} {{settings.objectType}} <b>{{settings.name}}</b>?</p>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss()">Close</button>
+  <button type="button" class="btn btn-{{settings.buttonType}}" (click)="activeModal.close()">{{settings.confirmText}}</button>
+</div>

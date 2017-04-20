@@ -1,0 +1,19 @@
+<index title="Transactions">
+  <div index-header>
+    <div class="row">
+      <div class="col-sm-6">
+        <div [chart]="balancesChart"></div>
+      </div>
+      <div class="col-sm-6">
+        <div [chart]="expensesChart"></div>
+      </div>
+    </div>
+  </div>
+  <table-header [filters]="filters" [update]="update.bind(this)" path="transactions" index-body></table-header>
+  <br index-body>
+  <div index-body>
+    <h4><b>Sum: {{transactionsSum}} {{currencySymbol}}</b></h4>
+    <br>
+    <transactions-table [transactions]="transactions"></transactions-table>
+  </div>
+</index>

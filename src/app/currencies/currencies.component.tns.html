@@ -1,0 +1,12 @@
+<ActionBar class="action-bar">
+  <NavigationButton icon="~/assets/ic_menu.png" (tap)="onDrawerButtonTap()"></NavigationButton>
+  <Label class="action-bar-title" text="Currencies"></Label>
+</ActionBar>
+
+<StackLayout>
+  <index title="Currencies">
+    <table-header [filters]="filters" [update]="update.bind(this)" path="currencies" index-body></table-header>
+    <StackLayout class="hr-light m-10" index-body></StackLayout>
+    <currencies-table [currencies]="currencies" [update]="update.bind(this)" index-body></currencies-table>
+  </index>
+</StackLayout>

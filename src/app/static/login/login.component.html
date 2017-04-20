@@ -1,0 +1,29 @@
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <div class="text-center">
+      <img src="assets/logo.png" class="img-fluid" style="width: 35%" alt="Logo">
+    </div>
+    <form class="form-signin" (submit)="submit()" [formGroup]="formGroup" novalidate>
+      <h4 class="form-signin-heading text-center">Sign in to the Finance</h4>
+      <div class="form-group text-center">
+        <label for="email" class="control-label">Email address</label>
+        <input type="email" id="email" class="form-control" placeholder="Email address" formControlName="email" [ngClass]="{'is-valid': isValid('email'), 'is-invalid': isInvalid('email')}" autofocus>
+        <div class="invalid-feedback d-block" *ngIf="isInvalid('email')">
+          <div *ngIf="formGroup.controls.email.errors.required">
+            Email is required.
+          </div>
+        </div>
+      </div>
+      <div class="form-group text-center">
+        <label for="password" class="control-label">Password</label>
+        <input type="password" id="password" class="form-control" placeholder="Password" formControlName="password" [ngClass]="{'is-valid': isValid('password'), 'is-invalid': isInvalid('password')}">
+        <div class="invalid-feedback d-block" *ngIf="isInvalid('password')">
+          <div *ngIf="formGroup.controls.password.errors.required">
+            Password is required.
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-lg btn-primary btn-block" [disabled]="this.inProgress" type="submit">{{ this.inProgress ? 'Signing in...' : 'Sign in'}}</button>
+    </form>
+  </div>
+</div>
