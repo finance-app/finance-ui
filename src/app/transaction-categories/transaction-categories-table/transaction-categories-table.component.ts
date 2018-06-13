@@ -12,13 +12,14 @@ import { Table } from '../../components/table/table';
 @Component({
   moduleId: module.id,
   selector: 'transaction-categories-table',
-  templateUrl: './transaction-categories-table.component.html',
+  template: '<app-table [rows]="rows" [objects]="transactionCategories" [actions]="actions" [cards]="cards" [card_title]="card_title" [card_subtitle]="card_subtitle" [update]="update"></app-table>',
   styleUrls: ['./transaction-categories-table.component.css'],
 })
 
 export class TransactionCategoriesTableComponent extends Table implements OnInit {
 
   @Input() transactionCategories: ReplaySubject<Array<TransactionCategory>>;
+  @Input() update;
 
   public rows = [
     this.name_row,
