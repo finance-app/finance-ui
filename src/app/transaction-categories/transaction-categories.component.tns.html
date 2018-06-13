@@ -1,1 +1,12 @@
-<Label text="./transaction-categories/transaction-categories.component.tns.html"></Label>
+<ActionBar class="action-bar">
+  <NavigationButton icon="~/assets/ic_menu.png" (tap)="onDrawerButtonTap()"></NavigationButton>
+  <Label class="action-bar-title" text="Transaction categories"></Label>
+</ActionBar>
+
+<StackLayout>
+  <index title="Transaction categories">
+    <table-header [filters]="filters" [update]="update.bind(this)" path="transaction_categories" index-body></table-header>
+    <StackLayout class="hr-light m-10" index-body></StackLayout>
+    <transaction-categories-table [transactionCategories]="transactionCategories" [update]="update.bind(this)" index-body></transaction-categories-table>
+  </index>
+</StackLayout>
