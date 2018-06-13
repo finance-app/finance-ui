@@ -12,6 +12,8 @@ declare const require: any;
 })
 export class AppComponent {
 
+  public navbarCollapsed: boolean = true;
+
   constructor(
     private translate: TranslateService,
     public auth: AuthService,
