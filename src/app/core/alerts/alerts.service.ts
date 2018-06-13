@@ -27,7 +27,7 @@ export class AlertsService {
         } else if (event == 'finish') {
           this.reloading = false;
           this.alerts = this.pendingAlerts;
-          window.scrollTo(0, 0);
+          (typeof window !== 'undefined') && window.scrollTo(0, 0);
           this.pendingAlerts = {};
         }
       }
@@ -43,7 +43,7 @@ export class AlertsService {
       this.pendingAlerts[id] = alert;
     } else {
       this.alerts[id] = alert;
-      window.scrollTo(0, 0);
+      (typeof window !== 'undefined') && window.scrollTo(0, 0);
     }
   }
 
