@@ -116,8 +116,6 @@ export class FormComponent implements OnInit, AfterViewInit {
     this.next = false;
     this.inProgress = false;
     this.submitted = false;
-    // Once we're done with the form, scroll to top to show notification etc.
-    window.scrollTo(0, 0);
   }
 
   parseRemoteErrors(error) {
