@@ -12,13 +12,14 @@ import { Table } from '../../components/table/table';
 @Component({
   moduleId: module.id,
   selector: 'targets-table',
-  templateUrl: './targets-table.component.html',
+  template: '<app-table [rows]="rows" [objects]="targets" [actions]="actions" [cards]="cards" [card_title]="card_title" [card_subtitle]="card_subtitle" [active_row]="active_row.bind(this)" [active_row_class]="active_row_class.bind(this)" [active_row_text]="active_row_text" [active_row_text_class]="active_row_text_class" [update]="update"></app-table>',
   styleUrls: ['./targets-table.component.css'],
 })
 
 export class TargetsTableComponent extends Table implements OnInit {
 
   @Input() targets: ReplaySubject<Array<Target>>;
+  @Input() update;
 
   public rows = [
     this.name_row,

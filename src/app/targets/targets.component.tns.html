@@ -1,1 +1,12 @@
-<Label text="./targets/targets.component.tns.html"></Label>
+<ActionBar class="action-bar">
+  <NavigationButton icon="~/assets/ic_menu.png" (tap)="onDrawerButtonTap()"></NavigationButton>
+  <Label class="action-bar-title" text="Targets"></Label>
+</ActionBar>
+
+<StackLayout>
+  <index title="Targets">
+    <table-header [filters]="filters" [update]="update.bind(this)" path="targets" index-body></table-header>
+    <StackLayout class="hr-light m-10" index-body></StackLayout>
+    <targets-table [targets]="targets" [update]="update.bind(this)" index-body></targets-table>
+  </index>
+</StackLayout>
