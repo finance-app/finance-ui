@@ -2,7 +2,7 @@
   <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
     <StackLayout [ngClass]="{'bg-red': active_row ? active_row(item) : false}">
       <Label [text]="item.card_title"></Label>
-      <Label *ngIf="item.card_subtitle" [text]="item.card_subtitle"></Label>
+      <Label *ngIf="item && item.card_subtitle" [text]="item.card_subtitle"></Label>
       <StackLayout *ngFor="let card of item.cards">
         <Label text="{{card.title}}: {{card.value}}"></Label>
       </StackLayout>
