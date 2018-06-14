@@ -7,11 +7,13 @@ import { IndexComponent } from './index/index.component';
 import { TableComponent } from './table/table.component';
 import { TableHeaderComponent } from './table-header/table-header.component';
 import { NativeScriptUIListViewModule } from "nativescript-ui-listview/angular";
+import { NativeScriptUISideDrawerModule } from 'nativescript-ui-sidedrawer/angular';
 
 @NgModule({
   imports: [
     SharedModule,
     NativeScriptUIListViewModule,
+    NativeScriptUISideDrawerModule,
   ],
   exports: [
     FormComponent,
