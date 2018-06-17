@@ -4,7 +4,7 @@
 </ActionBar>
 
 <StackLayout>
-  <index title="Currencies">
+  <index [filters]="filters" title="Currencies">
     <table-header [filters]="filters" [update]="update.bind(this)" path="currencies" index-body></table-header>
     <StackLayout class="hr-light m-10" index-body></StackLayout>
     <currencies-table [currencies]="currencies" [update]="update.bind(this)" index-body></currencies-table>

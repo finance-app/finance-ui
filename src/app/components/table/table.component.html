@@ -57,11 +57,11 @@
     <div class="card-body">
       <div class="card-title">
         <div class="row">
-          <div class="col-10">
+          <div class="col-9">
             <h5><a [routerLink]="[object.id]">{{object.card_title}}</a></h5>
           </div>
-          <div class="col-1" style="max-width: 100%;" ngbDropdown placement="bottom-right">
-            <h5 class="actions font-weight-bold text-secondary" ngbDropdownToggle>⋮</h5>
+          <div class="col-3" style="max-width: 100%;" ngbDropdown placement="bottom-right">
+            <h5 class="actions font-weight-bold text-secondary text-center" ngbDropdownToggle>⋮</h5>
             <div class="dropdown-menu dropdown-menu-left" ngbDropdownMenu>
               <button *ngFor="let action of object.actions"
                 class="btn dropdown-item"

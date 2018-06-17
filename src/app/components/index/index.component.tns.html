@@ -1,2 +1,11 @@
-<ng-content select="[index-header]"></ng-content>
-<ng-content select="[index-body]"></ng-content>
+<RadSideDrawer drawerLocation="Right">
+  <StackLayout tkDrawerContent>
+    <StackLayout *ngFor="let filter of filters">
+      <app-filter [properties]="filter"></app-filter>
+    </StackLayout>
+  </StackLayout>
+  <StackLayout tkMainContent>
+    <ng-content select="[index-header]"></ng-content>
+    <ng-content select="[index-body]"></ng-content>
+  </StackLayout>
+</RadSideDrawer>

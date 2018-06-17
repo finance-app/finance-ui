@@ -4,7 +4,7 @@
 </ActionBar>
 
 <StackLayout>
-  <index title="Budgets">
+  <index [filters]="filters" title="Budgets">
     <table-header [filters]="filters" [update]="update.bind(this)" path="budgets" index-body></table-header>
     <StackLayout class="hr-light m-10" index-body></StackLayout>
     <budgets-table [budgets]="budgets" [update]="update.bind(this)" index-body></budgets-table>

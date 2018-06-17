@@ -12,6 +12,7 @@ export class IndexComponent {
   public filtersCollapsed = true;
 
   @Input() title: string;
+  @Input() filters;
 
   constructor() { }
 }

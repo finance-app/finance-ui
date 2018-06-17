@@ -4,7 +4,7 @@
 </ActionBar>
 
 <StackLayout>
-  <index title="Periods">
+  <index [filters]="filters" title="Periods">
     <table-header [filters]="filters" [update]="update.bind(this)" path="periods" index-body></table-header>
     <StackLayout class="hr-light m-10" index-body></StackLayout>
     <periods-table [periods]="periods" [update]="update.bind(this)" index-body></periods-table>

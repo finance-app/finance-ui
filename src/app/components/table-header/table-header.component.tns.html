@@ -1,7 +1,4 @@
 <Button class="fa btn-primary" [text]="('fa-plus' | fonticon) + ' New'" routerLink="/{{path}}/new"></Button>
-<StackLayout *ngFor="let filter of filters">
-  <app-filter [properties]="filter"></app-filter>
-</StackLayout>
 <!--div class="btn-toolbar" role="toolbar">
   <div class="btn-group mr-2" role="group">
     <button type="button" class="btn btn-primary" (click)="update()"><fa-icon icon="undo"></fa-icon><span class="d-none d-sm-inline"> Update</span></button>

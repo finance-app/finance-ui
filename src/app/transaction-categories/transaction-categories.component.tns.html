@@ -4,7 +4,7 @@
 </ActionBar>
 
 <StackLayout>
-  <index title="Transaction categories">
+  <index [filters]="filters" title="Transaction categories">
     <table-header [filters]="filters" [update]="update.bind(this)" path="transaction_categories" index-body></table-header>
     <StackLayout class="hr-light m-10" index-body></StackLayout>
     <transaction-categories-table [transactionCategories]="transactionCategories" [update]="update.bind(this)" index-body></transaction-categories-table>
