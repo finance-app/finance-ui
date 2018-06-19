@@ -32,6 +32,11 @@ export class CurrenciesTableComponent extends Table implements OnInit {
       routerLink: function(c) { return ['/accounts'] },
       queryParams: function(c) { return {currency_id: c.id} },
     },
+    {
+      title: 'Accounts balance',
+      value: function(object) { return object.accounts_balance ? (object.accounts_balance > 0 ? '+' + object.accounts_balance : object.accounts_balance) : '0.0'; },
+      ngClass: function(object) { return { 'text-success': object.accounts_balance > 0, 'text-danger': object.accounts_balance < 0 }; },
+    },
     ...this.balances_rows,
   ];
 
@@ -45,6 +50,11 @@ export class CurrenciesTableComponent extends Table implements OnInit {
       title: 'Accounts',
       routerLink: function(c) { return ['/accounts'] },
       queryParams: function(c) { return {currency_id: c.id} },
+    },
+    {
+      title: 'Accounts balance',
+      value: function(object) { return object.accounts_balance ? (object.accounts_balance > 0 ? '+' + object.accounts_balance : object.accounts_balance) : '0.0'; },
+      ngClass: function(object) { return { 'text-success': object.accounts_balance > 0, 'text-danger': object.accounts_balance < 0 }; },
     },
     ...this.balances_rows,
   ];
