@@ -39,7 +39,7 @@
     "ajv": "^6.5.1",
     "angular-autofocus-fix": "^0.1.0",
     "angular-confirmation-popover": "^4.1.1",
-    "angular-highcharts": "^6.2.0",
+    "angular-highcharts": "^6.1.5",
     "angular2-flash-messages": "^2.0.5",
     "array-includes": "^3.0.3",
     "bootstrap": "^4.1.1",
