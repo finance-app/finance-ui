@@ -2,7 +2,6 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { LoginComponent } from './static/login/login.component';
 import { OverviewComponent } from './static/overview/overview.component';
-import { TodoComponent } from './static/todo/todo.component';
 
 import { AuthService } from './core/services/auth.service';
 /**
@@ -31,14 +30,6 @@ export const AppRoutes: Routes = [
     canActivate: [AuthService],
     data: {
       title: 'Overview',
-    },
-  },
-  {
-    path: 'todo',
-    component: TodoComponent,
-    canActivate: [AuthService],
-    data: {
-      title: 'TODO',
     },
   },
   {

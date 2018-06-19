@@ -64,7 +64,6 @@
             {{auth.currentUser() || 'User' }}
           </a>
           <div class="dropdown-menu dropdown-menu bg-dark" aria-labelledby="userMenu" ngbDropdownMenu>
-            <a class="nav-link dropdown-item bg-dark" routerLink="todo" routerLinkActive="active" (click)="navbarCollapsed = true">TODO</a>
             <a class="nav-link dropdown-item bg-dark" routerLink="currencies" routerLinkActive="active" (click)="navbarCollapsed = true">Currencies</a>
             <a class="nav-link dropdown-item bg-dark" (click)="auth.logout()">Log out</a>
           </div>
