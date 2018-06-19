@@ -100,11 +100,6 @@
           <Label col="1" text="Currencies" class="p-r-10"></Label>
         </GridLayout>
 
-        <GridLayout columns="auto, *" class="sidedrawer-list-item" [class.selected]="isPageSelected('TODO')" (tap)="onNavItemTap('/todo', 'TODO')">
-          <Label col="0" [text]="'fa-clipboard-list' | fonticon" class="fa"></Label>
-          <Label col="1" text="TODO" class="p-r-10"></Label>
-        </GridLayout>
-
         <GridLayout columns="auto, *" class="sidedrawer-list-item" (tap)="logout()">
           <Label col="0" [text]="'fa-sign-out-alt' | fonticon" class="fa"></Label>
           <Label col="1" text="Sign out" class="p-r-10"></Label>
