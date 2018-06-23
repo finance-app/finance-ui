@@ -15,6 +15,7 @@
     }
   },
   "dependencies": {
+    "@angular-devkit/build-angular": "^0.7.0-rc.0",
     "@angular/animations": "^6.0.6",
     "@angular/cli": "^6.0.8",
     "@angular/common": "^6.0.6",
@@ -32,7 +33,7 @@
     "buffer": "^5.1.0",
     "lodash": "^4.17.10",
     "moment": "^2.22.2",
-    "nativescript-angular": "^6.0.0",
+    "nativescript-angular": "^6.0.6",
     "nativescript-floatingactionbutton": "^4.1.3",
     "nativescript-hook-debug-production": "^1.0.4",
     "nativescript-localstorage": "^1.1.5",
@@ -48,18 +49,12 @@
     "zone.js": "^0.8.26"
   },
   "devDependencies": {
-    "@angular-devkit/core": "^0.7.0-rc.0",
-    "@angular/compiler-cli": "^6.0.6",
-    "@ngtools/webpack": "^6.1.0-rc.0",
+    "@angular/compiler-cli": "~6.1.0-beta.1",
     "@types/jasmine": "^2.8.8",
     "babel-traverse": "6.26.0",
     "babel-types": "6.26.0",
     "babylon": "6.18.0",
-    "clean-webpack-plugin": "~0.1.19",
-    "copy-webpack-plugin": "~4.5.1",
-    "css-loader": "~0.28.7",
     "del": "^3.0.0",
-    "extract-text-webpack-plugin": "~3.0.2",
     "gulp": "github:gulpjs/gulp#4.0",
     "gulp-debug": "^4.0.0",
     "gulp-rename": "^1.3.0",
@@ -69,17 +64,11 @@
     "nativescript-dev-android-snapshot": "^0.*.*",
     "nativescript-dev-sass": "^1.6.0",
     "nativescript-dev-typescript": "^0.7.1",
-    "nativescript-dev-webpack": "^0.13.0",
-    "nativescript-worker-loader": "^0.9.1",
-    "raw-loader": "~0.5.1",
-    "resolve-url-loader": "~2.3.0",
-    "sass-loader": "^7.0.3",
+    "nativescript-dev-webpack": "^0.14.1",
     "typescript": ">=2.7.0 <2.8.0",
-    "uglifyjs-webpack-plugin": "^1.2.6",
     "webpack": "^4.12.0",
-    "webpack-bundle-analyzer": "^2.13.1",
     "webpack-cli": "^3.0.8",
-    "webpack-sources": "~1.1.0"
+    "@angular-devkit/build-angular": "~0.7.0-rc.0"
   },
   "scripts": {
     "prepPhone": "gulp build.Phone",
