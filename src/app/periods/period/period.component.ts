@@ -41,6 +41,9 @@ export class PeriodComponent implements OnInit {
             chart: {
               type: 'line'
             },
+            credits: {
+              enabled: false
+            },
             title: {
               text: 'Period balance over time'
             },

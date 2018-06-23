@@ -145,6 +145,9 @@ export class TransactionsComponent extends Index implements OnInit, OnDestroy {
         chart: {
           type: 'line'
         },
+        credits: {
+          enabled: false
+        },
         title: {
           text: 'Expenses per day'
         },
@@ -195,6 +198,9 @@ export class TransactionsComponent extends Index implements OnInit, OnDestroy {
           chart: {
             type: 'line'
           },
+          credits: {
+            enabled: false
+          },
           plotOptions: {
             series: {
               connectNulls: true,
@@ -212,6 +218,9 @@ export class TransactionsComponent extends Index implements OnInit, OnDestroy {
         this.balancesChart = new Chart({
           chart: {
             type: 'line'
+          },
+          credits: {
+            enabled: false
           },
           plotOptions: {
             series: {

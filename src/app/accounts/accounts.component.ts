@@ -48,6 +48,9 @@ export class AccountsComponent extends AccountsComponentCommon implements OnInit
             chart: {
               type: 'line'
             },
+            credits: {
+              enabled: false
+            },
             plotOptions: {
               series: {
                 connectNulls: true,
