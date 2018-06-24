@@ -38,8 +38,8 @@
           <div *ngIf="field.type == 'radio'">
             <div class="form-check form-check-inline" *ngFor="let i of field.options | async">
               <label class="form-check-label">
-                <input *ngIf="!field.autofocus"class="form-check-input" type="radio" [name]="field.id" [id]="field.value ? field.value(i) : i" [value]="field.value ? field.value(i) : i" [formControlName]="field.id" [ngClass]="{'is-valid': isValid(field.id), 'is-invalid': isInvalid(field.id)}">
-                <input *ngIf="field.autofocus"class="form-check-input" type="radio" [name]="field.id" [id]="field.value ? field.value(i) : i" [value]="field.value ? field.value(i) : i" [formControlName]="field.id" [ngClass]="{'is-valid': isValid(field.id), 'is-invalid': isInvalid(field.id)}" autofocus #autofocusField>
+                <input *ngIf="!field.autofocus" class="form-check-input" type="radio" [name]="field.id" [id]="field.value ? field.value(i) : i" [value]="field.value ? field.value(i) : i" [formControlName]="field.id" [ngClass]="{'is-valid': isValid(field.id), 'is-invalid': isInvalid(field.id)}">
+                <input *ngIf="field.autofocus" class="form-check-input" type="radio" [name]="field.id" [id]="field.value ? field.value(i) : i" [value]="field.value ? field.value(i) : i" [formControlName]="field.id" [ngClass]="{'is-valid': isValid(field.id), 'is-invalid': isInvalid(field.id)}" autofocus #autofocusField>
                 {{field.description(i)}}
                 </label>
             </div>
