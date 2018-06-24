@@ -61,7 +61,6 @@ export class TransactionFormComponent implements OnInit, OnDestroy {
         options: new BehaviorSubject<any>(['expense', 'income']),
         defaultValue: new BehaviorSubject<any>('expense'),
         description: function(value) { return value.charAt(0).toUpperCase() + value.slice(1); },
-        autofocus: true,
       },
       {
         id: 'value',
@@ -69,6 +68,7 @@ export class TransactionFormComponent implements OnInit, OnDestroy {
         placeholder: 'E.g. 4.52',
         type: 'number',
         min: new BehaviorSubject<any>(0),
+        autofocus: true,
         validators: [
           Validators.required,
         ],
