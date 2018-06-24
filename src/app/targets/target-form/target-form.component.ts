@@ -21,7 +21,7 @@ export class TargetFormComponent implements OnInit {
 
   // Stores all informations about the form
   public form: any = {
-    name: 'target',
+    name: 'Target',
     create: this.create.bind(this),
     update: this.update.bind(this),
     data: new ReplaySubject<any>(),
