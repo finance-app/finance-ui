@@ -15,8 +15,12 @@
             "~/*": [
                 "app/*"
             ],
-            "@app/*": ["app/app/*"],
-            "@env/*": ["app/environments/*"]
+            "@app/*": [
+                "app/app/*"
+            ],
+            "@env/*": [
+                "app/environments/*"
+            ]
         },
         "target": "es5",
         "module": "commonjs",
