@@ -40,17 +40,6 @@ export class FormComponent implements OnInit, AfterViewInit {
     // Pass form to callback if defined
     this.formData.formCallback && this.formData.formCallback(this.formGroup);
 
-    // Subscribe to default data
-    for (const field of this.formData.fields) {
-      if (field.defaultValue) {
-        field.defaultValue.subscribe(value => {
-          if (!this.formGroup.controls[field.id].dirty || this.formGroup.controls[field.id].value) {
-            this.formGroup.controls[field.id].patchValue(field.value ? field.value(value) : value);
-          }
-        });
-      }
-    }
-
     // Subscribe to load data
     this.formData.data.subscribe(
       data => {
@@ -76,6 +65,17 @@ export class FormComponent implements OnInit, AfterViewInit {
       params => {
         if ('id' in params) {
           this.updating = true;
+        } else {
+          // Subscribe to default data
+          for (const field of this.formData.fields) {
+            if (field.defaultValue) {
+              field.defaultValue.subscribe(value => {
+                if (!this.formGroup.controls[field.id].dirty || this.formGroup.controls[field.id].value) {
+                  this.formGroup.controls[field.id].patchValue(field.value ? field.value(value) : value);
+                }
+              });
+            }
+          }
         }
       }
     );

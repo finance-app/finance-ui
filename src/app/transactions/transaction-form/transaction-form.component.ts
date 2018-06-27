@@ -40,6 +40,7 @@ export class TransactionFormComponent implements OnInit, OnDestroy {
   private transactionType = null;
   private formGroup;
   private subscriptions: Subscription[] = [];
+  private creating: boolean = true;
 
   // Stores all informations about the form
   public form: any = {
@@ -180,6 +181,7 @@ export class TransactionFormComponent implements OnInit, OnDestroy {
     this.route.params.subscribe(params => {
       // If there is ID param, fetch data from server and load into form
       if ('id' in params) {
+        this.creating = false;
         // Try to load form data from local storage
         const formData = this.storageService.getItem('transaction_form');
         if (formData) {
@@ -354,7 +356,7 @@ export class TransactionFormComponent implements OnInit, OnDestroy {
       if (this.budget === undefined || this.budget != value) {
         this.budgetsService.get(value).pipe(take(2)).subscribe(budget => {
           if (budget.default_account) {
-            formGroup.controls[this.transactionType == 'income' ? 'destination_id' : 'source_id'].patchValue(budget.default_account.id);
+            this.creating && formGroup.controls[this.transactionType == 'income' ? 'destination_id' : 'source_id'].patchValue(budget.default_account.id);
           }
         });
       }
