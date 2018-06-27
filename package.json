@@ -32,6 +32,7 @@
     "@fortawesome/fontawesome-free-solid": "^5.0.13",
     "@fortawesome/fontawesome-svg-core": "^1.2.0",
     "@ng-bootstrap/ng-bootstrap": "^2.2.0",
+    "@ng-select/ng-select": "^2.3.2",
     "@ngx-translate/core": "^10.0.2",
     "@ngx-translate/http-loader": "^3.0.1",
     "@schematics/angular": "^0.7.0-rc.0",

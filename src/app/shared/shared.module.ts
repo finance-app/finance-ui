@@ -2,6 +2,7 @@ import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ResponsiveModule } from 'ngx-responsive'
@@ -22,6 +23,7 @@ import { RouterModule } from '@angular/router';
     CapitalizePipe,
   ],
   exports: [
+    NgSelectModule,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
