@@ -1,4 +1,5 @@
 import { TransactionCategory } from '../transaction-categories/transaction-category';
+import { Budget } from '../budgets/budget';
 
 export interface Target {
   id: number;
@@ -12,4 +13,5 @@ export interface Target {
   expenses: number;
   balance: number;
   favourite: boolean;
+  budgets: Array<Budget>;
 }
