@@ -25,7 +25,6 @@ export class AccountCorrectComponent implements OnInit {
   // Stores all informations about the form
   public form: any = {
     name: 'account',
-    create: this.correct.bind(this),
     update: this.correct.bind(this),
     data: new ReplaySubject<any>(),
     fields: [
