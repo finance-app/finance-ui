@@ -1,5 +1,5 @@
 import { Subscription, ReplaySubject } from 'rxjs';
-import { take, finalize } from 'rxjs/operators';
+import { skip, take, finalize } from 'rxjs/operators';
 import { Period } from '../../periods/period';
 import { TimeframeService } from '../services/timeframe.service';
 import { PeriodsService } from '../../periods/periods.service';
@@ -12,11 +12,13 @@ export class TimeframeFilter {
   public periods: ReplaySubject<Array<Period>> = new ReplaySubject<Array<Period>>(1);
   public defaultPeriod: ReplaySubject<Period> = new ReplaySubject<Period>(1);
   public budgetsObservable: Subscription;
+  public periodsObservable: Subscription;
   public periodsFilter: PeriodsFilter;
   public budgetsFilter: BudgetsFilter;
   public filters: Array<any>;
   public initialized: boolean = false;
   public debug: boolean = false;
+  public bypass_budget_change: boolean = false;
 
   constructor(
     public timeframeService: TimeframeService,
@@ -46,7 +48,7 @@ export class TimeframeFilter {
             fromString: budget,
           });
 
-          periodsService.getAll(options).pipe(finalize(() => this.initialized = true)).subscribe(
+          periodsService.getAll(options).pipe(finalize(() => { this.initialized = true; this.bypass_budget_change = false; })).subscribe(
             periods => {
               this.debug && console.log("timeframe filter: received periods", periods);
               this.periods.next(periods);
@@ -54,9 +56,14 @@ export class TimeframeFilter {
                 this.debug && console.log("timeframe filter: received value from period filter", period);
                 if (this.initialized) {
                   this.debug && console.log("timeframe filter: we are initialized");
-                  if (period !== 'period_id=' && period !== null) {
+                  if (period !== 'period_id=') {
                     this.debug && console.log("timeframe filter: received period is not empty, pushing first one from new budget.");
-                    this.periodsFilter.current.next(periods[0]);
+                    if (this.bypass_budget_change) {
+                      this.debug && console.log('timeframe filter: selection of first period bypassed.');
+                    } else {
+                      this.debug && console.log('timeframe filter: pushed first period.');
+                      this.periodsFilter.current.next(periods[0]);
+                    }
                   } else {
                     this.debug && console.log("timeframe filter: received period is empty, so we want to keep it, not pushing anything.");
                   }
@@ -69,6 +76,36 @@ export class TimeframeFilter {
         } else {
           // We should probably push [] there, but it breaks stuff in filter component
           this.periods.next([]);
+        }
+      }
+    );
+
+    //this.periodsObservable = this.periodsFilter.observable.subscribe(
+    this.periodsObservable = this.timeframeService.currentPeriod.subscribe(
+      period => {
+        this.debug && console.log('timeframe filter: received new period', period);
+        if (period !== null && this.initialized) {
+          this.debug && console.log('timeframe filter: receiver period not null');
+          this.periods.pipe(take(1)).subscribe(
+            periods => {
+              this.debug && console.log('timeframe filter: received periods');
+              this.debug && console.log('timeframe filter: find result', periods.find(p => p.id === period.id));
+              if ((periods.find(p => p.id === period.id)) === undefined) {
+                this.debug && console.log('timeframe filter: received period is not in current budget!');
+                this.bypass_budget_change = true;
+                this.debug && console.log('timeframe filter: bypassing budget change');
+                this.budgetsFilter.current.next(period.budget);
+                this.budgetsFilter.observable.pipe(skip(1), take(1)).subscribe(
+                  budget => {
+                    this.debug && console.log('timeframe filter: received new selected budget', budget);
+                    this.periodsFilter.current.next(period);
+                  }
+                );
+              } else {
+                this.debug && console.log('timeframe filter: received period is in periods', periods);
+              }
+            }
+          );
         }
       }
     );
@@ -93,5 +130,6 @@ export class TimeframeFilter {
 
   public unsubscribe() {
     this.budgetsObservable.unsubscribe();
+    this.periodsObservable.unsubscribe();
   }
 }

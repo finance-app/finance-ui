@@ -19,7 +19,7 @@ export class PeriodsFilter {
   }
 
   public optionValue(period) {
-    return period ? period.id : null;
+    return period ? period.id : '';
   }
 
   public optionString(period) {
