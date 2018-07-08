@@ -352,8 +352,7 @@ export class TransactionFormComponent implements OnInit, OnDestroy {
       }
 
       if (this.budget === undefined || this.budget != value) {
-        this.timeframeService.budgets.pipe(take(1)).subscribe(budgets => {
-          const budget = budgets.find(budget => (budget.id == value));
+        this.budgetsService.get(value).pipe(take(2)).subscribe(budget => {
           if (budget.default_account) {
             formGroup.controls[this.transactionType == 'income' ? 'destination_id' : 'source_id'].patchValue(budget.default_account.id);
           }

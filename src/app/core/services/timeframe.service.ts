@@ -18,8 +18,8 @@ import { Subject ,  ReplaySubject } from 'rxjs';
 @Injectable()
 export class TimeframeService {
 
-  public _currentBudget: Budget;
-  public _currentPeriod: Period;
+  public _currentBudget: Budget = null;
+  public _currentPeriod: Period = null;
   public currentBudget: ReplaySubject<Budget> = new ReplaySubject<Budget>(1);
   public currentPeriod: ReplaySubject<Period> = new ReplaySubject<Period>(1);
 
@@ -51,7 +51,7 @@ export class TimeframeService {
             if (!budget) {
               this.selectBudget(null);
             } else {
-              if (currentBudget != budget) {
+              if (currentBudget.id != budget.id || currentBudget.name != budget.name) {
                 this.selectBudget(budget);
               }
             }
@@ -134,10 +134,15 @@ export class TimeframeService {
       // Try to load current period from local storage
       const currentPeriod = this.storageService.getItem('current_period');
       if (currentPeriod) {
-        this.currentPeriod.next(currentPeriod);
+        if (currentPeriod.id != (this._currentPeriod || {} as Period).id) {
+          this.currentPeriod.next(currentPeriod);
+        }
       } else {
         // If there is no current period, emit current budget, even if it's null
-        this.currentBudget.next(this.storageService.getItem('current_budget'));
+        const currentBudget = this.storageService.getItem('current_budget');
+        if (((currentBudget || {} as Budget).id != (this._currentBudget || {} as Budget).id) || (currentBudget === null && this._currentBudget === null)) {
+          this.currentBudget.next(currentBudget);
+        }
       }
     });
   }

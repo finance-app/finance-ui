@@ -142,7 +142,7 @@ export class AccountsService {
           subject.next(data);
         },
         error => {
-          this.alertsService.addAlert('account_get', 'danger', 'Failed to fetch currencies!');
+          this.alertsService.addAlert('account_edit', 'danger', 'Failed to fetch account data!');
           subject.error(error);
         }
     );
