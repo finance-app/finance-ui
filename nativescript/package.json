@@ -65,9 +65,9 @@
     "nativescript-dev-android-snapshot": "^0.*.*",
     "nativescript-dev-sass": "^1.6.0",
     "nativescript-dev-typescript": "^0.7.2",
-    "nativescript-dev-webpack": "^0.14.2",
+    "nativescript-dev-webpack": "^0.14.3",
     "typescript": ">=2.7.0 <2.8.0",
-    "webpack": "^4.14.0",
+    "webpack": "^4.15.1",
     "webpack-cli": "^3.0.8"
   },
   "scripts": {
