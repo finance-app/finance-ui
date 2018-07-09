@@ -272,39 +272,41 @@ export class TransactionFormComponent implements OnInit, OnDestroy {
       this.destinationSubscription && this.destinationSubscription.unsubscribe();
 
 
-      const options = new HttpParams({
-        fromString: 'sort_by=favourite',
-      });
+      formGroup.controls['budget_id'].valueChanges.subscribe(budget_id => {
+        const options = new HttpParams({
+          fromString: 'sort_by=favourite' + (budget_id ? ('&show_empty&budget_id=' + budget_id) : ''),
+        });
 
-      // Load correct options to form options
-      if (value == 'expense') {
-        this.sourceSubscription = this.accountsService.accounts.subscribe(accounts => { this.sourceOptions.next(accounts); });
-        this.destinationSubscription = this.targetsService.getAll(options).subscribe(targets => { this.destinationOptions.next(targets); });
-      } else {
-        this.destinationSubscription = this.accountsService.accounts.subscribe(accounts => { this.destinationOptions.next(accounts); });
-        this.sourceSubscription = this.targetsService.getAll(options).subscribe(targets => { this.sourceOptions.next(targets); });
-      }
+        // Load correct options to form options
+        if (value == 'expense') {
+          this.sourceSubscription = this.accountsService.accounts.subscribe(accounts => { this.sourceOptions.next(accounts); });
+          this.destinationSubscription = this.targetsService.getAll(options).subscribe(targets => { this.destinationOptions.next(targets); });
+        } else {
+          this.destinationSubscription = this.accountsService.accounts.subscribe(accounts => { this.destinationOptions.next(accounts); });
+          this.sourceSubscription = this.targetsService.getAll(options).subscribe(targets => { this.sourceOptions.next(targets); });
+        }
 
-      // If we we are done with initialisation and there is a change, swap placeholders and values
-      if (this.transactionType && this.transactionType != value) {
-        // Other triggers depends on this one, so we have to set it early
+        // If we we are done with initialisation and there is a change, swap placeholders and values
+        if (this.transactionType && this.transactionType != value) {
+          // Other triggers depends on this one, so we have to set it early
+          this.transactionType = value;
+
+          // If this value changes, swap placeholders and values for source and destionation
+          const source = this.form.fields.find(field => field.id == 'source_id');
+          const destination = this.form.fields.find(field => field.id == 'destination_id');
+
+          let tmp = destination.placeholder;
+          destination.placeholder = source.placeholder;
+          source.placeholder = tmp;
+
+          tmp = formGroup.controls['destination_id'].value;
+          formGroup.controls['destination_id'].patchValue(formGroup.controls['source_id'].value);
+          formGroup.controls['source_id'].patchValue(tmp);
+        }
+
+        // This makes sure that transactionType is always updated
         this.transactionType = value;
-
-        // If this value changes, swap placeholders and values for source and destionation
-        const source = this.form.fields.find(field => field.id == 'source_id');
-        const destination = this.form.fields.find(field => field.id == 'destination_id');
-
-        let tmp = destination.placeholder;
-        destination.placeholder = source.placeholder;
-        source.placeholder = tmp;
-
-        tmp = formGroup.controls['destination_id'].value;
-        formGroup.controls['destination_id'].patchValue(formGroup.controls['source_id'].value);
-        formGroup.controls['source_id'].patchValue(tmp);
-      }
-
-      // This makes sure that transactionType is always updated
-      this.transactionType = value;
+      });
     }));
 
     // React to changes on source
@@ -344,12 +346,23 @@ export class TransactionFormComponent implements OnInit, OnDestroy {
     // React to changes on budget
     this.subscriptions.push(formGroup.controls['budget_id'].valueChanges.pipe(filter(value => value !== null && value !== undefined)).subscribe(value => {
       if (this.budget && this.budget != value) {
-        const options = new HttpParams({
+        let options = new HttpParams({
           fromString: 'budget_id=' + value
         });
         this.periodsService.getAll(options).subscribe(periods => {
           this.periods.next(periods);
           formGroup.controls['period_id'].patchValue(periods[0] ? periods[0].id : null);
+        });
+
+        options = new HttpParams({
+          fromString: 'budget_id=' + value + '&sort_by=favourite'
+        });
+        this.targetsService.getAll(options).subscribe(targets => {
+          if (this.transactionType == 'expense') {
+            this.destinationOptions.next(targets);
+          } else {
+            this.sourceOptions.next(targets);
+          }
         });
       }
 

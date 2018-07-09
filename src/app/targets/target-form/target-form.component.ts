@@ -1,5 +1,4 @@
-
-import {finalize} from 'rxjs/operators';
+import { finalize } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -8,6 +7,7 @@ import { ReplaySubject } from 'rxjs';
 // Services
 import { TargetsService } from '../targets.service';
 import { TransactionCategoriesService } from '../../transaction-categories/transaction-categories.service';
+import { BudgetsService } from '../../budgets';
 import { LocationService } from '../../core/services/location.service';
 import { StorageService } from '../../core/services/storage.service';
 
@@ -74,6 +74,15 @@ export class TargetFormComponent implements OnInit {
         description: function(transaction_category) { return transaction_category.name },
         addButton: this.newTransactionCategory.bind(this),
       },
+      {
+        id: 'budgets',
+        type: 'multiselect',
+        label: 'Budgets',
+        placeholder: 'Limit target to specific budgets',
+        options: this.budgetsService.budgets,
+        value: function(budget) { return budget.id; },
+        description: function(budget) { return budget.name + ' (' + budget.currency.name + ')' },
+      }
     ],
   };
 
@@ -84,6 +93,7 @@ export class TargetFormComponent implements OnInit {
     private route: ActivatedRoute,
     public  locationService: LocationService,
     private storageService: StorageService,
+    private budgetsService: BudgetsService,
   ) { }
 
   ngOnInit() {

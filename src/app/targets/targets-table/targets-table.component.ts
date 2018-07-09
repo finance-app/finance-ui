@@ -38,6 +38,10 @@ export class TargetsTableComponent extends Table implements OnInit {
       value: function(p) { return p.default_expense_transaction_category ? p.default_expense_transaction_category.name : ''; },
       routerLink: function(p) { return p.default_expense_transaction_category ? ['/transaction_categories', p.default_expense_transaction_category.id] : false; },
     },
+    {
+      title: 'Budgets',
+      value: function(p) { return (p.budgets || []).map(function(b) { return b.name + ' (' + b.currency.name + ')'; }).join(', '); },
+    }
   ];
 
   public card_title = function(b) { return b.name; }
@@ -56,6 +60,10 @@ export class TargetsTableComponent extends Table implements OnInit {
       value: function(p) { return p.default_expense_transaction_category ? p.default_expense_transaction_category.name : ''; },
       routerLink: function(p) { return p.default_expense_transaction_category ? ['/transaction_categories', p.default_expense_transaction_category.id] : false; },
     },
+    {
+      title: 'Budgets',
+      value: function(p) { return (p.budgets || []).map(function(b) { return b.name + ' (' + b.currency.name + ')'; }).join(', '); },
+    }
   ];
 
   public actions = [
