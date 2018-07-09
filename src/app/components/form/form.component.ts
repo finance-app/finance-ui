@@ -59,6 +59,18 @@ export class FormComponent implements OnInit, AfterViewInit {
       },
     );
 
+    // FIXME: workaround for checkboxes type, where you can't pass custom variable
+    // Iterate over all fields, find ones with 'multiselect' type and append field reference to all options
+    for (const field of this.formData.fields) {
+      if (field.type == 'multiselect') {
+        field.options.subscribe(options => {
+          for (let option of options) {
+            option.field = field;
+          }
+        });
+      }
+    }
+
     // Check if we update or create
     this.route.params.subscribe(
       params => {
@@ -147,5 +159,15 @@ export class FormComponent implements OnInit, AfterViewInit {
     const progressText = this.updating ? (this.formData.updateProgressText || 'Updating...') : (this.formData.createProgressText || 'Creating...');
     const staticText = this.updating ? (this.formData.updateStaticText || 'Update') : (this.formData.createStaticText || 'Create');
     return (this.inProgress && !this.next) ? progressText : staticText;
+  }
+
+  unselect(item) {
+    let values = (this.formGroup.controls[item.field.id].value || []);
+    let value = item.field.value ? item.field.value(item) : item;
+    var index = values.indexOf(value, 0);
+    if (index > -1) {
+      values.splice(index, 1);
+    }
+    this.formGroup.controls[item.field.id].patchValue(values);
   }
 }

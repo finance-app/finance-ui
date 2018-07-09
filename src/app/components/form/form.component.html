@@ -51,6 +51,26 @@
             <input *ngIf="field.autofocus" type="checkbox" class="form-check-input" [name]="field.id" [id]="field.value ? field.value(i) : i" [formControlName]="field.id" [ngClass]="{'is-valid': isValid(field.id), 'is-invalid': isInvalid(field.id)}" autofocus #autofocusField>
           </div>
 
+          <!-- MULTISELECT TYPE -->
+          <div *ngIf="field.type == 'multiselect'">
+            <ng-select  [items]="field.options | async"
+                        [multiple]="true"
+                        [placeholder]="field.placeholder"
+                        [closeOnSelect]="false"
+                        bindValue="id"
+                        [formControlName]="field.id"
+                        class="text-left"
+            >
+              <ng-template ng-option-tmp let-item="item">
+                <input [checked]="(formGroup.controls[item.field.id].value || []).indexOf(item.field.value ? item.field.value(item) : item) > -1" type="checkbox"/>{{item.field.description(item)}}
+              </ng-template>
+              <ng-template ng-label-tmp let-item="item">
+                <span class="ng-value-icon left" (click)="unselect(item)" aria-hidden="true">×</span>
+                <span class="ng-value-label">{{item.field.description(item)}}</span>
+              </ng-template>
+            </ng-select>
+          </div>
+
           <!-- FEEDBACK -->
           <div class="invalid-feedback d-block" *ngIf="isInvalid(field.id)">
             <div *ngIf="formGroup.controls[field.id].errors.required">
