@@ -25,7 +25,6 @@ export class AccountCorrectComponent implements OnInit {
   // Stores all informations about the form
   public form: any = {
     name: 'account',
-    create: this.correct.bind(this),
     update: this.correct.bind(this),
     data: new ReplaySubject<any>(),
     fields: [
@@ -63,8 +62,9 @@ export class AccountCorrectComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.account_id = params['id'];
-      this.accountsService.edit(params['id']).subscribe(account => {
+      this.accountsService.current_balance(params['id']).subscribe(account => {
         this.form.title = 'Updata balance for account ' + account.name;
+        this.form.data.next(account);
       });
     });
   }

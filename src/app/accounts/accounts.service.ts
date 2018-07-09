@@ -125,7 +125,24 @@ export class AccountsService {
           subject.next(data);
         },
         error => {
-          this.alertsService.addAlert('account_get', 'danger', 'Failed to fetch currencies!');
+          this.alertsService.addAlert('account_get', 'danger', 'Failed to fetch account!');
+          subject.error(error);
+        }
+    );
+
+    return subject;
+  }
+
+  current_balance(id: number) {
+    const subject = new ReplaySubject<any>(1);
+    this.api.get('/accounts/' + id + '/current_balance').pipe(
+      map(res => res.body))
+      .subscribe(
+        data => {
+          subject.next(data);
+        },
+        error => {
+          this.alertsService.addAlert('account_current_balance', 'danger', 'Failed to fetch current account balance!');
           subject.error(error);
         }
     );
