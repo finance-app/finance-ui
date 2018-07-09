@@ -9,6 +9,7 @@ export class IndexCommon {
   public objectsService: any;
   public filters: any;
   public subscriptions: Array<Subscription> = [];
+  public getAllSubscription: any = null;
 
   constructor() { }
 
@@ -36,11 +37,17 @@ export class IndexCommon {
 
   getAll(params = []): ReplaySubject<any> {
     const subject = new ReplaySubject<any>(1);
-    // build all query params
+    // Build all query params
     const options = this.options(params);
 
-    // Fetch accounts and assign it
-    this.objectsService.getAll(options).pipe(finalize(() => subject.complete())).subscribe(
+    // Cancel previous subscription if one exists
+    if (this.getAllSubscription !== null) {
+      this.getAllSubscription.unsubscribe();
+      this.getAllSubscription = null;
+    }
+
+    // Fetch objects and assign them
+    this.getAllSubscription = this.objectsService.getAll(options).pipe(finalize(() => subject.complete())).subscribe(
       objects => {
         this.objects.next(objects);
         subject.next(objects);
