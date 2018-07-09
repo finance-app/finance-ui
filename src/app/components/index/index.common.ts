@@ -18,10 +18,10 @@ export class IndexCommon {
     if (this.filters.length > 0) {
       this.subscriptions.push(observableCombineLatest(...this.filters.map(function(f) { return f.observable })).subscribe(
         params => {
-          const params_joined = params.filter(function(v) { return v != null }).join('&');
-          if (this.currentParams === undefined || params_joined != this.currentParams.filter(function(v) { return v != null }).join('&')) {
-            this.getAll(params);
-            this.currentParams = params;
+          const filtered_params = this.filterParams(params);
+          if (this.currentParams === undefined || filtered_params.join('&') != this.filterParams(this.currentParams).join('&')) {
+            this.getAll(filtered_params);
+            this.currentParams = filtered_params;
           }
         },
       ));
@@ -29,6 +29,10 @@ export class IndexCommon {
       // If there is no filters, just fetch all once
       this.getAll();
     }
+  }
+
+  filterParams(params) {
+    return params.filter(function(v) { return v != null && v.split('=')[1] !== '' });
   }
 
   ngOnDestroy() {

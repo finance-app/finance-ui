@@ -10,6 +10,7 @@ export class BudgetsFilter {
   public observable: ReplaySubject<any> = new ReplaySubject<any>(1);
   public defaultObservable: ReplaySubject<Budget> = new ReplaySubject<Budget>(1);;
   public subscriptions: any = [];
+  public current: any;
 
   constructor(
     public timeframeService: TimeframeService,

@@ -170,7 +170,7 @@ export class FilterComponent implements OnInit, OnDestroy {
         this._options = options;
         this.options.next(options);
         this.cdRef.detectChanges();
-        this.debug && console.log(this.property + ": Options differs, pushing new current.");
+        this.debug && console.log(this.property + ": Options differs, pushing new current.", this._current);
         this.current.next(this._current);
       } else {
         this.debug && console.log(this.property + ": Options are the same, skipping.");
@@ -181,7 +181,7 @@ export class FilterComponent implements OnInit, OnDestroy {
       this.defaultSubscribe = this.properties.defaultObservable.pipe(skip(1)).subscribe(defaultObject => {
         if (this._defaultOption != this.defaultObject(defaultObject)) {
           this._defaultOption = this.defaultObject(defaultObject);
-          this.debug && console.log(this.property + ": Default option changed, pushing new current.", this._current);
+          this.debug && console.log(this.property + ": Default option changed, pushing new current.", this._defaultOption);
           this.current.next(this._defaultOption);
         }
       });
@@ -207,11 +207,12 @@ export class FilterComponent implements OnInit, OnDestroy {
         if (this._defaultOption) {
           this.debug && console.log(this.property + ": filter: default is defined, so we set explicit empty string");
           queryParam = '';
+          value = '';
         } else {
           this.debug && console.log(this.property + ": filter: default is NOT defined, removing query string");
           queryParam = null;
+          value = null;
         }
-        value = null;
         break;
       }
       // Null option should reset to default value
@@ -233,7 +234,7 @@ export class FilterComponent implements OnInit, OnDestroy {
     this.router.navigate([], { queryParams: this.filterService.appendToParams(this.property, queryParam) });
 
     // If value changed, emit it
-    const nextValue = value ? this.property + '=' + this.optionValue(value) : null;
+    const nextValue = (value || value === '') ? this.property + '=' + this.optionValue(value) : null;
     if (nextValue !== this.lastValue) {
       this.debug && console.log(this.property + ": filter: value changed, emiting!", nextValue, this.lastValue);
       this.properties.observable.next(nextValue);
