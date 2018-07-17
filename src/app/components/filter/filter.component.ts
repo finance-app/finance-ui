@@ -5,8 +5,6 @@ import { ActivatedRoute, Router, Params } from '@angular/router';
 import { FilterService } from '../../core/services/filter.service';
 import { ChangeDetectorRef } from '@angular/core';
 
-import * as _ from 'lodash';
-
 @Component({
   moduleId: module.id,
   selector: 'app-filter',
@@ -281,8 +279,8 @@ export class FilterComponent implements OnInit, OnDestroy {
   }
 
   areDifferentByIds(a, b) {
-    const idsA = a ? _.sortedUniq(a.map(x => x.id)) : [];
-    const idsB = b ? _.sortedUniq(b.map(x => x.id)) : [];
+    const idsA = a ? a.map(x => x.id).reduce((x, y) => x.includes(y) ? x : [...x, y], []).sort() : [];
+    const idsB = b ? b.map(x => x.id).reduce((x, y) => x.includes(y) ? x : [...x, y], []).sort() : [];
     return (idsA.join(',') !== idsB.join(','));
   }
 
