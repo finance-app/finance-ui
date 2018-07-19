@@ -2,7 +2,7 @@ import { take, finalize, filter } from 'rxjs/operators';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Subject ,  ReplaySubject ,  BehaviorSubject ,  Subscription } from 'rxjs';
+import { ReplaySubject, BehaviorSubject, Subscription } from 'rxjs';
 
 import * as moment from 'moment';
 import { HttpParams } from '@angular/common/http';
@@ -37,10 +37,12 @@ export class TransactionFormComponent implements OnInit, OnDestroy {
   public defaultPeriod = new ReplaySubject<any>(1);
   public defaultBudget = new ReplaySubject<any>(1);
   public budget = null;
-  private transactionType = null;
+  private transactionType: BehaviorSubject<any> = new BehaviorSubject<any>(undefined);
   private formGroup;
   private subscriptions: Subscription[] = [];
   private creating: boolean = true;
+  private targets = new ReplaySubject<any>(1);
+  private accounts = new ReplaySubject<any>(1);
 
   // Stores all informations about the form
   public form: any = {
@@ -205,10 +207,17 @@ export class TransactionFormComponent implements OnInit, OnDestroy {
       }
     });
 
-    // Fetch all categories, targets and accounts
+    // Fetch all categories and accounts
     this.transactionCategoriesService.getAll();
-    this.accountsService.getAll();
-    this.targetsService.getAll();
+    this.accountsService.getAll().subscribe(accounts => this.accounts.next(accounts));
+
+    // If default budget is null, fetch targets as well.
+    this.defaultBudget.pipe(filter(value => value === null), take(1)).subscribe(defaultBudget => {
+      const options = new HttpParams({
+        fromString: 'sort_by=favourite',
+      });
+      this.targetsService.getAll(options).subscribe(targets => this.targets.next(targets));
+    });
 
     this.subscriptions.push(this.timeframeService.periods.subscribe(periods => {
       this.periods.next(periods);
@@ -267,68 +276,62 @@ export class TransactionFormComponent implements OnInit, OnDestroy {
 
     // React to changes on transaction_type (income/expense)
     this.subscriptions.push(formGroup.controls['transaction_type'].valueChanges.pipe(filter(value => value !== null)).subscribe(value => {
+      this.transactionType.pipe(take(1)).subscribe(transactionType => {
+        // If value differs from previous one
+        if (value != transactionType) {
+          // Swap source and destination options
+          if (value == 'expense') {
+            this.accounts.pipe(take(1)).subscribe(accounts => this.sourceOptions.next(accounts));
+            this.targets.pipe(take(1)).subscribe(targets => this.destinationOptions.next(targets));
+          } else {
+            this.accounts.pipe(take(1)).subscribe(accounts => this.destinationOptions.next(accounts));
+            this.targets.pipe(take(1)).subscribe(targets => this.sourceOptions.next(targets));
+          }
 
-      this.sourceSubscription && this.sourceSubscription.unsubscribe();
-      this.destinationSubscription && this.destinationSubscription.unsubscribe();
+          this.transactionType.next(value);
 
+          // If we we are done with initialisation and there is a change, swap placeholders and values
+          if (transactionType) {
+            // If this value changes, swap placeholders and values for source and destionation
+            const source = this.form.fields.find(field => field.id == 'source_id');
+            const destination = this.form.fields.find(field => field.id == 'destination_id');
 
-      formGroup.controls['budget_id'].valueChanges.subscribe(budget_id => {
-        const options = new HttpParams({
-          fromString: 'sort_by=favourite' + (budget_id ? ('&show_empty&budget_id=' + budget_id) : ''),
-        });
+            let tmp = destination.placeholder;
+            destination.placeholder = source.placeholder;
+            source.placeholder = tmp;
 
-        // Load correct options to form options
-        if (value == 'expense') {
-          this.sourceSubscription = this.accountsService.accounts.subscribe(accounts => { this.sourceOptions.next(accounts); });
-          this.destinationSubscription = this.targetsService.getAll(options).subscribe(targets => { this.destinationOptions.next(targets); });
-        } else {
-          this.destinationSubscription = this.accountsService.accounts.subscribe(accounts => { this.destinationOptions.next(accounts); });
-          this.sourceSubscription = this.targetsService.getAll(options).subscribe(targets => { this.sourceOptions.next(targets); });
+            tmp = formGroup.controls['destination_id'].value;
+            formGroup.controls['destination_id'].patchValue(formGroup.controls['source_id'].value);
+            formGroup.controls['source_id'].patchValue(tmp);
+          }
         }
-
-        // If we we are done with initialisation and there is a change, swap placeholders and values
-        if (this.transactionType && this.transactionType != value) {
-          // Other triggers depends on this one, so we have to set it early
-          this.transactionType = value;
-
-          // If this value changes, swap placeholders and values for source and destionation
-          const source = this.form.fields.find(field => field.id == 'source_id');
-          const destination = this.form.fields.find(field => field.id == 'destination_id');
-
-          let tmp = destination.placeholder;
-          destination.placeholder = source.placeholder;
-          source.placeholder = tmp;
-
-          tmp = formGroup.controls['destination_id'].value;
-          formGroup.controls['destination_id'].patchValue(formGroup.controls['source_id'].value);
-          formGroup.controls['source_id'].patchValue(tmp);
-        }
-
-        // This makes sure that transactionType is always updated
-        this.transactionType = value;
       });
     }));
 
     // React to changes on source
     this.subscriptions.push(formGroup.controls['source_id'].valueChanges.subscribe(value => {
-      if (!formGroup.controls['transaction_category_id'].dirty && this.transactionType == 'income') {
-        this.targetsService.targets.pipe(take(1)).subscribe(options => {
-          const option = options.find(option => (option.id == value));
-          const patchValue = option && option.default_income_transaction_category ? option.default_income_transaction_category.id : null;
-          formGroup.controls['transaction_category_id'].patchValue(patchValue);
-        });
-      }
+      this.transactionType.pipe(take(1)).subscribe(transactionType => {
+        if (!formGroup.controls['transaction_category_id'].dirty && transactionType == 'income') {
+          this.targets.pipe(take(1)).subscribe(options => {
+            const option = options.find(option => (option.id == value));
+            const patchValue = option && option.default_income_transaction_category ? option.default_income_transaction_category.id : null;
+            formGroup.controls['transaction_category_id'].patchValue(patchValue);
+          });
+        }
+      });
     }));
 
     // React to changes on destination
     this.subscriptions.push(formGroup.controls['destination_id'].valueChanges.subscribe(value => {
-      if (!formGroup.controls['transaction_category_id'].dirty && this.transactionType == 'expense') {
-        this.targetsService.targets.pipe(take(1)).subscribe(options => {
-          const option = options.find(option => (option.id == value));
-          const patchValue = option && option.default_expense_transaction_category ? option.default_expense_transaction_category.id : null;
-          formGroup.controls['transaction_category_id'].patchValue(patchValue);
-        });
-      }
+      this.transactionType.pipe(take(1)).subscribe(transactionType => {
+        if (!formGroup.controls['transaction_category_id'].dirty && transactionType == 'expense') {
+          this.targets.pipe(take(1)).subscribe(options => {
+            const option = options.find(option => (option.id == value));
+            const patchValue = option && option.default_expense_transaction_category ? option.default_expense_transaction_category.id : null;
+            formGroup.controls['transaction_category_id'].patchValue(patchValue);
+          });
+        }
+      });
     }));
 
     // React to changes on period
@@ -344,33 +347,37 @@ export class TransactionFormComponent implements OnInit, OnDestroy {
     }));
 
     // React to changes on budget
-    this.subscriptions.push(formGroup.controls['budget_id'].valueChanges.pipe(filter(value => value !== null && value !== undefined)).subscribe(value => {
-      if (this.budget && this.budget != value) {
-        let options = new HttpParams({
-          fromString: 'budget_id=' + value
-        });
-        this.periodsService.getAll(options).subscribe(periods => {
-          this.periods.next(periods);
-          formGroup.controls['period_id'].patchValue(periods[0] ? periods[0].id : null);
-        });
+    this.subscriptions.push(formGroup.controls['budget_id'].valueChanges.pipe(filter(value => value !== null)).subscribe(value => {
+      // Fetch new data if budget differs from old one
+      if (this.budget != value) {
+        if (value) {
+          // If budget is defined, fetch it's periods
+          let options = new HttpParams({
+            fromString: 'budget_id=' + value
+          });
+          this.periodsService.getAll(options).subscribe(periods => {
+            this.periods.next(periods);
+            formGroup.controls['period_id'].patchValue(periods[0] ? periods[0].id : null);
+          });
 
-        options = new HttpParams({
-          fromString: 'budget_id=' + value + '&sort_by=favourite'
+          // And fetch it to set default account
+          this.budgetsService.get(value).pipe(take(2)).subscribe(budget => {
+            if (budget.default_account) {
+              this.transactionType.pipe(take(1)).subscribe(transactionType => {
+                this.creating && formGroup.controls[transactionType == 'income' ? 'destination_id' : 'source_id'].patchValue(budget.default_account.id);
+              });
+            }
+          });
+        }
+
+        let options = new HttpParams({
+          fromString: 'sort_by=favourite' + (value ? ('&show_empty&budget_id=' + value) : ''),
         });
         this.targetsService.getAll(options).subscribe(targets => {
-          if (this.transactionType == 'expense') {
-            this.destinationOptions.next(targets);
-          } else {
-            this.sourceOptions.next(targets);
-          }
-        });
-      }
-
-      if (this.budget === undefined || this.budget != value) {
-        this.budgetsService.get(value).pipe(take(2)).subscribe(budget => {
-          if (budget.default_account) {
-            this.creating && formGroup.controls[this.transactionType == 'income' ? 'destination_id' : 'source_id'].patchValue(budget.default_account.id);
-          }
+          this.targets.next(targets);
+          this.transactionType.pipe(take(1)).subscribe(transactionType => {
+            (transactionType == 'income' ? this.sourceOptions : this.destinationOptions).next(targets);
+          });
         });
       }
 
@@ -386,20 +393,24 @@ export class TransactionFormComponent implements OnInit, OnDestroy {
   addSource(formGroup) {
     this.saveForm(formGroup);
 
-    if (this.transactionType == 'income') {
-      this.router.navigate(['/targets', 'new']);
-    } else {
-      this.router.navigate(['/accounts', 'new']);
-    }
+    this.transactionType.pipe(take(1)).subscribe(transactionType => {
+      if (transactionType == 'income') {
+        this.router.navigate(['/targets', 'new']);
+      } else {
+        this.router.navigate(['/accounts', 'new']);
+      }
+    });
   }
 
   addDestination(formGroup) {
     this.saveForm(formGroup);
-    if (this.transactionType == 'expense') {
-      this.router.navigate(['/targets', 'new']);
-    } else {
-      this.router.navigate(['/accounts', 'new']);
-    }
+    this.transactionType.pipe(take(1)).subscribe(transactionType => {
+      if (transactionType == 'expense') {
+        this.router.navigate(['/targets', 'new']);
+      } else {
+        this.router.navigate(['/accounts', 'new']);
+      }
+    });
   }
 
   saveForm(formGroup) {
