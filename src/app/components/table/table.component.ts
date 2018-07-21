@@ -129,7 +129,7 @@ export class TableComponent implements OnInit, OnDestroy {
   }
 
   sortBy(row, order?: boolean) {
-    let control = (order === undefined) ? !this.sort_status[row.title] : order;
+    let control = (order === undefined) ? (this.sort_status[row.title] === undefined ? false : !this.sort_status[row.title]) : order;
     this.elements.pipe(take(1)).subscribe(elements => {
       elements.sort((l, r): number => {
         let lv = this.value(row, l) || '';
