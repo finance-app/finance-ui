@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { take } from 'rxjs/operators';
+import { ActivatedRoute, Router, Params } from '@angular/router';
 
 @Component({
   moduleId: module.id,
@@ -29,7 +30,10 @@ export class TableComponent implements OnInit, OnDestroy {
   public sort_status: any = {};
   public sort_title: string = 'None';
 
-  constructor() { }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+  ) { }
 
   ngOnInit() {
     // Evaluate all row titles
@@ -85,6 +89,14 @@ export class TableComponent implements OnInit, OnDestroy {
         }
 
         this.elements.next(objects);
+
+        this.route.queryParams.pipe(take(1)).subscribe(queryParams => {
+          const by = queryParams['order_by'];
+          if (by && by != '') {
+            const row = this.rows.find(r => r.title === by.charAt(0).toUpperCase() + by.slice(1));
+            row && this.sortBy(row, queryParams['order'] !== 'asc');
+          }
+        });
       }
     );
   }
@@ -132,6 +144,13 @@ export class TableComponent implements OnInit, OnDestroy {
     this.sort_status = {};
     this.sort_status[row.title] = control;
     this.sort_title = row.title + (!control ? ' ASC' : ' DESC');
+
+    this.route.queryParams.pipe(take(1)).subscribe(params => {
+      const queryParams: Params = Object.assign({}, params);
+      queryParams['order'] = control ? 'desc' : 'asc';
+      queryParams['order_by'] = row.title.toLowerCase();
+      this.router.navigate([], { queryParams: queryParams });
+    });
   }
 
   sortIcon(row) {
