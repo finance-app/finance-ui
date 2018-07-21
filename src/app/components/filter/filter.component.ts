@@ -55,6 +55,7 @@ export class FilterComponent implements OnInit, OnDestroy {
     this.optionsSubscribe.unsubscribe();
     this.paramsSubscribe.unsubscribe();
     this.subscriptions && this.subscriptions.forEach((elem) => { elem.unsubscribe(); });
+    this.filterService.resetParams();
   }
 
   ngOnInit() {
