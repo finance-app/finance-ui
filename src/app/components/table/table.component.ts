@@ -29,6 +29,7 @@ export class TableComponent implements OnInit, OnDestroy {
   private objects_subscription: any;
   public sort_status: any = {};
   public sort_title: string = 'None';
+  private elements_unsorted: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -89,6 +90,8 @@ export class TableComponent implements OnInit, OnDestroy {
         }
 
         this.elements.next(objects);
+        // Use JSON to clone objects, otherwise they get sorted too.
+        this.elements_unsorted = JSON.parse(JSON.stringify(objects));
 
         this.route.queryParams.pipe(take(1)).subscribe(queryParams => {
           const by = queryParams['order_by'];
@@ -159,5 +162,21 @@ export class TableComponent implements OnInit, OnDestroy {
       case true: return 'sort-down';
       default: return 'sort-up';
     }
+  }
+
+  resetSorting() {
+    this.elements.next(this.elements_unsorted);
+    this.sort_status = {};
+    this.sort_title = 'None';
+    this.route.queryParams.pipe(take(1)).subscribe(params => {
+      const queryParams: Params = Object.assign({}, params);
+      delete queryParams['order'];
+      delete queryParams['order_by'];
+      this.router.navigate([], { queryParams: queryParams });
+    });
+  }
+
+  isEmpty(obj: any) {
+    return Object.keys(obj).length === 0 && obj.constructor === Object;
   }
 }
