@@ -1,5 +1,5 @@
 <index title="Transaction categories">
-  <table-header [filters]="filters" [update]="update.bind(this)" path="transaction_categories" index-body></table-header>
+  <table-header [filters]="filters" [update]="update.bind(this)" [reset]="reset.bind(this)" path="transaction_categories" index-body></table-header>
   <br index-body>
   <transaction-categories-table [transactionCategories]="transactionCategories" index-body></transaction-categories-table>
 </index>
