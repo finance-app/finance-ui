@@ -5,7 +5,9 @@
   <div class="btn-group mr-2 mb-2" role="group">
     <button type="button" class="btn btn-success" routerLink="/{{path}}/new"><fa-icon icon="plus"></fa-icon><span class="d-none d-sm-inline"> New</span></button>
   </div>
-
+  <div class="btn-group mr-2 mb-2" role="group">
+    <button type="button" class="btn btn-danger" (click)="reset()"><fa-icon icon="filter"></fa-icon><span class="d-none d-sm-inline"> Reset filters</span></button>
+  </div>
   <ng-container *ngIf="filters.length > 0">
     <div *ngFor="let filter of filters" role="group" class="btn-group mr-2 mb-2" >
       <app-filter [properties]="filter"></app-filter>
