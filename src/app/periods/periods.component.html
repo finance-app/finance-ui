@@ -1,5 +1,5 @@
 <index title="Periods">
-  <table-header [filters]="filters" [update]="update.bind(this)" path="periods" index-body></table-header>
+  <table-header [filters]="filters" [update]="update.bind(this)" [reset]="reset.bind(this)" path="periods" index-body></table-header>
   <br index-body>
   <periods-table [periods]="periods" index-body></periods-table>
 </index>

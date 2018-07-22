@@ -5,8 +5,8 @@
 
 <StackLayout>
   <index [filters]="filters" title="Currencies">
-    <table-header [filters]="filters" [update]="update.bind(this)" path="currencies" index-body></table-header>
+    <table-header [filters]="filters" [update]="update.bind(this)" [reset]="reset.bind(this)" path="currencies" index-body></table-header>
     <StackLayout class="hr-light m-10" index-body></StackLayout>
-    <currencies-table [currencies]="currencies" [update]="update.bind(this)" index-body></currencies-table>
+    <currencies-table [currencies]="currencies" [update]="update.bind(this)" [reset]="reset.bind(this)" index-body></currencies-table>
   </index>
 </StackLayout>

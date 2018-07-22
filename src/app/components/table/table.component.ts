@@ -24,11 +24,13 @@ export class TableComponent implements OnInit, OnDestroy {
   @Input() active_row_class: any;
   @Input() active_row_text: any;
   @Input() active_row_text_class: any;
+  @Input() reset: any;
 
   public elements: ReplaySubject<Array<any>> = new ReplaySubject<Array<any>>(1);
   private objects_subscription: any;
   public sort_status: any = {};
   public sort_title: string = 'None';
+  private elements_unsorted: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -44,7 +46,7 @@ export class TableComponent implements OnInit, OnDestroy {
 
     this.objects_subscription = this.objects.subscribe(
       objects => {
-        this.sort_status = {};
+        const subject = new ReplaySubject<any>(1);
         for (let i=0; i<objects.length; i++) {
           let object = objects[i];
           object.rows = [];
@@ -86,16 +88,22 @@ export class TableComponent implements OnInit, OnDestroy {
               ngClass: card.ngClass ? card.ngClass(object) : {},
             });
           }
+          subject.next();
+          subject.complete();
         }
 
-        this.elements.next(objects);
+        subject.subscribe(() => {
+          this.elements.next(objects);
+          // Use JSON to clone objects, otherwise they get sorted too.
+          this.elements_unsorted = JSON.parse(JSON.stringify(objects));
 
-        this.route.queryParams.pipe(take(1)).subscribe(queryParams => {
-          const by = queryParams['order_by'];
-          if (by && by != '') {
-            const row = this.rows.find(r => r.title === by.charAt(0).toUpperCase() + by.slice(1));
-            row && this.sortBy(row, queryParams['order'] !== 'asc');
-          }
+          this.route.queryParams.pipe(take(1)).subscribe(queryParams => {
+            const by = queryParams['order_by'];
+            if (by && by != '') {
+              const row = this.rows.find(r => r.title === by.charAt(0).toUpperCase() + by.slice(1));
+              row && this.sortBy(row, queryParams['order'] !== 'asc');
+            }
+          });
         });
       }
     );
@@ -129,7 +137,7 @@ export class TableComponent implements OnInit, OnDestroy {
   }
 
   sortBy(row, order?: boolean) {
-    let control = (order === undefined) ? !this.sort_status[row.title] : order;
+    let control = (order === undefined) ? (this.sort_status[row.title] === undefined ? false : !this.sort_status[row.title]) : order;
     this.elements.pipe(take(1)).subscribe(elements => {
       elements.sort((l, r): number => {
         let lv = this.value(row, l) || '';
@@ -159,5 +167,21 @@ export class TableComponent implements OnInit, OnDestroy {
       case true: return 'sort-down';
       default: return 'sort-up';
     }
+  }
+
+  resetSorting() {
+    this.elements.next(this.elements_unsorted);
+    this.sort_status = {};
+    this.sort_title = 'None';
+    this.route.queryParams.pipe(take(1)).subscribe(params => {
+      const queryParams: Params = Object.assign({}, params);
+      delete queryParams['order'];
+      delete queryParams['order_by'];
+      this.router.navigate([], { queryParams: queryParams });
+    });
+  }
+
+  isEmpty(obj: any) {
+    return Object.keys(obj).length === 0 && obj.constructor === Object;
   }
 }

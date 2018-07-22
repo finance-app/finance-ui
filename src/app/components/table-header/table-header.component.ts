@@ -14,6 +14,7 @@ export class TableHeaderComponent {
   @Input() path: string;
   @Input() filters: any;
   @Input() update: any;
+  @Input() reset: any;
 
   constructor() { }
 }

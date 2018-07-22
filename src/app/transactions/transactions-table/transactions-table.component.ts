@@ -12,7 +12,7 @@ import { Table } from '../../components/table/table';
 @Component({
   moduleId: module.id,
   selector: 'transactions-table',
-  template: '<app-table [rows]="rows" [objects]="transactions" [actions]="actions" [cards]="cards" [card_title]="card_title" [card_subtitle]="card_subtitle" [update]="update"></app-table>',
+  template: '<app-table [rows]="rows" [objects]="transactions" [actions]="actions" [cards]="cards" [card_title]="card_title" [card_subtitle]="card_subtitle" [update]="update" [reset]="reset"></app-table>',
   styleUrls: ['./transactions-table.component.css'],
 })
 
@@ -21,6 +21,7 @@ export class TransactionsTableComponent extends Table implements OnInit {
   @Input() transactions: ReplaySubject<Array<Transaction>>;
   @Input() currencySymbol = '';
   @Input() update;
+  @Input() reset;
 
   public rows = [
     {
