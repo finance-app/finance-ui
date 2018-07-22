@@ -118,6 +118,6 @@ export class TransactionsTableComponent extends Table implements OnInit {
   }
 
   title() {
-    return "Value " + (this.currencySymbol != '' ? " (" + this.currencySymbol + ")" : '');
+    return "Value" + (this.currencySymbol != '' ? " (" + this.currencySymbol + ")" : '');
   }
 }

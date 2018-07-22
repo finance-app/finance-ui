@@ -36,4 +36,8 @@ export class FilterService {
     }
     return this.queryParams;
   }
+
+  resetParams() {
+    this.queryParams = {};
+  }
 }
