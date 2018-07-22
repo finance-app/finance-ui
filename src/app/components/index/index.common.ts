@@ -10,6 +10,7 @@ export class IndexCommon {
   public filters: any;
   public subscriptions: Array<Subscription> = [];
   public getAllSubscription: any = null;
+  private getUpdates: boolean = true;
 
   constructor() { }
 
@@ -20,14 +21,33 @@ export class IndexCommon {
         params => {
           const filtered_params = this.filterParams(params);
           if (this.currentParams === undefined || filtered_params.join('&') != this.filterParams(this.currentParams).join('&')) {
-            this.getAll(filtered_params);
+            this.getUpdates && this.getAll(filtered_params);
             this.currentParams = filtered_params;
           }
         },
       ));
     } else {
       // If there is no filters, just fetch all once
-      this.getAll();
+      this.getUpdates && this.getAll();
+    }
+  }
+
+  reset() {
+    if (this.filters.length > 0) {
+      this.getUpdates = false;
+      for (let i=0; i<this.filters.length; i++) {
+        let filter = this.filters[i];
+        if (filter.defaultObservable) {
+          filter.defaultObservable.pipe(take(1)).subscribe(value => {
+            let new_value = typeof filter.defaultObject === 'function' ? filter.defaultObject(value) : value;
+            filter.current.next(new_value);
+          });
+        } else {
+          filter.current.next(null);
+        }
+      }
+      this.getAll(this.currentParams);
+      this.getUpdates = true;
     }
   }
 
