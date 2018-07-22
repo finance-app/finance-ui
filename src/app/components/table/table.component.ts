@@ -45,7 +45,7 @@ export class TableComponent implements OnInit, OnDestroy {
 
     this.objects_subscription = this.objects.subscribe(
       objects => {
-        this.sort_status = {};
+        const subject = new ReplaySubject<any>(1);
         for (let i=0; i<objects.length; i++) {
           let object = objects[i];
           object.rows = [];
@@ -87,18 +87,22 @@ export class TableComponent implements OnInit, OnDestroy {
               ngClass: card.ngClass ? card.ngClass(object) : {},
             });
           }
+          subject.next();
+          subject.complete();
         }
 
-        this.elements.next(objects);
-        // Use JSON to clone objects, otherwise they get sorted too.
-        this.elements_unsorted = JSON.parse(JSON.stringify(objects));
+        subject.subscribe(() => {
+          this.elements.next(objects);
+          // Use JSON to clone objects, otherwise they get sorted too.
+          this.elements_unsorted = JSON.parse(JSON.stringify(objects));
 
-        this.route.queryParams.pipe(take(1)).subscribe(queryParams => {
-          const by = queryParams['order_by'];
-          if (by && by != '') {
-            const row = this.rows.find(r => r.title === by.charAt(0).toUpperCase() + by.slice(1));
-            row && this.sortBy(row, queryParams['order'] !== 'asc');
-          }
+          this.route.queryParams.pipe(take(1)).subscribe(queryParams => {
+            const by = queryParams['order_by'];
+            if (by && by != '') {
+              const row = this.rows.find(r => r.title === by.charAt(0).toUpperCase() + by.slice(1));
+              row && this.sortBy(row, queryParams['order'] !== 'asc');
+            }
+          });
         });
       }
     );
