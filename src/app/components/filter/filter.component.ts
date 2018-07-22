@@ -104,30 +104,32 @@ export class FilterComponent implements OnInit, OnDestroy {
       a.pipe(take(1)).subscribe(b => {
         this.debug && console.log(this.property + ": Options and default value arrived, proceeding.");
         // Take snapshot on URL parameters, this controls what we do next
-        const queryParams: Params = Object.assign({}, this.route.snapshot.queryParams);
-        this.debug && console.log(this.property + ": Query params:", queryParams);
-        this.debug && console.log(this.property + ": URL: ", this.route.snapshot.url);
-        let next;
+        this.route.queryParams.pipe(take(1)).subscribe(params => {
+          const queryParams: Params = Object.assign({}, params);
+          this.debug && console.log(this.property + ": Query params:", queryParams);
+          this.debug && console.log(this.property + ": URL: ", this.route.snapshot.url);
+          let next;
 
-        switch (queryParams[this.property]) {
-          case '': {
-            this.debug && console.log(this.property + ": query params explicitly empty.");
-            next = '';
-            break;
+          switch (queryParams[this.property]) {
+            case '': {
+              this.debug && console.log(this.property + ": query params explicitly empty.");
+              next = '';
+              break;
+            }
+            case undefined: {
+              this.debug && console.log(this.property + ": query params not defined, ignoring.");
+              next = this._defaultOption;
+              break;
+            }
+            default: {
+              this.debug && console.log(this.property + ": looking for object by id from query params...");
+              next = this.getObjectById(queryParams[this.property]);
+              break;
+            }
           }
-          case undefined: {
-            this.debug && console.log(this.property + ": query params not defined, ignoring.");
-            next = this._defaultOption;
-            break;
-          }
-          default: {
-            this.debug && console.log(this.property + ": looking for object by id from query params...");
-            next = this.getObjectById(queryParams[this.property]);
-            break;
-          }
-        }
-        this.debug && console.log(this.property + ": Pushing new current based on query params", next);
-        this.current.next(next);
+          this.debug && console.log(this.property + ": Pushing new current based on query params", next);
+          this.current.next(next);
+        });
       });
     });
 
