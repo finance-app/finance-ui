@@ -56,7 +56,7 @@ export class BudgetFormComponent implements OnInit {
         placeholder: 'Select default account...',
         options: this.accountsService.accounts,
         value: function(account) { return account.id; },
-        description: function(account) { return account.name },
+        description: function(account) { return account.name + ' (' + account.currency.name + ')'; },
         addButton: this.newAccount.bind(this),
       },
       {
