@@ -33,7 +33,7 @@ export class BudgetsTableComponent extends Table implements OnInit {
     },
     {
       title: 'Default account',
-      value: function(b) { return b.default_account ? b.default_account.name : ''; },
+      value: function(b) { return b.default_account ? b.default_account.name + ' (' + b.default_account.currency.name + ')' : ''; },
       routerLink: function(b) { return b.default_account ? ['/accounts', b.default_account.id] : false; },
     },
   ];
