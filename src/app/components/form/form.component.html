@@ -13,14 +13,23 @@
 
           <!-- SELECT TYPE -->
           <div *ngIf="field.type == 'select'" class="input-group">
-            <select *ngIf="!field.autofocus" class="form-control" [id]="field.id" [formControlName]="field.id" [ngClass]="{'is-valid': isValid(field.id), 'is-invalid': isInvalid(field.id)}">
-              <option [ngValue]="null" [disabled]="field.validators ? (field.validators.indexOf(requiredFn, 0) === -1 ? null : true) : null">{{field.placeholder}}</option>
-              <option *ngFor="let i of field.options | async" [ngValue]="field.value ? field.value(i) : i">{{field.description(i)}}</option>
-            </select>
-            <select *ngIf="field.autofocus" class="form-control" [id]="field.id" [formControlName]="field.id" [ngClass]="{'is-valid': isValid(field.id), 'is-invalid': isInvalid(field.id)}" autofocus #autofocusField>
-              <option [ngValue]="null" [disabled]="field.validators ? (field.validators.indexOf(requiredFn, 0) === -1 ? null : true) : null">{{field.placeholder}}</option>
-              <option *ngFor="let i of field.options | async" [ngValue]="field.value ? field.value(i) : i">{{field.description(i)}}</option>
-            </select>
+            <ng-select  [items]="field.options | async"
+                        [placeholder]="field.placeholder"
+                        bindValue="id"
+                        [formControlName]="field.id"
+                        [clearable]="field.validators ? (field.validators.indexOf(requiredFn, 0) === -1 ? true : false) : true"
+                        [searchFn]="searchByDescription"
+                        class="form-control text-left"
+                        [ngClass]="{'is-valid': isValid(field.id), 'is-invalid': isInvalid(field.id)}"
+            >
+              <ng-template ng-label-tmp let-item="item">
+                {{item.field.description(item)}}
+              </ng-template>
+              <ng-template ng-option-tmp let-item="item">
+                <option [ngValue]="item.field.value ? item.field.value(item) : i">{{item.field.description(item)}}</option>
+              </ng-template>
+            </ng-select>
+
             <span class="input-group-btn" *ngIf="field.addButton">
               <button type="button" class="btn btn-success" (click)="field.addButton(formGroup)">
                 <fa-icon icon="plus"></fa-icon>

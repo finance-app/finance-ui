@@ -51,7 +51,7 @@ export class FormComponent implements OnInit, AfterViewInit {
     // FIXME: workaround for checkboxes type, where you can't pass custom variable
     // Iterate over all fields, find ones with 'multiselect' type and append field reference to all options
     for (const field of this.formData.fields) {
-      if (field.type == 'multiselect') {
+      if (field.type == 'multiselect' || field.type == 'select') {
         field.options.subscribe(options => {
           for (let option of options) {
             option.field = field;
@@ -169,5 +169,10 @@ export class FormComponent implements OnInit, AfterViewInit {
       values.splice(index, 1);
     }
     this.formGroup.controls[item.field.id].patchValue(values);
+  }
+
+  searchByDescription(term: string, item: any) {
+    term = term.toLocaleLowerCase();
+    return item.field.description(item).toLocaleLowerCase().indexOf(term) > -1;
   }
 }

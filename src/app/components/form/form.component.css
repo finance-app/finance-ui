@@ -1,0 +1,7 @@
+.ng-select .ng-select-container {
+  min-height: 0;
+}
+
+.ng-select {
+  padding: 0;
+}
