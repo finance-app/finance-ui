@@ -92,6 +92,11 @@ export class TableComponent implements OnInit, OnDestroy {
           subject.complete();
         }
 
+        if (objects.length === 0) {
+          subject.next();
+          subject.complete();
+        }
+
         subject.subscribe(() => {
           this.elements.next(objects);
           // Use JSON to clone objects, otherwise they get sorted too.
