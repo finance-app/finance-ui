@@ -91,7 +91,7 @@ export class TransactionsComponent extends Index implements OnInit, OnDestroy {
 
   getAll(params = []): ReplaySubject<any> {
     let subject = super.getAll(params);
-    this.transactions.pipe(skip(1), take(1)).subscribe(
+    this.transactions.pipe(take(2)).subscribe(
       transactions => {
         if (transactions.length > 0) {
           this.transactionsSum = transactions.map(t => t.value * (this.transactionsService.isExpense(t) ?  -1 : 1)).reduce((a, b) => a + b).toFixed(2);
