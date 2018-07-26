@@ -3,7 +3,7 @@
     <thead class="thead-inverse">
       <tr>
         <th *ngFor="let row of rows" (click)="sortBy(row)">{{row.title}} <fa-icon [icon]="sortIcon(row)"></fa-icon></th>
-        <th (click)="isEmpty(sort_status) && resetSorting()" class='text-center'><fa-icon icon='sort'></fa-icon></th>
+        <th (click)="!isEmpty(sort_status) && resetSorting()" class='text-center'><fa-icon icon='sort'></fa-icon></th>
       </tr>
     </thead>
     <tbody>
