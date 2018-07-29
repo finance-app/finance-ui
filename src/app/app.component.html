@@ -28,7 +28,7 @@
           <a class="nav-link dropdown-toggle" id="timeframesMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ngbDropdownToggle>
             Timeframes
           </a>
-          <div class="dropdown-menu dropdown-menu bg-dark" aria-labelledby="timeframesMenu" ngbDropdownMenu>
+          <div class="dropdown-menu scrollable-menu dropdown-menu bg-dark" aria-labelledby="timeframesMenu" ngbDropdownMenu>
             <a class="nav-link dropdown-item bg-dark" routerLink="periods" routerLinkActive="active" (click)="navbarCollapsed = true">Periods</a>
             <a class="nav-link dropdown-item bg-dark" routerLink="budgets" routerLinkActive="active" (click)="navbarCollapsed = true">Budgets</a>
           </div>
@@ -41,7 +41,7 @@
           <a class="nav-link dropdown-toggle" id="periodMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ngbDropdownToggle *ngIf="(timeframeService.currentPeriod | async) || {}; let currentPeriod">
             Period: {{currentPeriod.name || 'All' }}
           </a>
-          <div class="dropdown-menu dropdown-menu bg-dark" aria-labelledby="periodMenu" ngbDropdownMenu>
+          <div class="dropdown-menu scrollable-menu bg-dark" aria-labelledby="periodMenu" ngbDropdownMenu>
             <a class="nav-link dropdown-item bg-dark" (click)="timeframeService.isCurrentPeriod() || timeframeService.selectPeriod()" [ngClass]="{'active disabled': timeframeService.isCurrentPeriod() }">All</a>
             <a class="nav-link dropdown-item bg-dark" [ngClass]="{'active disabled': timeframeService.isCurrentPeriod(period) }" (click)="timeframeService.isCurrentPeriod(period) || timeframeService.selectPeriod(period)" *ngFor="let period of timeframeService.periods | async">{{period.name}}</a>
           </div>
@@ -52,7 +52,7 @@
           <a class="nav-link dropdown-toggle" id="budgetMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ngbDropdownToggle *ngIf="(timeframeService.currentBudget | async) || {}; let currentBudget">
             Budget: {{currentBudget.name ? currentBudget.name + ' (' + currentBudget.currency.name + ')' : 'All' }}
           </a>
-          <div class="dropdown-menu dropdown-menu bg-dark" aria-labelledby="budgetMenu" ngbDropdownMenu>
+          <div class="dropdown-menu scrollable-menu bg-dark" aria-labelledby="budgetMenu" ngbDropdownMenu>
             <a class="nav-link dropdown-item bg-dark" (click)="timeframeService.isCurrentBudget() || timeframeService.selectBudget()" [ngClass]="{'active disabled': timeframeService.isCurrentBudget() }">All</a>
             <a class="nav-link dropdown-item bg-dark" [ngClass]="{'active disabled': timeframeService.isCurrentBudget(budget) }" (click)="timeframeService.isCurrentBudget(budget) || timeframeService.selectBudget(budget)" *ngFor="let budget of timeframeService.budgets | async">{{budget.name}} ({{budget.currency.name}})</a>
           </div>
@@ -63,7 +63,7 @@
           <a class="nav-link dropdown-toggle" id="userMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ngbDropdownToggle>
             {{auth.currentUser() || 'User' }}
           </a>
-          <div class="dropdown-menu dropdown-menu bg-dark" aria-labelledby="userMenu" ngbDropdownMenu>
+          <div class="dropdown-menu scrollable-menu bg-dark" aria-labelledby="userMenu" ngbDropdownMenu>
             <a class="nav-link dropdown-item bg-dark" routerLink="currencies" routerLinkActive="active" (click)="navbarCollapsed = true">Currencies</a>
             <a class="nav-link dropdown-item bg-dark" (click)="auth.logout()">Log out</a>
           </div>

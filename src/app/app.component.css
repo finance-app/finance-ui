@@ -11,3 +11,11 @@ a.dropdown-item.bg-inverse:hover {
   border-color: #292b2c!important;
   padding: .2em 1em;
 }
+
+@media (min-width: 992px) {
+  .scrollable-menu {
+    height: auto;
+    max-height: 400px;
+    overflow-x: hidden;
+  }
+}
