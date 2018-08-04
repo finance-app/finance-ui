@@ -39,6 +39,7 @@ export class TargetsComponent extends Index implements OnInit, OnDestroy {
       optionValue: function(transactionCategory) { return transactionCategory ? transactionCategory.id : null },
       optionString: function(transactionCategory) { return transactionCategory.name },
       observable: new ReplaySubject<any>(1),
+      mobileIcon: 'fa-tags',
     },
     {
       title: 'Expense category',
@@ -47,6 +48,7 @@ export class TargetsComponent extends Index implements OnInit, OnDestroy {
       optionValue: function(transactionCategory) { return transactionCategory ? transactionCategory.id : null },
       optionString: function(transactionCategory) { return transactionCategory.name },
       observable: new ReplaySubject<any>(1),
+      mobileIcon: 'fa-tags',
     },
     ...(new TimeframeFilter(this.timeframeService, this.periodsService).filters),
   ];

@@ -6,6 +6,7 @@ export class CurrenciesFilter {
 
   public title: string = 'Currency';
   public property: string = 'currency_id';
+  public mobileIcon: string = 'fa-dollar-sign';
   public options: ReplaySubject<Array<Currency>>;
   public observable: ReplaySubject<any> = new ReplaySubject<any>(1);
 

@@ -29,6 +29,7 @@ export class AccountsComponentCommon extends Index implements OnInit, OnDestroy 
       optionString: function(value) { return value.charAt(0).toUpperCase() + value.slice(1); },
       defaultObservable: new BehaviorSubject<string>('current'),
       observable: new ReplaySubject<any>(1),
+      mobileIcon: 'fa-piggy-bank',
     },
     ...(new TimeframeFilter(this.timeframeService, this.periodsService).filters),
   ];

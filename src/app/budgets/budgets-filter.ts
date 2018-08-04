@@ -6,6 +6,7 @@ export class BudgetsFilter {
 
   public title: string = 'Budget';
   public property: string = 'budget_id';
+  public mobileIcon: string = 'fa-money-bill-alt';
   public options: ReplaySubject<Array<Budget>> = new ReplaySubject<Array<Budget>>(1);
   public observable: ReplaySubject<any> = new ReplaySubject<any>(1);
   public defaultObservable: ReplaySubject<Budget> = new ReplaySubject<Budget>(1);;

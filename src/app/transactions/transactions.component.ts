@@ -53,6 +53,7 @@ export class TransactionsComponent extends Index implements OnInit, OnDestroy {
       optionValue: function(transactionCategory) { return transactionCategory ? transactionCategory.id : null },
       optionString: function(transactionCategory) { return transactionCategory.name },
       observable: new ReplaySubject<any>(1),
+      mobileIcon: 'fa-tags',
     },
     new TargetsFilter(this.targetsService),
     new AccountsFilter(this.accountsService),
@@ -62,6 +63,7 @@ export class TransactionsComponent extends Index implements OnInit, OnDestroy {
       options: new BehaviorSubject<Array<string>>(['fixed', 'flexible', 'discretionary']),
       optionString: function(value) { return value.charAt(0).toUpperCase() + value.slice(1); },
       observable: new ReplaySubject<any>(1),
+      mobileIcon: 'fa-old-republic',
     },
     {
       title: 'Value',
@@ -69,6 +71,7 @@ export class TransactionsComponent extends Index implements OnInit, OnDestroy {
       options: new BehaviorSubject<Array<string>>(['income', 'expense']),
       optionString: function(value) { return value.charAt(0).toUpperCase() + value.slice(1); },
       observable: new ReplaySubject<any>(1),
+      mobileIcon: 'fa-exchange-alt',
     }
   ];
 
