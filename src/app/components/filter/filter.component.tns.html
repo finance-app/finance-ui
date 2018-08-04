@@ -1,6 +1,6 @@
 <GridLayout columns="auto, *, auto" class="sidedrawer-list-item text-left" (tap)="toggleOptions()">
   <Label col="0" [text]="mobileIcon ? (mobileIcon | fonticon) : ''" class="fa"></Label>
-  <Label col="1" text="{{ _current || (_defaultOption && _current != '') ? title + ': ' + currentString(_current || _defaultOption) : title + ': All'}}"></Label>
+  <Label col="1" text="{{ buttonTitle() }}"></Label>
   <Label col="2" [text]="(optionsOpened ? 'fa-angle-down' : 'fa-angle-up') | fonticon" class="fa text-right"></Label>
 </GridLayout>
 
