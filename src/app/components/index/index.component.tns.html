@@ -1,8 +1,14 @@
 <RadSideDrawer drawerLocation="Right">
-  <StackLayout tkDrawerContent>
-    <StackLayout *ngFor="let filter of filters">
-      <app-filter [properties]="filter"></app-filter>
+  <StackLayout tkDrawerContent class="sidedrawer sidedrawer-left background-white">
+    <StackLayout class="text-center index-side-header">
+      <Label text="Filters" textWrap="true" class="index-side-header"></Label>
     </StackLayout>
+    <ScrollView>
+      <StackLayout class="sidedrawer-content">
+        <app-filter *ngFor="let filter of filters" [properties]="filter"></app-filter>
+        <StackLayout class="hr-light"></StackLayout>
+      </StackLayout>
+    </ScrollView>
   </StackLayout>
   <StackLayout tkMainContent>
     <ng-content select="[index-header]"></ng-content>
