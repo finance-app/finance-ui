@@ -171,6 +171,7 @@ gulp.task('tns.Livesync.Phone', () => {
 gulp.task('tns.Livesync.Fix', () => {
     return gulp.watch([
       `../${SRC}**/*.common.ts`,
+      `../${SRC}**/*.ts`,
       `../${SRC}**/*.tns.ts`,
       `../${SRC}**/*.tns.html`,
       `../${SRC}**/*.service.ts`,
