@@ -2,6 +2,7 @@ import { Component, Input, OnInit, OnDestroy, ChangeDetectionStrategy } from '@a
 import { ReplaySubject } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { ObservableArray } from 'data/observable-array';
+import { ActivatedRoute, Router, Params } from '@angular/router';
 
 @Component({
   moduleId: module.id,
@@ -31,8 +32,12 @@ export class TableComponent implements OnInit, OnDestroy {
   public sort_title: string = 'None';
 
   public _elements: ObservableArray<any> = new ObservableArray([]);
+  private elements_unsorted: any;
 
-  constructor() { }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+  ) { }
 
   ngOnInit() {
     // Evaluate all row titles
@@ -43,7 +48,7 @@ export class TableComponent implements OnInit, OnDestroy {
 
     this.objects_subscription = this.objects.subscribe(
       objects => {
-        this.sort_status = {};
+        const subject = new ReplaySubject<any>(1);
         for (let i=0; i<objects.length; i++) {
           let object = objects[i];
           object.rows = [];
@@ -85,10 +90,29 @@ export class TableComponent implements OnInit, OnDestroy {
               ngClass: card.ngClass ? card.ngClass(object) : {},
             });
           }
+          subject.next();
+          subject.complete();
         }
 
-        this.elements.next(objects);
-        this._elements = new ObservableArray(objects);
+        if (objects.length === 0) {
+          subject.next();
+          subject.complete();
+        }
+
+        subject.subscribe(() => {
+          this.elements.next(objects);
+          this._elements = new ObservableArray(objects);
+          // Use JSON to clone objects, otherwise they get sorted too.
+          this.elements_unsorted = JSON.parse(JSON.stringify(objects));
+
+          this.route.queryParams.pipe(take(1)).subscribe(queryParams => {
+            const by = queryParams['order_by'];
+            if (by && by != '') {
+              const row = this.rows.find(r => r.title === by.charAt(0).toUpperCase() + by.slice(1));
+              row && this.sortBy(row, queryParams['order'] !== 'asc');
+            }
+          });
+        });
       }
     );
   }
@@ -121,7 +145,7 @@ export class TableComponent implements OnInit, OnDestroy {
   }
 
   sortBy(row, order?: boolean) {
-    let control = (order === undefined) ? !this.sort_status[row.title] : order;
+    let control = (order === undefined) ? (this.sort_status[row.title] === undefined ? false : !this.sort_status[row.title]) : order;
     this.elements.pipe(take(1)).subscribe(elements => {
       elements.sort((l, r): number => {
         let lv = this.value(row, l) || '';
@@ -136,6 +160,13 @@ export class TableComponent implements OnInit, OnDestroy {
     this.sort_status = {};
     this.sort_status[row.title] = control;
     this.sort_title = row.title + (!control ? ' ASC' : ' DESC');
+
+    this.route.queryParams.pipe(take(1)).subscribe(params => {
+      const queryParams: Params = Object.assign({}, params);
+      queryParams['order'] = control ? 'desc' : 'asc';
+      queryParams['order_by'] = row.title.toLowerCase();
+      this.router.navigate([], { queryParams: queryParams });
+    });
   }
 
   sortIcon(row) {
@@ -144,5 +175,22 @@ export class TableComponent implements OnInit, OnDestroy {
       case true: return 'sort-down';
       default: return 'sort-up';
     }
+  }
+
+  resetSorting() {
+    this.elements.next(this.elements_unsorted);
+    this._elements = new ObservableArray(this.elements_unsorted);
+    this.sort_status = {};
+    this.sort_title = 'None';
+    this.route.queryParams.pipe(take(1)).subscribe(params => {
+      const queryParams: Params = Object.assign({}, params);
+      delete queryParams['order'];
+      delete queryParams['order_by'];
+      this.router.navigate([], { queryParams: queryParams });
+    });
+  }
+
+  isEmpty(obj: any) {
+    return Object.keys(obj).length === 0 && obj.constructor === Object;
   }
 }
