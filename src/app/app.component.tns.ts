@@ -3,6 +3,7 @@ import * as app from 'application';
 import { RouterExtensions } from 'nativescript-angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { DrawerTransitionBase, RadSideDrawer, SlideInOnTopTransition } from 'nativescript-ui-sidedrawer';
+import { Subject } from 'rxjs';
 
 // vendor dependencies
 import { TranslateService } from '@ngx-translate/core';
@@ -22,9 +23,8 @@ export class AppComponent implements OnInit {
   private _selectedPage: string;
   private _sideDrawerTransition: DrawerTransitionBase;
 
-  public budgetsOpened = false;
-  public periodsOpened = false;
   public timeframesOpened = false;
+  public drawerOpened: Subject<boolean> = new Subject<boolean>();
 
   constructor(
     private translateService: TranslateService,
@@ -57,14 +57,6 @@ export class AppComponent implements OnInit {
     return pageTitle === this._selectedPage;
   }
 
-  public toggleBudgets() {
-    this.budgetsOpened = !this.budgetsOpened;
-  }
-
-  public togglePeriods() {
-    this.periodsOpened = !this.periodsOpened;
-  }
-
   public toggleTimeframes() {
     this.timeframesOpened = !this.timeframesOpened;
   }
@@ -75,8 +67,7 @@ export class AppComponent implements OnInit {
   }
 
   public closeAll(): void {
-    this.budgetsOpened = false;
-    this.periodsOpened = false;
+    this.drawerOpened.next(false);
     this.timeframesOpened = false;
   }
 
@@ -90,5 +81,33 @@ export class AppComponent implements OnInit {
     });
 
     this.closeDrawer();
+  }
+
+  optionValue(i) {
+    return i ? i.id : null;
+  }
+
+  periodString(period) {
+    return period.name;
+  }
+
+  periodTap(period) {
+    this.timeframeService.isCurrentPeriod(period) || this.timeframeService.selectPeriod(period);
+  }
+
+  periodTapAll() {
+    this.timeframeService.isCurrentPeriod() || this.timeframeService.selectPeriod();
+  }
+
+  budgetString(budget) {
+    return budget.name + ' (' + budget.currency.name + ')';
+  }
+
+  budgetTap(budget) {
+    this.timeframeService.isCurrentBudget(budget) || this.timeframeService.selectBudget(budget);
+  }
+
+  budgetTapAll() {
+    this.timeframeService.isCurrentBudget() || this.timeframeService.selectBudget();
   }
 }
