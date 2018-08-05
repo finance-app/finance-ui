@@ -5,6 +5,7 @@ import { FormComponent } from './form/form.component';
 import { FilterComponent } from './filter/filter.component';
 import { IndexComponent } from './index/index.component';
 import { TableComponent } from './table/table.component';
+import { SideDrawerDropdownComponent } from './sidedrawer-dropdown/sidedrawer-dropdown.component';
 import { TableHeaderComponent } from './table-header/table-header.component';
 import { NativeScriptUIListViewModule } from "nativescript-ui-listview/angular";
 import { NativeScriptUISideDrawerModule } from 'nativescript-ui-sidedrawer/angular';
@@ -21,6 +22,7 @@ import { NativeScriptUISideDrawerModule } from 'nativescript-ui-sidedrawer/angul
     IndexComponent,
     TableComponent,
     TableHeaderComponent,
+    SideDrawerDropdownComponent,
   ],
   declarations: [
     FormComponent,
@@ -28,6 +30,7 @@ import { NativeScriptUISideDrawerModule } from 'nativescript-ui-sidedrawer/angul
     IndexComponent,
     TableComponent,
     TableHeaderComponent,
+    SideDrawerDropdownComponent,
   ],
   schemas: [
     NO_ERRORS_SCHEMA,
