@@ -1,0 +1,7 @@
+@media (min-width: 992px) {
+  .scrollable-menu {
+    height: auto;
+    max-height: 300px;
+    overflow-x: hidden;
+  }
+}

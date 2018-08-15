@@ -24,7 +24,6 @@ export class TableComponent implements OnInit, OnDestroy {
   @Input() active_row_class: any;
   @Input() active_row_text: any;
   @Input() active_row_text_class: any;
-  @Input() reset: any;
 
   public elements: ReplaySubject<Array<any>> = new ReplaySubject<Array<any>>(1);
   private objects_subscription: any;

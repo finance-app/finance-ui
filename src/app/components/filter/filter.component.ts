@@ -15,7 +15,7 @@ export class FilterComponent implements OnInit, OnDestroy {
 
   @Input() properties: any;
 
-  public current: any = new ReplaySubject<any>(1);
+  public current: ReplaySubject<any> = new ReplaySubject<any>(1);
   public _current: any = null;
   public defaultOption: any = new ReplaySubject<any>(1);
   public _defaultOption: any = null;
