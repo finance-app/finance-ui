@@ -1,17 +1,12 @@
-<GridLayout columns="auto, *, auto" class="sidedrawer-list-item text-left" (tap)="toggleOptions()">
-  <Label col="0" [text]="mobileIcon ? (mobileIcon | fonticon) : ''" class="fa"></Label>
-  <Label col="1" text="{{ buttonTitle() }}"></Label>
-  <Label col="2" [text]="(optionsOpened ? 'fa-angle-down' : 'fa-angle-up') | fonticon" class="fa text-right"></Label>
-</GridLayout>
-
-<StackLayout visibility="{{optionsOpened ? 'visible' : 'collapsed'}}">
-  <GridLayout columns="auto, *" class="sidedrawer-list-item sidedrawer-list-item-nested" (tap)="!isActiveAllOption() && current.next('')"u [ngClass]="{'selected': isActiveAllOption()  }">
-    <Label col="0" [text]="'fa-arrow-right' | fonticon" class="fa"></Label>
-    <Label col="1" text="All"></Label>
-  </GridLayout>
-
-  <GridLayout columns="auto, *" class="sidedrawer-list-item sidedrawer-list-item-nested" *ngFor="let option of options | async" [ngClass]="{'selected': isActiveOption(option) }" (tap)="!isActiveOption(option) && current.next(option)">
-    <Label col="0" [text]="'fa-arrow-right' | fonticon" class="fa"></Label>
-    <Label col="1" text="{{optionString(option)}}"></Label>
-  </GridLayout>
-</StackLayout>
+<app-sidedrawer-dropdown
+  [options]="_options"
+  [title]="title"
+  [icon]="mobileIcon"
+  [currentString]="currentString"
+  [optionValue]="optionValue"
+  [optionString]="optionString"
+  [defaultOption]="_defaultOption"
+  [defaultObject]="defaultObject"
+  [current]="_current"
+  (select)="current.next($event)"
+></app-sidedrawer-dropdown>

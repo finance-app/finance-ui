@@ -36,7 +36,6 @@ export class FilterComponent implements OnInit, OnDestroy {
   public optionsSubscribe: any;
   public debug: boolean = false;
   public paramsSubscribe: any;
-  public optionsOpened: boolean = false;
   public options: BehaviorSubject<Array<any>> = new BehaviorSubject<Array<any>>([]);
   public subscriptions: any;
 
@@ -286,9 +285,5 @@ export class FilterComponent implements OnInit, OnDestroy {
     const idsA = a ? a.map(x => x.id).reduce((x, y) => x.includes(y) ? x : [...x, y], []).sort() : [];
     const idsB = b ? b.map(x => x.id).reduce((x, y) => x.includes(y) ? x : [...x, y], []).sort() : [];
     return (idsA.join(',') !== idsB.join(','));
-  }
-
-  toggleOptions() {
-    this.optionsOpened = !this.optionsOpened;
   }
 }
