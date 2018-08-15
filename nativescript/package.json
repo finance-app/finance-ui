@@ -8,10 +8,10 @@
   "nativescript": {
     "id": "com.your-domain.finance.debug",
     "tns-android": {
-      "version": "4.1.3"
+      "version": "4.2.0"
     },
     "tns-ios": {
-      "version": "4.1.1"
+      "version": "4.2.0"
     }
   },
   "dependencies": {
