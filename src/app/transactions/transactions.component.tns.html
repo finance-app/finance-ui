@@ -1,10 +1,11 @@
 <ActionBar class="action-bar">
   <NavigationButton icon="~/assets/ic_menu.png" (tap)="onDrawerButtonTap()"></NavigationButton>
   <Label class="action-bar-title" text="Transactions"></Label>
+  <ActionItem icon="~/assets/ic_filter.png" text="Filters" (tap)="index.drawer.toggleDrawerState()"></ActionItem>
 </ActionBar>
 
 <StackLayout>
-  <index [filters]="filters" title="Transactions">
+  <index [filters]="filters" title="Transactions" #index>
     <table-header [filters]="filters" [update]="update.bind(this)" [reset]="reset.bind(this)" path="transactions" index-body></table-header>
     <StackLayout class="hr-light m-10" index-body></StackLayout>
     <transactions-table [transactions]="transactions" [update]="update.bind(this)" [reset]="reset.bind(this)" index-body></transactions-table>
