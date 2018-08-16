@@ -6,6 +6,7 @@ export class AccountsFilter {
 
   public title: string = 'Account';
   public property: string = 'account_id';
+  public mobileIcon: string = 'fa-piggy-bank';
   public options: ReplaySubject<Array<Account>> = new ReplaySubject<Array<Account>>(1);
   public observable: ReplaySubject<any> = new ReplaySubject<any>(1);
   public subscriptions: any = [];

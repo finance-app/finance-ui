@@ -6,6 +6,7 @@ export class TargetsFilter {
 
   public title: string = 'Target';
   public property: string = 'target_id';
+  public mobileIcon: string = 'fa-shopping-cart';
   public options: ReplaySubject<Array<Target>> = new ReplaySubject<Array<Target>>(1);
   public observable: ReplaySubject<any> = new ReplaySubject<any>(1);
   public subscriptions: any  = [];

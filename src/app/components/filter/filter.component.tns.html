@@ -1,16 +1,17 @@
-<GridLayout columns="*, auto" class="sidedrawer-list-item" (tap)="toggleOptions()">
-  <Label col="1" text="{{ _current || (_defaultOption && _current != '') ? title + ': ' + currentString(_current || _defaultOption) : title + ': All'}}" class="p-r-10"></Label>
+<GridLayout columns="auto, *, auto" class="sidedrawer-list-item text-left" (tap)="toggleOptions()">
+  <Label col="0" [text]="mobileIcon ? (mobileIcon | fonticon) : ''" class="fa"></Label>
+  <Label col="1" text="{{ buttonTitle() }}"></Label>
   <Label col="2" [text]="(optionsOpened ? 'fa-angle-down' : 'fa-angle-up') | fonticon" class="fa text-right"></Label>
 </GridLayout>
 
 <StackLayout visibility="{{optionsOpened ? 'visible' : 'collapsed'}}">
   <GridLayout columns="auto, *" class="sidedrawer-list-item sidedrawer-list-item-nested" (tap)="!isActiveAllOption() && current.next('')"u [ngClass]="{'selected': isActiveAllOption()  }">
     <Label col="0" [text]="'fa-arrow-right' | fonticon" class="fa"></Label>
-    <Label col="1" text="All" class="p-r-10"></Label>
+    <Label col="1" text="All"></Label>
   </GridLayout>
 
   <GridLayout columns="auto, *" class="sidedrawer-list-item sidedrawer-list-item-nested" *ngFor="let option of options | async" [ngClass]="{'selected': isActiveOption(option) }" (tap)="!isActiveOption(option) && current.next(option)">
     <Label col="0" [text]="'fa-arrow-right' | fonticon" class="fa"></Label>
-    <Label col="1" text="{{optionString(option)}}" class="p-r-10"></Label>
+    <Label col="1" text="{{optionString(option)}}"></Label>
   </GridLayout>
 </StackLayout>

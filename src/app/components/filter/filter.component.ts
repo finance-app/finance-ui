@@ -23,6 +23,7 @@ export class FilterComponent implements OnInit, OnDestroy {
   public property: string;
   public title: string;
   public parameter: string;
+  public mobileIcon: string;
   public currentString: Function = function(current) { return this.optionString(current); };
   public optionValue: Function = function(option) { return option; };
   public optionString: Function = function(option) { return option; };
@@ -60,7 +61,7 @@ export class FilterComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     // Copy specific properties to local variables
-    ['defaultObject', 'currentString', 'optionValue', 'optionString', 'title', 'property', 'subscriptions'].forEach(function(v) {
+    ['defaultObject', 'currentString', 'optionValue', 'optionString', 'title', 'property', 'subscriptions', 'mobileIcon'].forEach(function(v) {
       if (this.properties[v]) {
         this[v] = this.properties[v];
       }

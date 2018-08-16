@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { RouterExtensions } from 'nativescript-angular/router';
-import { JwtHelperService } from '@auth0/angular-jwt';
+import { JwtHelperService } from '@melonwd/angular-jwt';
 
 // Services
 import { FinanceApiService } from '../services/finance-api.service';

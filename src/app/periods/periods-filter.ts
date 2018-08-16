@@ -6,6 +6,7 @@ export class PeriodsFilter {
 
   public title: string = 'Period';
   public property: string = 'period_id';
+  public mobileIcon: string = 'fa-calendar-alt';
   public observable: ReplaySubject<any> = new ReplaySubject<any>(1);
   public current: any;
 
