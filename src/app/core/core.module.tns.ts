@@ -1,6 +1,6 @@
 import { NgModule, Optional, SkipSelf, NO_ERRORS_SCHEMA } from '@angular/core';
 import { NativeScriptHttpClientModule } from 'nativescript-angular/http-client';
-import { JwtModule } from '@auth0/angular-jwt';
+import { JwtModule } from '@melonwd/angular-jwt';
 
 // Environment
 import { environment } from '../../environments';
