@@ -5,8 +5,8 @@
 </ActionBar>
 
 <StackLayout>
-  <index [filters]="filters" title="Periods" #index>
-    <table-header [filters]="filters" [update]="update.bind(this)" [reset]="reset.bind(this)" path="periods" index-body></table-header>
+  <index [filters]="filters" [reset]="reset.bind(this)" title="Periods" #index>
+    <table-header [filters]="filters" [reset]="reset.bind(this)" [update]="update.bind(this)" [reset]="reset.bind(this)" path="periods" index-body></table-header>
     <StackLayout class="hr-light m-10" index-body></StackLayout>
     <periods-table [periods]="periods" [update]="update.bind(this)" [reset]="reset.bind(this)" index-body></periods-table>
   </index>

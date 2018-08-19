@@ -13,6 +13,7 @@ export class IndexComponent implements OnInit {
 
   @Input() title: string;
   @Input() filters;
+  @Input() reset: any;
 
   @ViewChild('filtersDrawer') drawerRef: ElementRef;
   private drawer: RadSideDrawer;

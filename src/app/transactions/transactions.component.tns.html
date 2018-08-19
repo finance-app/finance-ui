@@ -5,8 +5,8 @@
 </ActionBar>
 
 <StackLayout>
-  <index [filters]="filters" title="Transactions" #index>
-    <table-header [filters]="filters" [update]="update.bind(this)" [reset]="reset.bind(this)" path="transactions" index-body></table-header>
+  <index [filters]="filters" [reset]="reset.bind(this)" title="Transactions" #index>
+    <table-header [filters]="filters" [reset]="reset.bind(this)" [update]="update.bind(this)" [reset]="reset.bind(this)" path="transactions" index-body></table-header>
     <StackLayout class="hr-light m-10" index-body></StackLayout>
     <transactions-table [transactions]="transactions" [update]="update.bind(this)" [reset]="reset.bind(this)" index-body></transactions-table>
   </index>
