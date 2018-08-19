@@ -1,4 +1,4 @@
-import { ReplaySubject } from 'rxjs';
+import { ReplaySubject, BehaviorSubject } from 'rxjs';
 import { Currency } from './currency';
 import { CurrenciesService } from './currencies.service';
 
@@ -12,7 +12,7 @@ export class CurrenciesFilter {
 
   constructor(
     public currenciesService: CurrenciesService,
-    public defaultObservable?: ReplaySubject<any>,
+    public defaultObservable?: BehaviorSubject<any>,
     public defaultObject?: any,
   ) {
     this.options = this.currenciesService.currencies;

@@ -53,45 +53,27 @@
 
         <StackLayout class="hr-light"></StackLayout>
 
-        <GridLayout columns="auto, *, auto" class="sidedrawer-list-item" (tap)="togglePeriods()" *ngIf="(timeframeService.currentPeriod | async) || {}; let currentPeriod">
-          <Label col="0" [text]="'fa-calendar-alt' | fonticon" class="fa"></Label>
-          <Label col="1" text="Current period: {{currentPeriod.name || 'All' }}" class="p-r-10"></Label>
-          <Label col="2" [text]="(periodsOpened ? 'fa-angle-down' : 'fa-angle-up') | fonticon" class="fa text-right"></Label>
-        </GridLayout>
+        <app-sidedrawer-dropdown
+          [options]="timeframeService.periods | async"
+          [title]="'Current period'"
+          [icon]="'fa-calendar-alt'"
+          [optionValue]="optionValue"
+          [optionString]="periodString"
+          [current]="timeframeService.currentPeriod | async"
+          (select)="timeframeService.selectPeriod($event)"
+          [drawerOpened]="drawerOpened"
+        ></app-sidedrawer-dropdown>
 
-        <StackLayout visibility="{{periodsOpened ? 'visible' : 'collapsed'}}">
-
-          <GridLayout columns="auto, *" class="sidedrawer-list-item sidedrawer-list-item-nested" (tap)="timeframeService.isCurrentPeriod() || timeframeService.selectPeriod(); togglePeriods()" [ngClass]="{'selected': timeframeService.isCurrentPeriod() }">
-            <Label col="0" [text]="'fa-arrow-right' | fonticon" class="fa"></Label>
-            <Label col="1" text="All" class="p-r-10"></Label>
-          </GridLayout>
-
-          <GridLayout columns="auto, *" class="sidedrawer-list-item sidedrawer-list-item-nested" *ngFor="let period of timeframeService.periods | async" [ngClass]="{'selected': timeframeService.isCurrentPeriod(period) }" (tap)="timeframeService.isCurrentPeriod(period) || timeframeService.selectPeriod(period); togglePeriods()">
-            <Label col="0" [text]="'fa-arrow-right' | fonticon" class="fa"></Label>
-            <Label col="1" text="{{period.name}}" class="p-r-10"></Label>
-          </GridLayout>
-
-        </StackLayout>
-
-        <GridLayout columns="auto, *, auto" class="sidedrawer-list-item" (tap)="toggleBudgets()" *ngIf="(timeframeService.currentBudget | async) || {}; let currentBudget">
-          <Label col="0" [text]="'fa-money-bill-alt' | fonticon" class="fa"></Label>
-          <Label col="1" text="Current budget: {{currentBudget.name ? currentBudget.name + ' (' + currentBudget.currency.name + ')' : 'All' }}" class="p-r-10"></Label>
-          <Label col="2" [text]="(budgetsOpened ? 'fa-angle-down' : 'fa-angle-up') | fonticon" class="fa text-right"></Label>
-        </GridLayout>
-
-        <StackLayout visibility="{{budgetsOpened ? 'visible' : 'collapsed'}}">
-
-          <GridLayout columns="auto, *" class="sidedrawer-list-item sidedrawer-list-item-nested" (tap)="timeframeService.isCurrentBudget() || timeframeService.selectBudget(); toggleBudgets()" [ngClass]="{'selected': timeframeService.isCurrentBudget() }">
-            <Label col="0" [text]="'fa-arrow-right' | fonticon" class="fa"></Label>
-            <Label col="1" text="All" class="p-r-10"></Label>
-          </GridLayout>
-
-          <GridLayout columns="auto, *" class="sidedrawer-list-item sidedrawer-list-item-nested" *ngFor="let budget of timeframeService.budgets | async" [ngClass]="{'selected': timeframeService.isCurrentBudget(budget) }" (tap)="timeframeService.isCurrentBudget(budget) || timeframeService.selectBudget(budget); toggleBudgets()">
-            <Label col="0" [text]="'fa-arrow-right' | fonticon" class="fa"></Label>
-            <Label col="1" text="{{budget.name}} ({{budget.currency.name}})" class="p-r-10"></Label>
-          </GridLayout>
-
-        </StackLayout>
+        <app-sidedrawer-dropdown
+          [options]="timeframeService.budgets | async"
+          [title]="'Current budget'"
+          [icon]="'fa-money-bill-alt'"
+          [optionValue]="optionValue"
+          [optionString]="budgetString"
+          [current]="timeframeService.currentBudget | async"
+          (select)="timeframeService.selectBudget($event)"
+          [drawerOpened]="drawerOpened"
+        ></app-sidedrawer-dropdown>
 
         <StackLayout class="hr-light"></StackLayout>
 

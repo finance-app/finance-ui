@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@angular/animations": "^6.1.3",
-    "@angular/cli": "^6.1.3",
+    "@angular/cli": "^6.1.4",
     "@angular/common": "^6.1.3",
     "@angular/compiler": "^6.1.3",
     "@angular/core": "^6.1.3",
@@ -40,7 +40,7 @@
     "nativescript-theme-core": "~1.0.4",
     "nativescript-toast": "^1.4.6",
     "nativescript-ui-listview": "^3.5.11",
-    "nativescript-ui-sidedrawer": "^4.2.1",
+    "nativescript-ui-sidedrawer": "^4.3.0",
     "reflect-metadata": "~0.1.12",
     "rxjs": "^6.2.2",
     "rxjs-compat": "^6.2.2",
@@ -48,7 +48,7 @@
     "zone.js": "^0.8.26"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^0.7.3",
+    "@angular-devkit/build-angular": "^0.7.4",
     "@angular/compiler-cli": "^6.1.3",
     "@types/jasmine": "^2.8.8",
     "@types/lodash": "^4.14.116",

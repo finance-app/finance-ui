@@ -13,15 +13,15 @@ import { StorageService } from './storage.service';
 import { Budget } from '../../budgets/budget';
 import { Period } from '../../periods/period';
 
-import { Subject ,  ReplaySubject } from 'rxjs';
+import { Subject ,  ReplaySubject, BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class TimeframeService {
 
   public _currentBudget: Budget = null;
   public _currentPeriod: Period = null;
-  public currentBudget: ReplaySubject<Budget> = new ReplaySubject<Budget>(1);
-  public currentPeriod: ReplaySubject<Period> = new ReplaySubject<Period>(1);
+  public currentBudget: BehaviorSubject<Budget> = new BehaviorSubject<Budget>(null);
+  public currentPeriod: BehaviorSubject<Period> = new BehaviorSubject<Period>(null);
 
   public budgets: ReplaySubject<Array<Budget>> = new ReplaySubject<Array<Budget>>(1);
 
@@ -47,7 +47,7 @@ export class TimeframeService {
           if (currentBudget) {
             // If current budget does not exist anymore, force switching to all budgets
             // Otherwise update current budget object (maybe it was edited)
-            const budget = budgets.find(budget => (budget.id == currentBudget.id));
+            let budget = budgets.find(budget => (budget.id == currentBudget.id));
             if (!budget) {
               this.selectBudget(null);
             } else {

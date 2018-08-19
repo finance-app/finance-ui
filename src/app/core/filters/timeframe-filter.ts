@@ -1,4 +1,4 @@
-import { Subscription, ReplaySubject } from 'rxjs';
+import { Subscription, ReplaySubject, BehaviorSubject } from 'rxjs';
 import { skip, take, finalize } from 'rxjs/operators';
 import { Period } from '../../periods/period';
 import { TimeframeService } from '../services/timeframe.service';
@@ -10,7 +10,7 @@ import { HttpParams } from '@angular/common/http';
 export class TimeframeFilter {
 
   public periods: ReplaySubject<Array<Period>> = new ReplaySubject<Array<Period>>(1);
-  public defaultPeriod: ReplaySubject<Period> = new ReplaySubject<Period>(1);
+  public defaultPeriod: BehaviorSubject<Period> = new BehaviorSubject<Period>(null);
   public budgetsObservable: Subscription;
   public periodsObservable: Subscription;
   public periodsFilter: PeriodsFilter;
