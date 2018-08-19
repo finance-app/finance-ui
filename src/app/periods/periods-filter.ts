@@ -1,4 +1,4 @@
-import { ReplaySubject } from 'rxjs';
+import { ReplaySubject, BehaviorSubject } from 'rxjs';
 import { Period } from './period';
 import { TimeframeService } from '../core/services/timeframe.service';
 
@@ -13,7 +13,7 @@ export class PeriodsFilter {
   constructor(
     public timeframeService: TimeframeService,
     public options?: ReplaySubject<Array<Period>>,
-    public defaultObservable?: ReplaySubject<Period>,
+    public defaultObservable?: BehaviorSubject<Period>,
   ) {
     this.options = options || timeframeService.periods;
     this.defaultObservable = defaultObservable || timeframeService.currentPeriod;
