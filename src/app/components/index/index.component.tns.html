@@ -5,11 +5,13 @@
     </StackLayout>
     <ScrollView>
       <StackLayout class="sidedrawer-content">
-        <GridLayout columns="auto, *, auto" class="sidedrawer-list-item text-left" (tap)="reset()">
-          <Label col="0" [text]="'fa-filter' | fonticon" class="fa"></Label>
-          <Label col="1" text="Reset filters"></Label>
-        </GridLayout>
-        <StackLayout class="hr-light"></StackLayout>
+        <ng-container *ngIf="filters.length > 0">
+          <GridLayout columns="auto, *, auto" class="sidedrawer-list-item text-left" (tap)="reset()">
+            <Label col="0" [text]="'fa-filter' | fonticon" class="fa"></Label>
+            <Label col="1" text="Reset filters"></Label>
+          </GridLayout>
+          <StackLayout class="hr-light"></StackLayout>
+        </ng-container>
         <app-filter *ngFor="let filter of filters" [properties]="filter"></app-filter>
         <StackLayout class="hr-light"></StackLayout>
         <app-sidedrawer-dropdown
