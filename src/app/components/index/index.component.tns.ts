@@ -28,12 +28,14 @@ export class IndexComponent implements OnInit {
     let options = [];
     for (let i = 0; i < this.table.rows.length; i++) {
       let row = this.table.rows[i];
+      let title = typeof row.title === 'function' ? row.title() : row.title;
+
       options.push({
-        title: row.title + ' ASC',
+        title: title + ' ASC',
         value: [row, false],
       });
       options.push({
-        title: row.title + ' DESC',
+        title: title + ' DESC',
         value: [row, true],
       });
     }
