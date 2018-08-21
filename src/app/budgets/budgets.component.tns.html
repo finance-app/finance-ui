@@ -5,9 +5,9 @@
 </ActionBar>
 
 <StackLayout>
-  <index [filters]="filters" [reset]="reset.bind(this)" title="Budgets" #index>
+  <index [filters]="filters" [reset]="reset.bind(this)" [table]="table" title="Budgets" #index>
     <table-header [filters]="filters" [reset]="reset.bind(this)" [update]="update.bind(this)" [reset]="reset.bind(this)" path="budgets" index-body></table-header>
     <StackLayout class="hr-light m-10" index-body></StackLayout>
-    <budgets-table [budgets]="budgets" [update]="update.bind(this)" [reset]="reset.bind(this)" index-body></budgets-table>
+    <budgets-table [budgets]="budgets" [update]="update.bind(this)" [reset]="reset.bind(this)" index-body #table></budgets-table>
   </index>
 </StackLayout>

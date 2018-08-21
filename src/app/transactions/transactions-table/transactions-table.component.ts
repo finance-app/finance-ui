@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 
 // Models
@@ -8,11 +8,12 @@ import { Transaction } from '../transaction';
 import { TransactionsService } from '../transactions.service';
 
 import { Table } from '../../components/table/table';
+import { TableComponent } from '../../components/table/table.component';
 
 @Component({
   moduleId: module.id,
   selector: 'transactions-table',
-  template: '<app-table [rows]="rows" [objects]="transactions" [actions]="actions" [cards]="cards" [card_title]="card_title" [card_subtitle]="card_subtitle" [update]="update"></app-table>',
+  template: '<app-table [rows]="rows" [objects]="transactions" [actions]="actions" [cards]="cards" [card_title]="card_title" [card_subtitle]="card_subtitle" [update]="update" #appTable></app-table>',
   styleUrls: ['./transactions-table.component.css'],
 })
 
@@ -22,6 +23,7 @@ export class TransactionsTableComponent extends Table implements OnInit {
   @Input() currencySymbol = '';
   @Input() update;
   @Input() reset;
+  @ViewChild('appTable') appTable: TableComponent;
 
   public rows = [
     {

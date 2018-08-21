@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { take } from 'rxjs/operators';
 
@@ -10,11 +10,12 @@ import { PeriodsService } from '../periods.service';
 import { TimeframeService } from '../../core/services/timeframe.service';
 
 import { Table } from '../../components/table/table';
+import { TableComponent } from '../../components/table/table.component';
 
 @Component({
   moduleId: module.id,
   selector: 'periods-table',
-  template: '<app-table [rows]="rows" [objects]="periods" [actions]="actions" [active_row]="active_row.bind(this)" [cards]="cards" [card_title]="card_title" [card_subtitle]="card_subtitle" [update]="update"></app-table>',
+  template: '<app-table [rows]="rows" [objects]="periods" [actions]="actions" [active_row]="active_row.bind(this)" [cards]="cards" [card_title]="card_title" [card_subtitle]="card_subtitle" [update]="update" #appTable></app-table>',
   styleUrls: ['./periods-table.component.css'],
 })
 
@@ -22,6 +23,7 @@ export class PeriodsTableComponent extends Table implements OnInit {
 
   @Input() periods: ReplaySubject<Array<Period>>;
   @Input() update: any;
+  @ViewChild('appTable') appTable: TableComponent;
 
   public rows = [
     this.name_row,

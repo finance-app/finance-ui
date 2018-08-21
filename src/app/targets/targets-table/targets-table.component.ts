@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 
 // Models
@@ -8,11 +8,12 @@ import { Target } from '../target';
 import { TargetsService } from '../targets.service';
 
 import { Table } from '../../components/table/table';
+import { TableComponent } from '../../components/table/table.component';
 
 @Component({
   moduleId: module.id,
   selector: 'targets-table',
-  template: '<app-table [rows]="rows" [objects]="targets" [actions]="actions" [cards]="cards" [card_title]="card_title" [card_subtitle]="card_subtitle" [active_row]="active_row.bind(this)" [active_row_class]="active_row_class.bind(this)" [active_row_text]="active_row_text" [active_row_text_class]="active_row_text_class" [update]="update"></app-table>',
+  template: '<app-table [rows]="rows" [objects]="targets" [actions]="actions" [cards]="cards" [card_title]="card_title" [card_subtitle]="card_subtitle" [active_row]="active_row.bind(this)" [active_row_class]="active_row_class.bind(this)" [active_row_text]="active_row_text" [active_row_text_class]="active_row_text_class" [update]="update" #appTable></app-table>',
   styleUrls: ['./targets-table.component.css'],
 })
 
@@ -20,6 +21,7 @@ export class TargetsTableComponent extends Table implements OnInit {
 
   @Input() targets: ReplaySubject<Array<Target>>;
   @Input() update;
+  @ViewChild('appTable') appTable: TableComponent;
 
   public rows = [
     this.name_row,

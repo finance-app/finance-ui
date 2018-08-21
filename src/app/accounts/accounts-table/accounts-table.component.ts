@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 
 // Models
@@ -8,6 +8,7 @@ import { Account } from '../account';
 import { AccountsService } from '../accounts.service';
 
 import { Table } from '../../components/table/table';
+import { TableComponent } from '../../components/table/table.component';
 
 @Component({
   moduleId: module.id,
@@ -20,6 +21,7 @@ export class AccountsTableComponent extends Table implements OnInit {
 
   @Input() accounts: ReplaySubject<Array<Account>>;
   @Input() update: any;
+  @ViewChild('appTable') appTable: TableComponent;
 
   public rows = [
     this.name_row,
