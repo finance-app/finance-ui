@@ -1,21 +1,23 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 
 import { CurrenciesService } from '../currencies.service';
 
 import { Currency } from '../currency';
 import { Table } from '../../components/table/table';
+import { TableComponent } from '../../components/table/table.component';
 
 @Component({
   moduleId: module.id,
   selector: 'currencies-table',
-  templateUrl: './currencies-table.component.html',
+  template: `<app-table [rows]="rows" [objects]="currencies" [actions]="actions" [cards]="cards" [card_title]="card_title" [update]="update" #appTable></app-table>`,
   styleUrls: ['./currencies-table.component.css']
 })
 export class CurrenciesTableComponent extends Table implements OnInit {
 
   @Input() currencies: ReplaySubject<Array<Currency>>;
   @Input() update: any;
+  @ViewChild('appTable') appTable: TableComponent;
 
   public rows = [
     this.name_row,

@@ -1,12 +1,13 @@
 <ActionBar class="action-bar">
   <NavigationButton icon="~/assets/ic_menu.png" (tap)="onDrawerButtonTap()"></NavigationButton>
   <Label class="action-bar-title" text="Currencies"></Label>
+  <ActionItem icon="~/assets/ic_filter.png" text="Filters" (tap)="index.drawer.toggleDrawerState()"></ActionItem>
 </ActionBar>
 
 <StackLayout>
-  <index [filters]="filters" [reset]="reset.bind(this)" title="Currencies" #index>
+  <index [filters]="filters" [reset]="reset.bind(this)" [table]="table" title="Currencies" #index>
     <table-header [filters]="filters" [reset]="reset.bind(this)" [update]="update.bind(this)" [reset]="reset.bind(this)" path="currencies" index-body></table-header>
     <StackLayout class="hr-light m-10" index-body></StackLayout>
-    <currencies-table [currencies]="currencies" [update]="update.bind(this)" [reset]="reset.bind(this)" index-body></currencies-table>
+    <currencies-table [currencies]="currencies" [update]="update.bind(this)" [reset]="reset.bind(this)" index-body #table></currencies-table>
   </index>
 </StackLayout>
