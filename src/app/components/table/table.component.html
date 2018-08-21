@@ -42,7 +42,7 @@
 </div>
 <ng-container *showItBootstrap="['xs', 'sm']">
   <div ngbDropdown class="d-inline-block dropdown btn-group" role="group">
-    <button class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" [id]="'sort'" ngbDropdownToggle>Sort: {{ sort_title }}</button>
+    <button class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" [id]="'sort'" ngbDropdownToggle>Sort by: {{ sort_title }}</button>
     <div class="dropdown-menu" ngbDropdownMenu [attr.aria-labelledby]="'sort'">
       <button class="dropdown-item" [class.disabled]="isEmpty(sort_status)" (click)="resetSorting()">Reset</button>
       <ng-container *ngFor="let row of rows">
