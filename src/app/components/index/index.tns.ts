@@ -6,6 +6,7 @@ import { IndexComponent } from './index.component';
 
 export class Index extends IndexCommon {
   @ViewChild('index') index: IndexComponent;
+  @ViewChild('table') table: any;
 
   onDrawerButtonTap(): void {
     const sideDrawer = <RadSideDrawer>app.getRootView();
