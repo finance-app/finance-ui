@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 
 // Models
@@ -8,11 +8,12 @@ import { Account } from '../account';
 import { AccountsService } from '../accounts.service';
 
 import { Table } from '../../components/table/table';
+import { TableComponent } from '../../components/table/table.component';
 
 @Component({
   moduleId: module.id,
   selector: 'accounts-table',
-  templateUrl: './accounts-table.component.html',
+  template: `<app-table [rows]="rows" [objects]="accounts" [actions]="actions" [cards]="cards" [card_title]="card_title" [update]="update" #appTable></app-table>`,
   styleUrls: ['./accounts-table.component.css'],
 })
 
@@ -20,6 +21,7 @@ export class AccountsTableComponent extends Table implements OnInit {
 
   @Input() accounts: ReplaySubject<Array<Account>>;
   @Input() update: any;
+  @ViewChild('appTable') appTable: TableComponent;
 
   public rows = [
     this.name_row,

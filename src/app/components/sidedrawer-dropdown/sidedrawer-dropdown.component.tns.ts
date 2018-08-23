@@ -18,6 +18,7 @@ export class SideDrawerDropdownComponent implements OnInit, OnDestroy {
   @Input() optionString: Function = function(option) { return option; };
   @Input() defaultOption: any = null;
   @Input() current: any;
+  @Input() allText: string = 'All';
   @Output() select = new EventEmitter<any>();
   @Input() drawerOpened: Subject<boolean>;
 
@@ -52,7 +53,7 @@ export class SideDrawerDropdownComponent implements OnInit, OnDestroy {
     } else if (this.defaultOption && this.current !== '' && this.options.length > 0) {
       return this.title + ': ' + this.currentString(this.defaultOption);
     } else {
-      return this.title + ': All';
+      return this.title + ': ' + this.allText;
     }
   }
 }

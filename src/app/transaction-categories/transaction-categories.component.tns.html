@@ -5,9 +5,9 @@
 </ActionBar>
 
 <StackLayout>
-  <index [filters]="filters" title="Transaction categories" #index>
-    <table-header [filters]="filters" [update]="update.bind(this)" [reset]="reset.bind(this)" path="transaction_categories" index-body></table-header>
+  <index [filters]="filters" [reset]="reset.bind(this)" [table]="table" title="Transaction categories" #index>
+    <table-header [filters]="filters" [reset]="reset.bind(this)" [update]="update.bind(this)" [reset]="reset.bind(this)" path="transaction_categories" index-body></table-header>
     <StackLayout class="hr-light m-10" index-body></StackLayout>
-    <transaction-categories-table [transactionCategories]="transactionCategories" [update]="update.bind(this)" [reset]="reset.bind(this)" index-body></transaction-categories-table>
+    <transaction-categories-table [transactionCategories]="transactionCategories" [update]="update.bind(this)" [reset]="reset.bind(this)" index-body #table></transaction-categories-table>
   </index>
 </StackLayout>

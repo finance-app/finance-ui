@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 
 // Models
@@ -8,11 +8,12 @@ import { TransactionCategory } from '../transaction-category';
 import { TransactionCategoriesService } from '../transaction-categories.service';
 
 import { Table } from '../../components/table/table';
+import { TableComponent } from '../../components/table/table.component';
 
 @Component({
   moduleId: module.id,
   selector: 'transaction-categories-table',
-  template: '<app-table [rows]="rows" [objects]="transactionCategories" [actions]="actions" [cards]="cards" [card_title]="card_title" [card_subtitle]="card_subtitle" [update]="update"></app-table>',
+  template: '<app-table [rows]="rows" [objects]="transactionCategories" [actions]="actions" [cards]="cards" [card_title]="card_title" [card_subtitle]="card_subtitle" [update]="update" #appTable></app-table>',
   styleUrls: ['./transaction-categories-table.component.css'],
 })
 
@@ -20,6 +21,7 @@ export class TransactionCategoriesTableComponent extends Table implements OnInit
 
   @Input() transactionCategories: ReplaySubject<Array<TransactionCategory>>;
   @Input() update;
+  @ViewChild('appTable') appTable: TableComponent;
 
   public rows = [
     this.name_row,

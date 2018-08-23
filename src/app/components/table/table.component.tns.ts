@@ -156,6 +156,8 @@ export class TableComponent implements OnInit, OnDestroy {
         if (lv > rv) return control ? -1 : 1;
         return 0;
       });
+      this.elements.next(elements);
+      this._elements = new ObservableArray(elements);
     });
     this.sort_status = {};
     this.sort_status[row.title] = control;

@@ -7,7 +7,7 @@
 <StackLayout visibility="{{optionsOpened ? 'visible' : 'collapsed'}}">
   <GridLayout columns="auto, *" class="sidedrawer-list-item sidedrawer-list-item-nested" (tap)="!isActiveAllOption() && select.emit('')"u [ngClass]="{'selected': isActiveAllOption()  }">
     <Label col="0" [text]="'fa-arrow-right' | fonticon" class="fa"></Label>
-    <Label col="1" text="All"></Label>
+    <Label col="1" [text]="allText"></Label>
   </GridLayout>
 
   <GridLayout columns="auto, *" class="sidedrawer-list-item sidedrawer-list-item-nested" *ngFor="let option of options" [ngClass]="{'selected': isActiveOption(option) }" (tap)="!isActiveOption(option) && select.emit(option)">
