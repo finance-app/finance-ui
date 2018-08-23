@@ -40,7 +40,7 @@ export class TransactionFormComponent implements OnInit, OnDestroy {
   private transactionType: BehaviorSubject<any> = new BehaviorSubject<any>(undefined);
   private formGroup;
   private subscriptions: Subscription[] = [];
-  private creating: boolean = true;
+  private load_defaults: boolean = true;
   private targets = new ReplaySubject<any>(1);
   private accounts = new ReplaySubject<any>(1);
 
@@ -183,7 +183,7 @@ export class TransactionFormComponent implements OnInit, OnDestroy {
     this.route.params.subscribe(params => {
       // If there is ID param, fetch data from server and load into form
       if ('id' in params) {
-        this.creating = false;
+        this.load_defaults = false;
         // Try to load form data from local storage
         const formData = this.storageService.getItem('transaction_form');
         if (formData) {
@@ -201,6 +201,7 @@ export class TransactionFormComponent implements OnInit, OnDestroy {
         // Try to load form data from local storage
         const formData = this.storageService.getItem('transaction_form');
         if (formData) {
+          this.load_defaults = false;
           this.form.data.next(formData);
           this.storageService.removeItem('transaction_form');
         }
@@ -342,7 +343,7 @@ export class TransactionFormComponent implements OnInit, OnDestroy {
         this.dateMin.next(period.start_date);
         this.dateMax.next(patchValue);
         const isValid = moment(formGroup.controls['date'].value, 'YYYY-MM-DD').isBetween(moment(period.start_date, 'YYYY-MM-DD'), moment(patchValue, 'YYYY-MM-DD'));
-        !isValid && this.creating && formGroup.controls['date'].patchValue(patchValue);
+        !isValid && this.load_defaults && formGroup.controls['date'].patchValue(patchValue);
       });
     }));
 
@@ -357,14 +358,14 @@ export class TransactionFormComponent implements OnInit, OnDestroy {
           });
           this.periodsService.getAll(options).subscribe(periods => {
             this.periods.next(periods);
-            this.creating && formGroup.controls['period_id'].patchValue(periods[0] ? periods[0].id : null);
+            this.load_defaults && formGroup.controls['period_id'].patchValue(periods[0] ? periods[0].id : null);
           });
 
           // And fetch it to set default account
           this.budgetsService.get(value).pipe(take(2)).subscribe(budget => {
             if (budget.default_account) {
               this.transactionType.pipe(take(1)).subscribe(transactionType => {
-                this.creating && formGroup.controls[transactionType == 'income' ? 'destination_id' : 'source_id'].patchValue(budget.default_account.id);
+                this.load_defaults && formGroup.controls[transactionType == 'income' ? 'destination_id' : 'source_id'].patchValue(budget.default_account.id);
               });
             }
           });
