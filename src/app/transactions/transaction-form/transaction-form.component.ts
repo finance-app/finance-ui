@@ -342,7 +342,7 @@ export class TransactionFormComponent implements OnInit, OnDestroy {
         this.dateMin.next(period.start_date);
         this.dateMax.next(patchValue);
         const isValid = moment(formGroup.controls['date'].value, 'YYYY-MM-DD').isBetween(moment(period.start_date, 'YYYY-MM-DD'), moment(patchValue, 'YYYY-MM-DD'));
-        !isValid && formGroup.controls['date'].patchValue(patchValue);
+        !isValid && this.creating && formGroup.controls['date'].patchValue(patchValue);
       });
     }));
 
@@ -357,7 +357,7 @@ export class TransactionFormComponent implements OnInit, OnDestroy {
           });
           this.periodsService.getAll(options).subscribe(periods => {
             this.periods.next(periods);
-            formGroup.controls['period_id'].patchValue(periods[0] ? periods[0].id : null);
+            this.creating && formGroup.controls['period_id'].patchValue(periods[0] ? periods[0].id : null);
           });
 
           // And fetch it to set default account
