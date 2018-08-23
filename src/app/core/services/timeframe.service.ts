@@ -152,7 +152,10 @@ export class TimeframeService {
     if (budget) {
       this.alertsService.addAlert('budget_select', 'success', 'Selected budget ' + budget.name + '.');
       this.currentBudget.next(budget);
-      this.storageService.setItem('current_budget', budget);
+      // Remove field property, otherwise we get Converting circular structure to JSON error.
+      let _budget = Object.assign({}, budget)
+      delete _budget.field;
+      this.storageService.setItem('current_budget', _budget);
     } else {
       this.sessionService.sessionStatus.pipe(take(1)).subscribe(sessionStatus => {
         if (sessionStatus) {
@@ -170,7 +173,10 @@ export class TimeframeService {
     if (period) {
       this.alertsService.addAlert('period_select', 'success', 'Selected period ' + period.name + '.');
       this.currentPeriod.next(period);
-      this.storageService.setItem('current_period', period);
+      // Remove field property, otherwise we get Converting circular structure to JSON error.
+      let _period = Object.assign({}, period);
+      delete _period.field;
+      this.storageService.setItem('current_period', _period);
     } else {
       this.sessionService.sessionStatus.pipe(take(1)).subscribe(sessionStatus => {
         if (sessionStatus) {
