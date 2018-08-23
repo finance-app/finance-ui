@@ -68,6 +68,7 @@
                         [closeOnSelect]="false"
                         bindValue="id"
                         [formControlName]="field.id"
+                        [searchFn]="searchByDescription"
                         class="text-left"
             >
               <ng-template ng-option-tmp let-item="item">
