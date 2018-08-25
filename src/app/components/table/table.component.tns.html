@@ -1,13 +1,17 @@
 <RadListView [items]="_elements" pullToRefresh="true" (pullToRefreshInitiated)="onPullToRefreshInitiated($event)">
   <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
-    <StackLayout [ngClass]="{'bg-red': active_row ? active_row(item) : false}">
+    <StackLayout>
       <ng-container *ngIf="item">
-        <Label [text]="item.card_title"></Label>
-        <Label *ngIf="item.card_subtitle" [text]="item.card_subtitle"></Label>
-        <StackLayout *ngFor="let card of item.cards">
-          <Label text="{{card.title}}: {{card.value}}"></Label>
+        <StackLayout [ngClass]="{'bg-red': active_row ? active_row(item) : false}">
+          <Label [text]="item.card_title"></Label>
+          <Label *ngIf="item.card_subtitle" [text]="item.card_subtitle"></Label>
+          <StackLayout *ngFor="let card of item.cards">
+            <ng-container *ngIf="card.visible">
+              <Label text="{{card.title}}: {{card.value}}"></Label>
+            </ng-container>
+          </StackLayout>
+          <StackLayout class="hr-light"></StackLayout>
         </StackLayout>
-        <StackLayout class="hr-light"></StackLayout>
       </ng-container>
     </StackLayout>
   </ng-template>
