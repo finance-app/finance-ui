@@ -72,11 +72,6 @@ export class TransactionsTableComponent extends Table implements OnInit {
       routerLink: function(p) { return p.source ? [(p.source.model_name == 'Target' ? '/targets' : '/accounts'), p.source.id] : false; },
     },
     {
-      title: 'Destination',
-      value: function(p) { return p.destination ? p.destination.name : ''; },
-      routerLink: function(p) { return p.destination ? [(p.destination.model_name == 'Target' ? '/targets' : '/accounts'), p.destination.id] : false; },
-    },
-    {
       title: 'Type',
     },
   ];
