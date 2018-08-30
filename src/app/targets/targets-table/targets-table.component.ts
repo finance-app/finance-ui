@@ -56,15 +56,18 @@ export class TargetsTableComponent extends Table implements OnInit {
       title: 'Income Category',
       value: function(p) { return p.default_income_transaction_category ? p.default_income_transaction_category.name : ''; },
       routerLink: function(p) { return p.default_income_transaction_category ? ['/transaction_categories', p.default_income_transaction_category.id] : false; },
+      visible: function(p) { return p.default_income_transaction_category; },
     },
     {
       title: 'Expense Category',
       value: function(p) { return p.default_expense_transaction_category ? p.default_expense_transaction_category.name : ''; },
       routerLink: function(p) { return p.default_expense_transaction_category ? ['/transaction_categories', p.default_expense_transaction_category.id] : false; },
+      visible: function(p) { return p.default_expense_transaction_category; },
     },
     {
       title: 'Budgets',
       value: function(p) { return (p.budgets || []).map(function(b) { return b.name + ' (' + b.currency.name + ')'; }).join(', '); },
+      visible: function(p) { return p.budgets !== undefined && p.budgets !== [] && p.budgets.length !== 0 },
     }
   ];
 
