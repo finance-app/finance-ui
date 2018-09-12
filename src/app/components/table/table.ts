@@ -58,7 +58,7 @@ export class Table {
   }
 
   balanceNgClass(object) {
-    return {'text-success': object.balance > 0, 'text-danger': object.balance < 0};
+    return {'text-success': object.balance > 0, 'text-danger': object.balance < 0, 'bg-success-transparent': object.balance > 0, 'bg-danger-transparent': object.balance < 0, };
   }
 
   delete(object) {
