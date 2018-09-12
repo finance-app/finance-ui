@@ -88,6 +88,7 @@ export class TableComponent implements OnInit, OnDestroy {
               value: this.value(card, object),
               queryParams: card.queryParams ? card.queryParams(object) : {},
               ngClass: card.ngClass ? card.ngClass(object) : {},
+              visible: card.visible ? card.visible(object) : true,
             });
           }
           subject.next();

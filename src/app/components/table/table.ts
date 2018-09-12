@@ -10,16 +10,19 @@ export class Table {
       title: 'Incomes',
       value: this.incomesValue.bind(this),
       ngClass: this.incomesNgClass.bind(this),
+      visible: function(object) { return object.incomes_balance !== undefined && object.incomes_balance != object.balance; },
     },
     {
       title: 'Expenses',
       value: this.expensesValue.bind(this),
       ngClass: this.expensesNgClass.bind(this),
+      visible: function(object) { return object.expenses_balance !== undefined && object.expenses_balance != object.balance; },
     },
     {
       title: 'Balance',
       value: this.balanceValue.bind(this),
       ngClass: this.balanceNgClass.bind(this),
+      visible: function(object) { return object.balance !== undefined && object.balance !== "0.0" },
     },
   ];
 
@@ -55,7 +58,7 @@ export class Table {
   }
 
   balanceNgClass(object) {
-    return {'text-success': object.balance > 0, 'text-danger': object.balance < 0};
+    return {'text-success': object.balance > 0, 'text-danger': object.balance < 0, 'bg-success-transparent': object.balance > 0, 'bg-danger-transparent': object.balance < 0, };
   }
 
   delete(object) {

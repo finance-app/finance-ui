@@ -83,16 +83,17 @@
       <h6 *ngIf="card_subtitle" class="card-subtitle mb-2 text-muted">{{object.card_subtitle}}</h6>
       <div class="card-text">
         <div *ngFor="let card of object.cards">
+          <ng-container *ngIf="card.visible">
+            <span *ngIf="card.routerLink && card.value">{{card.title}}: <a
+              [routerLink]="card.routerLink"
+              [queryParams]="card.queryParams"
+              [ngClass]="card.ngClass"
+            >{{card.value}}</a></span>
 
-          <span *ngIf="card.routerLink && card.value">{{card.title}}: <a
-            [routerLink]="card.routerLink"
-            [queryParams]="card.queryParams"
-            [ngClass]="card.ngClass"
-          >{{card.value}}</a></span>
-
-          <span *ngIf="card.routerLink === undefined && card.value">
-            {{card.title}}: <span [ngClass]="card.ngClass">{{card.value}}</span>
-          </span>
+            <span *ngIf="card.routerLink === undefined && card.value">
+              {{card.title}}: <span [ngClass]="card.ngClass">{{card.value}}</span>
+            </span>
+          </ng-container>
         </div>
       </div>
     </div>
