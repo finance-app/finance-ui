@@ -15,6 +15,6 @@
       <Label *ngIf="isInvalid('password') && formGroup.controls.password.errors.required" class="text-danger" text="Password is required."></Label>
     </StackLayout>
 
-    <Button text="{{ this.inProgress ? 'Signing in...' : 'Sign in'}}" [isEnabled]="!this.inProgress" (tap)="submit()" class="btn btn-primary m-t-20 login-button"></Button>
+    <Button text="{{ this.inProgress ? 'Signing in...' : 'Sign in'}}" [isEnabled]="!this.inProgress" (tap)="submit()" class="btn btn-success m-t-20 login-button"></Button>
   </StackLayout>
 </ScrollView>
