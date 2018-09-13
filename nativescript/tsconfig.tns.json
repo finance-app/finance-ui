@@ -3,16 +3,5 @@
     "compilerOptions": {
         "module": "es2015",
         "moduleResolution": "node"
-    },
-    "angularCompilerOptions": {
-        "skipMetadataEmit": true,
-        "genDir": "./"
-    },
-    "exclude": [
-       "node_modules",
-        "platforms",
-        "hooks",
-        "src",
-        "gulpfile.js"
-    ]
+    }
 }

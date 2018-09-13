@@ -35,7 +35,7 @@
     "nativescript-angular": "^6.1.0",
     "nativescript-floatingactionbutton": "^4.1.4",
     "nativescript-hook-debug-production": "^1.0.4",
-    "nativescript-localstorage": "^1.1.5",
+    "nativescript-localstorage": "^2.0.0",
     "nativescript-ngx-fonticon": "^4.2.0",
     "nativescript-theme-core": "~1.0.4",
     "nativescript-toast": "^1.4.6",
@@ -67,7 +67,7 @@
     "nativescript-dev-typescript": "^0.7.3",
     "nativescript-dev-webpack": "^0.16.0",
     "typescript": "^2.9.2",
-    "webpack": "^4.18.0",
+    "webpack": "^4.18.1",
     "webpack-cli": "^3.1.0"
   },
   "scripts": {
