@@ -32,7 +32,7 @@ import { getString } from 'application-settings';
       }
     }),
     TNSFontIconModule.forRoot({
-      'fa': './assets/fontawesome.css',
+      'fa': './fonts/fontawesome.css',
     }),
   ],
   declarations: [
