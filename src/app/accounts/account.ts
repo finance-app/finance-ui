@@ -5,8 +5,11 @@ export interface Account {
   name: string;
   comment: string;
   balance: number;
+  current_balance: number;
+  expenses_balance: number;
+  incomes_balance: number;
   provider: string;
   type: string;
-  currency_id: number;
   currency: Currency;
+  model_name: string;
 }
