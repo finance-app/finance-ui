@@ -28,6 +28,11 @@ export class AccountsTableComponent extends Table implements OnInit {
     this.comment_row,
     ...this.balances_rows,
     {
+      title: 'Current balance',
+      value: this.currentBalanceValue.bind(this),
+      ngClass: this.currentBalanceNgClass.bind(this),
+    },
+    {
       title: 'Currency',
       value: function(b) { return b.currency.name; },
       routerLink: function(b) { return ['/currencies', b.currency.id] },
@@ -46,6 +51,12 @@ export class AccountsTableComponent extends Table implements OnInit {
 
   public cards = [
     ...this.balances_rows,
+    {
+      title: 'Current balance',
+      value: this.currentBalanceValue.bind(this),
+      ngClass: this.currentBalanceNgClass.bind(this),
+      visible: function(object) { return object.current_balance !== undefined && object.current_balance !== "0.0" },
+    },
     {
       title: 'Currency',
       value: function(b) { return b.currency.name; },
@@ -104,5 +115,13 @@ export class AccountsTableComponent extends Table implements OnInit {
 
   ngOnInit() {
     this.objects = this.accounts;
+  }
+
+  currentBalanceValue(b) {
+    return b.current_balance ? (b.current_balance > 0 ? '+' + b.current_balance : b.current_balance) : '0.0';
+  }
+
+  currentBalanceNgClass(b) {
+    return {'text-success': b.current_balance > 0, 'text-danger': b.current_balance < 0, 'bg-success-transparent': b.current_balance > 0, 'bg-danger-transparent': b.current_balance < 0, };
   }
 }
