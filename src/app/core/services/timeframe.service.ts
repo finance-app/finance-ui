@@ -1,7 +1,6 @@
 
 import {finalize, take} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { HttpParams } from '@angular/common/http';
 
 // Services
 import { AlertsService } from '../alerts/alerts.service';
@@ -81,11 +80,7 @@ export class TimeframeService {
       budget => {
         this._currentBudget = budget;
         if (budget) {
-          const options = new HttpParams({
-            fromString: 'budget_id=' + budget.id,
-          });
-
-          this.periodsService.getAll(options).subscribe(
+          this.periodsService.getAll('budget_id=' + budget.id).subscribe(
             periods => {
               this._periods = periods;
               this.periods.next(this._periods);

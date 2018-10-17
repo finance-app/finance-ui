@@ -5,7 +5,6 @@ import { TimeframeService } from '../services/timeframe.service';
 import { PeriodsService } from '../../periods/periods.service';
 import { BudgetsFilter } from '../../budgets/budgets-filter';
 import { PeriodsFilter } from '../../periods/periods-filter';
-import { HttpParams } from '@angular/common/http';
 
 export class TimeframeFilter {
 
@@ -44,11 +43,7 @@ export class TimeframeFilter {
       budget => {
         this.debug && console.log("timeframe filter: received new budget", budget);
         if (budget != null) {
-          const options = new HttpParams({
-            fromString: budget,
-          });
-
-          periodsService.getAll(options).pipe(finalize(() => { this.initialized = true; this.bypass_budget_change = false; })).subscribe(
+          periodsService.getAll(budget).pipe(finalize(() => { this.initialized = true; this.bypass_budget_change = false; })).subscribe(
             periods => {
               this.debug && console.log("timeframe filter: received periods", periods);
               this.periods.next(periods);

@@ -1,7 +1,6 @@
 import { BehaviorSubject, ReplaySubject } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { Component, OnInit, Optional, OnDestroy } from '@angular/core';
-import { HttpParams } from '@angular/common/http';
 
 // Models
 import { Account } from './account';
