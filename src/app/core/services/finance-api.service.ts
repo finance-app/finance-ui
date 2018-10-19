@@ -136,8 +136,6 @@ export class FinanceApiService {
   }
 
   stringToHttpParams(params?: string): HttpParams {
-    if (params) {
-      return new HttpParams({fromString: params});
-    }
+    return params ? new HttpParams({fromString: params}) : undefined;
   }
 }
