@@ -142,7 +142,9 @@ export class TransactionsComponent extends Index implements OnInit, OnDestroy {
   }
 
   updateGraphs(period) {
-    this.periodsService.expenses_per_day(period.split('=')[1]).subscribe(data => {
+    let period_id = period.split('=')[1];
+    if (period_id === '') return false;
+    this.periodsService.expenses_per_day(period_id).subscribe(data => {
       this.expensesChart = new Chart({
         chart: {
           type: 'line'
@@ -163,7 +165,7 @@ export class TransactionsComponent extends Index implements OnInit, OnDestroy {
 
     // pipe(take(1)) to use only first received data (from cache). Ugly, but prevents making 2 requests
     observableCombineLatest(
-      this.periodsService.get(period.split('=')[1]),
+      this.periodsService.get(period_id),
       this.accountsService.balances(period)
     ).subscribe(([p, balances]) => {
       let current_total = balances.balances.series.find(s => s.name == 'Current Total' || s.name == 'Accounts balance');
