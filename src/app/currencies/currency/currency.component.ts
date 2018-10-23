@@ -9,6 +9,8 @@ import { Account } from '../../accounts';
 
 // Services
 import { CurrenciesService } from '../../currencies';
+import { BudgetsService } from '../../budgets';
+import { AccountsService } from '../../accounts';
 import { LocationService } from '../../core';
 
 @Component({
@@ -22,8 +24,11 @@ export class CurrencyComponent implements OnInit {
   public currency: ReplaySubject<Currency> = new ReplaySubject<Currency>(1);
   public budgets: ReplaySubject<Array<Budget>> = new ReplaySubject<Array<any>>(1);
   public accounts: ReplaySubject<Array<Account>> = new ReplaySubject<Array<Account>>(1);
+
   constructor(
     public currenciesService: CurrenciesService,
+    public budgetsService: BudgetsService,
+    public accountsService: AccountsService,
     private locationService: LocationService,
     private route: ActivatedRoute,
   ) { }
@@ -33,11 +38,12 @@ export class CurrencyComponent implements OnInit {
       this.currenciesService.get(params['id']).subscribe(
         currency => {
           this.currency.next(currency);
-          this.budgets.next(currency.budgets);
-          this.accounts.next(currency.accounts);
           this.locationService.setTitle('Currency ' + currency.name);
         },
       );
+      let options = 'currency_id=' + params['id'];
+      this.budgetsService.getAll(options).subscribe(budgets => this.budgets.next(budgets));
+      this.accountsService.getAll(options).subscribe(accounts => this.accounts.next(accounts));
     });
   }
 

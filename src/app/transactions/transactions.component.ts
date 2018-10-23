@@ -3,7 +3,6 @@ import {combineLatest as observableCombineLatest,  Subject ,  ReplaySubject ,  O
 import { take, skip } from 'rxjs/operators';
 import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
-import { HttpParams } from '@angular/common/http';
 
 // Models
 import { Transaction } from './transaction';
@@ -162,14 +161,10 @@ export class TransactionsComponent extends Index implements OnInit, OnDestroy {
       !this.cdRef['destroyed'] && this.cdRef.detectChanges();
     });
 
-    let options = new HttpParams({
-      fromString: period,
-    });
-
     // pipe(take(1)) to use only first received data (from cache). Ugly, but prevents making 2 requests
     observableCombineLatest(
       this.periodsService.get(period.split('=')[1]),
-      this.accountsService.balances(options)
+      this.accountsService.balances(period)
     ).subscribe(([p, balances]) => {
       let current_total = balances.balances.series.find(s => s.name == 'Current Total' || s.name == 'Accounts balance');
       if (current_total) {

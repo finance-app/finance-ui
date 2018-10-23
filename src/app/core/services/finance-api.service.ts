@@ -46,27 +46,27 @@ export class FinanceApiService {
     );
   }
 
-  public post(url: string, body: any, params?: HttpParams): Observable<HttpResponse<Object>> {
-    return this.http.post(this.apiUrl + url, body, {params: params, observe: 'response'});
+  public post(url: string, body: any, params?: string): Observable<HttpResponse<Object>> {
+    return this.http.post(this.apiUrl + url, body, {params: this.stringToHttpParams(params), observe: 'response'});
   }
 
-  public get(url: string, params?: HttpParams): Observable<HttpResponse<Object>> {
+  public get(url: string, params?: string): Observable<HttpResponse<Object>> {
     return this.request('GET', url, null, params);
   }
 
-  public delete(url: string, params?: HttpParams): Observable<HttpResponse<Object>> {
-    return this.http.delete(this.apiUrl + url, {params: params, observe: 'response'});
+  public delete(url: string, params?: string): Observable<HttpResponse<Object>> {
+    return this.http.delete(this.apiUrl + url, {params: this.stringToHttpParams(params), observe: 'response'});
   }
 
-  public put(url: string, body: any, params?: HttpParams): Observable<HttpResponse<Object>> {
-    return this.http.put(this.apiUrl + url, body, {params: params, observe: 'response'});
+  public put(url: string, body: any, params?: string): Observable<HttpResponse<Object>> {
+    return this.http.put(this.apiUrl + url, body, {params: this.stringToHttpParams(params), observe: 'response'});
   }
 
-  private request(method: string, url: string, body: any, params?: HttpParams): Observable<HttpResponse<Object>> {
+  private request(method: string, url: string, body: any, params?: string): Observable<HttpResponse<Object>> {
     const subject = new ReplaySubject<HttpResponse<Object>>(1);
-    const cache_key = method + url + JSON.stringify(body) + (params && params.toString());
+    const cache_key = method + url + JSON.stringify(body) + params;
     this.debug && console.log("finance api: body: ", body);
-    this.debug && console.log("fiannce_api: params: ", params && params.toString());
+    this.debug && console.log("fiannce_api: params: ", params);
 
     // If we do get request, try to use cache
     if (method === 'GET') {
@@ -79,16 +79,18 @@ export class FinanceApiService {
       }
     }
 
+    let _params: HttpParams = this.stringToHttpParams(params);
+
     // Create http observable, but don't subscribe yet
     let response = (function (http, apiUrl) {
       if (method == 'POST') {
-        return http.post(apiUrl + url, body, {params: params, observe: 'response'});
+        return http.post(apiUrl + url, body, {params: _params, observe: 'response'});
       } else if (method == 'PUT') {
-        return http.put(apiUrl + url, body, {params: params, observe: 'response'});
+        return http.put(apiUrl + url, body, {params: _params, observe: 'response'});
       } else if (method == 'DELETE') {
-        return http.delete(apiUrl + url, {params: params, observe: 'response'});
+        return http.delete(apiUrl + url, {params: _params, observe: 'response'});
       } else {
-        return http.get(apiUrl + url, {params: params, observe: 'response'});
+        return http.get(apiUrl + url, {params: _params, observe: 'response'});
       }
     })(this.http, this.apiUrl).pipe(share());
 
@@ -131,5 +133,9 @@ export class FinanceApiService {
       'client': client,
     });
     return client;
+  }
+
+  stringToHttpParams(params?: string): HttpParams {
+    return params ? new HttpParams({fromString: params}) : undefined;
   }
 }

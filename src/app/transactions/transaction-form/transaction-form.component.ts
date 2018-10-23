@@ -5,7 +5,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ReplaySubject, BehaviorSubject, Subscription } from 'rxjs';
 
 import * as moment from 'moment';
-import { HttpParams } from '@angular/common/http';
 
 // Services
 import { TransactionsService } from '../transactions.service';
@@ -214,10 +213,7 @@ export class TransactionFormComponent implements OnInit, OnDestroy {
 
     // If default budget is null, fetch targets as well.
     this.defaultBudget.pipe(filter(value => value === null), take(1)).subscribe(defaultBudget => {
-      const options = new HttpParams({
-        fromString: 'sort_by=favourite',
-      });
-      this.targetsService.getAll(options).subscribe(targets => this.targets.next(targets));
+      this.targetsService.getAll('sort_by=favourite').subscribe(targets => this.targets.next(targets));
     });
 
     this.subscriptions.push(this.timeframeService.periods.subscribe(periods => {
@@ -353,10 +349,7 @@ export class TransactionFormComponent implements OnInit, OnDestroy {
       if (this.budget != value) {
         if (value) {
           // If budget is defined, fetch it's periods
-          let options = new HttpParams({
-            fromString: 'budget_id=' + value
-          });
-          this.periodsService.getAll(options).subscribe(periods => {
+          this.periodsService.getAll('budget_id=' + value).subscribe(periods => {
             this.periods.next(periods);
             this.load_defaults && formGroup.controls['period_id'].patchValue(periods[0] ? periods[0].id : null);
           });
@@ -371,9 +364,7 @@ export class TransactionFormComponent implements OnInit, OnDestroy {
           });
         }
 
-        let options = new HttpParams({
-          fromString: 'sort_by=favourite' + (value ? ('&show_empty&budget_id=' + value) : ''),
-        });
+        let options = 'sort_by=favourite' + (value ? ('&show_empty&budget_id=' + value) : '');
         this.targetsService.getAll(options).subscribe(targets => {
           this.targets.next(targets);
           this.transactionType.pipe(take(1)).subscribe(transactionType => {

@@ -1,4 +1,3 @@
-import { HttpParams } from '@angular/common/http';
 import { combineLatest as observableCombineLatest, ReplaySubject, Subscription } from 'rxjs';
 import { take, finalize } from 'rxjs/operators';
 
@@ -85,9 +84,7 @@ export class IndexCommon {
   };
 
   options(params = []) {
-    return new HttpParams({
-      fromString: params.filter(function(v) { return v != null }).join('&')
-    });
+    return params.filter(function(v) { return v != null }).join('&');
   }
 
   update(): ReplaySubject<any> {

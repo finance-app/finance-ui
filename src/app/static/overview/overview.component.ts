@@ -2,7 +2,6 @@
 import {map} from 'rxjs/operators';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { HttpParams } from '@angular/common/http';
 
 import { FinanceApiService } from '../../core/services/finance-api.service';
 import { AlertsService } from '../../core/alerts/alerts.service';
@@ -47,11 +46,8 @@ export class OverviewComponent implements OnInit, OnDestroy {
               console.error(error);
             }
         );
-        const options = new HttpParams({
-          fromString: 'period_id=' + period.id + '&currency_id=' + period.budget.currency.id
-        });
 
-        this.accountsService.balances(options).subscribe(balances => {
+        this.accountsService.balances('period_id=' + period.id + '&currency_id=' + period.budget.currency.id).subscribe(balances => {
           const current_total = balances.balances.series.find(s => s.name == 'Current Total');
           const savings_total = balances.balances.series.find(s => s.name == 'Savings Total');
           this.accounts.balance_total = current_total ? current_total.data[current_total.data.length - 1] : 0;

@@ -3,7 +3,6 @@ import { combineLatest as observableCombineLatest, Observable , ReplaySubject } 
 import { take } from 'rxjs/operators';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
-import { HttpParams } from '@angular/common/http';
 
 // Models
 import { Target } from './target';
