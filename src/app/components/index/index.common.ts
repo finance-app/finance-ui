@@ -51,7 +51,7 @@ export class IndexCommon {
   }
 
   filterParams(params) {
-    return params.filter(function(v) { return v != null && v.split('=')[1] !== '' });
+    return params.filter(function(v) { return v != null });
   }
 
   ngOnDestroy() {

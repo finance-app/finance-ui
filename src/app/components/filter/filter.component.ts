@@ -235,7 +235,7 @@ export class FilterComponent implements OnInit, OnDestroy {
     this.router.navigate([], { queryParams: this.filterService.appendToParams(this.property, queryParam) });
 
     // If value changed, emit it
-    const nextValue = (value || value === '') ? this.property + '=' + this.optionValue(value) : null;
+    const nextValue = value ? this.property + '=' + this.optionValue(value) : null;
     if (nextValue !== this.lastValue) {
       this.debug && console.log(this.property + ": filter: value changed, emiting!", nextValue, this.lastValue);
       this.properties.observable.next(nextValue);
