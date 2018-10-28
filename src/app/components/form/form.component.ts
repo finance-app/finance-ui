@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, AfterViewInit, ElementRef, ViewChild, OnDestroy } from '@angular/core';
 import { Location } from '@angular/common';
 import { FormControl, FormGroup, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -10,7 +10,7 @@ import { finalize } from 'rxjs/operators';
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.css']
 })
-export class FormComponent implements OnInit, AfterViewInit {
+export class FormComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private inProgress = false;
   public formGroup: FormGroup;
@@ -21,6 +21,7 @@ export class FormComponent implements OnInit, AfterViewInit {
   private data: any = {};
   private defaultValues: any = {};
   public requiredFn = Validators.required;
+  public subscriptions: Array<any> = [];
   @Input() formData: any;
   @ViewChild('autofocusField') autofocusField: ElementRef;
 
@@ -28,6 +29,10 @@ export class FormComponent implements OnInit, AfterViewInit {
     private location: Location,
     private route: ActivatedRoute,
   ) {}
+
+  ngOnDestroy() {
+    this.subscriptions.forEach((elem) => { elem.unsubscribe(); });
+  }
 
   ngOnInit() {
     // Build and create FormGroup
@@ -41,27 +46,27 @@ export class FormComponent implements OnInit, AfterViewInit {
     this.formData.formCallback && this.formData.formCallback(this.formGroup);
 
     // Subscribe to load data
-    this.formData.data.subscribe(
+    this.subscriptions.push(this.formData.data.subscribe(
       data => {
         this.data = data;
         this.formGroup.patchValue(data);
       },
-    );
+    ));
 
     // FIXME: workaround for checkboxes type, where you can't pass custom variable
     // Iterate over all fields, find ones with 'multiselect' type and append field reference to all options
     for (const field of this.formData.fields) {
       if (field.type == 'multiselect' || field.type == 'select') {
-        field.options.subscribe(options => {
+        this.subscriptions.push(field.options.subscribe(options => {
           for (let option of options) {
             option.field = field;
           }
-        });
+        }));
       }
     }
 
     // Check if we update or create
-    this.route.params.subscribe(
+    this.subscriptions.push(this.route.params.subscribe(
       params => {
         if ('id' in params) {
           this.updating = true;
@@ -69,16 +74,18 @@ export class FormComponent implements OnInit, AfterViewInit {
           // Subscribe to default data
           for (const field of this.formData.fields) {
             if (field.defaultValue) {
-              field.defaultValue.subscribe(value => {
+              this.subscriptions.push(field.defaultValue.subscribe(value => {
+                let _value = field.value ? field.value(value) : value;
                 if (!this.formGroup.controls[field.id].dirty || this.formGroup.controls[field.id].value) {
-                  this.formGroup.controls[field.id].patchValue(field.value ? field.value(value) : value);
+                  this.formGroup.controls[field.id].patchValue(_value);
                 }
-              });
+                this.defaultValues[field.id] = _value;
+              }));
             }
           }
         }
       }
-    );
+    ));
   }
 
   isInvalid(id) {
