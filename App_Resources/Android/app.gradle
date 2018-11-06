@@ -8,7 +8,14 @@
 android {  
   defaultConfig {  
     generatedDensities = []
-    applicationId = "com.your-domain.finance.debug"
+    applicationId = "org.nativescript.financeui" 
+    
+    //override supported platforms
+    // ndk {
+    //       abiFilters.clear()
+    //   		abiFilters "armeabi-v7a"
+ 		// }
+  
   }  
   aaptOptions {  
     additionalParameters "--no-version-vectors"  

@@ -8,6 +8,10 @@
 # dependencies
 /node_modules
 
+# NativeScript
+/hooks
+/platforms
+
 # IDEs and editors
 /.idea
 .project
@@ -30,25 +34,10 @@
 /coverage
 /libpeerconnection.log
 npm-debug.log
+yarn-error.log
 testem.log
 /typings
-yarn.lock
-*.js
-!symlink.js
-!karma.conf.js
-!protractor.conf.js
-
-# e2e
-/e2e/*.js
-/e2e/*.map
 
 # System Files
 .DS_Store
 Thumbs.db
-
-# Secrets
-nginx/keys
-
-# Scripts
-scripts/*
-nativescript/scripts/*
