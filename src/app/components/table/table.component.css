@@ -6,3 +6,7 @@
 .actions {
   cursor: pointer;
 }
+
+.table-responsive {
+  overflow-x: unset;
+}
