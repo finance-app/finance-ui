@@ -5,9 +5,6 @@ import { ActivatedRoute } from '@angular/router';
 import { DrawerTransitionBase, RadSideDrawer, SlideInOnTopTransition } from 'nativescript-ui-sidedrawer';
 import { Subject } from 'rxjs';
 
-// vendor dependencies
-import { TranslateService } from '@ngx-translate/core';
-
 import { AuthService } from './core/services/auth.service';
 import { SessionService } from './core/services/session.service';
 import { TimeframeService } from './core/services/timeframe.service';
@@ -27,17 +24,12 @@ export class AppComponent implements OnInit {
   public drawerOpened: Subject<boolean> = new Subject<boolean>();
 
   constructor(
-    private translateService: TranslateService,
     public authService: AuthService,
     public timeframeService: TimeframeService,
     private sessionService: SessionService,
     private routerExtensions: RouterExtensions,
     private currentRoute: ActivatedRoute,
-  ) {
-    translateService.setTranslation('en', require('../assets/i18n/en.json'));
-    translateService.setDefaultLang('en');
-    translateService.use('en');
-  }
+  ) {}
 
   ngOnInit(): void {
     this._selectedPage = 'Overview';

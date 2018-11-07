@@ -3,9 +3,6 @@ import { HttpClient } from '@angular/common/http';
 // nativescript
 import { NativeScriptHttpModule } from 'nativescript-angular/http';
 import { NativeScriptModule } from 'nativescript-angular/nativescript.module';
-// vendor dependencies
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 // app
 import { Config } from './common/index';
 import { AppComponent } from './app.component';
@@ -16,10 +13,6 @@ import { NativeScriptUISideDrawerModule } from 'nativescript-ui-sidedrawer/angul
 
 Config.PLATFORM_TARGET = Config.PLATFORMS.MOBILE_NATIVE;
 
-export function createTranslateLoader(http: HttpClient) {
-    return new TranslateHttpLoader(<any>http, '/assets/i18n/', '.json');
-}
-
 @NgModule({
     bootstrap: [
         AppComponent
@@ -27,15 +20,6 @@ export function createTranslateLoader(http: HttpClient) {
     imports: [
         NativeScriptModule,
         NativeScriptHttpModule,
-        // HttpClientModule,
-        TranslateModule.forRoot(),
-        // TranslateModule.forRoot({
-        //     loader: {
-        //         provide: TranslateLoader,
-        //         useFactory: (createTranslateLoader),
-        //         deps: [HttpClient]
-        //     }
-        // }),
         NativeScriptUISideDrawerModule,
         SharedModule,
         ...SHARED_MODULES
