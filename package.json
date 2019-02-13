@@ -17,7 +17,8 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "android": "tns run android --bundle",
-    "ios": "tns run ios --bundle"
+    "ios": "tns run ios --bundle",
+    "electron": "ng build --base-href ./ && ./node_modules/.bin/tsc -p electron && electron electron/dist/main.js"
   },
   "private": false,
   "license": "MIT",
@@ -74,11 +75,13 @@
     "@angular/cli": "^7.2.1",
     "@angular/compiler-cli": "^7.2.0",
     "@nativescript/schematics": "~0.5.0",
+    "@types/electron": "^1.6.10",
     "@types/jasmine": "^3.3.5",
     "@types/jasminewd2": "^2.0.6",
     "@types/lodash": "^4.14.119",
     "@types/node": "^10.12.18",
     "codelyzer": "^4.5.0",
+    "electron": "^4.0.1",
     "jasmine-core": "^3.3.0",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "^3.1.4",
