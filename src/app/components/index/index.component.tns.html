@@ -1,32 +1,30 @@
 <RadSideDrawer drawerLocation="Right" #filtersDrawer>
-  <StackLayout tkDrawerContent class="sidedrawer sidedrawer-left background-white">
+  <ScrollView tkDrawerContent class="sidedrawer sidedrawer-left background-white">
     <StackLayout class="text-center index-side-header">
       <Label text="Filters" textWrap="true" class="index-side-header"></Label>
     </StackLayout>
-    <ScrollView>
-      <StackLayout class="sidedrawer-content">
-        <ng-container *ngIf="filters.length > 0">
-          <GridLayout columns="auto, *, auto" class="sidedrawer-list-item text-left" (tap)="reset()">
-            <Label col="0" [text]="'fa-filter' | fonticon" class="fa"></Label>
-            <Label col="1" text="Reset filters"></Label>
-          </GridLayout>
-          <StackLayout class="hr-light"></StackLayout>
-        </ng-container>
-        <app-filter *ngFor="let filter of filters" [properties]="filter"></app-filter>
+    <StackLayout class="sidedrawer-content">
+      <ng-container *ngIf="filters.length > 0">
+        <GridLayout columns="auto, *, auto" class="sidedrawer-list-item text-left" (tap)="reset()">
+          <Label col="0" [text]="'fa-filter' | fonticon" class="fa"></Label>
+          <Label col="1" text="Reset filters"></Label>
+        </GridLayout>
         <StackLayout class="hr-light"></StackLayout>
-        <app-sidedrawer-dropdown
-          [options]="options"
-          title="Sort by"
-          icon="fa-sort"
-          [current]="sortCurrent"
-          allText="None"
-          [optionString]="optionString"
-          [optionValue]="optionValue"
-          (select)="sortBy($event)"
-        ></app-sidedrawer-dropdown>
-      </StackLayout>
-    </ScrollView>
-  </StackLayout>
+      </ng-container>
+      <app-filter *ngFor="let filter of filters" [properties]="filter"></app-filter>
+      <StackLayout class="hr-light"></StackLayout>
+      <app-sidedrawer-dropdown
+        [options]="options"
+        title="Sort by"
+        icon="fa-sort"
+        [current]="sortCurrent"
+        allText="None"
+        [optionString]="optionString"
+        [optionValue]="optionValue"
+        (select)="sortBy($event)"
+      ></app-sidedrawer-dropdown>
+    </StackLayout>
+  </ScrollView>
   <StackLayout tkMainContent>
     <ng-content select="[index-header]"></ng-content>
     <ng-content select="[index-body]"></ng-content>
