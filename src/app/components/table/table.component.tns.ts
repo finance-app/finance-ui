@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { take } from 'rxjs/operators';
-import { ObservableArray } from 'data/observable-array';
+import { ObservableArray } from 'tns-core-modules/data/observable-array';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 
 @Component({

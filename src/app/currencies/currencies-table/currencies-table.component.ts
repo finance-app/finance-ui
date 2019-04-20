@@ -17,7 +17,7 @@ export class CurrenciesTableComponent extends Table implements OnInit {
 
   @Input() currencies: ReplaySubject<Array<Currency>>;
   @Input() update: any;
-  @ViewChild('appTable') appTable: TableComponent;
+  @ViewChild('appTable', { static: true }) appTable: TableComponent;
 
   public rows = [
     this.name_row,

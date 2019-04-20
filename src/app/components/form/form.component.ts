@@ -23,7 +23,7 @@ export class FormComponent implements OnInit, AfterViewInit, OnDestroy {
   public requiredFn = Validators.required;
   public subscriptions: Array<any> = [];
   @Input() formData: any;
-  @ViewChild('autofocusField') autofocusField: ElementRef;
+  @ViewChild('autofocusField', { static: false }) autofocusField: ElementRef;
 
   constructor(
     private location: Location,

@@ -28,12 +28,10 @@
             "styles": [
               "src/styles.scss",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "node_modules/@fortawesome/fontawesome/styles.css",
               "node_modules/@ng-select/ng-select/themes/default.theme.css"
             ],
             "scripts": [
-              "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/@fortawesome/fontawesome-free-solid/index.js"
+              "node_modules/jquery/dist/jquery.min.js"
             ]
           },
           "configurations": {

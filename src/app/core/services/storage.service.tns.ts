@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { getString, setString, remove } from 'application-settings';
+import { getString, setString, remove } from 'tns-core-modules/application-settings';
 import { Buffer } from 'buffer';
 
 import { StorageCommon } from './storage.common';

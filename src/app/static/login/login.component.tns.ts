@@ -9,7 +9,7 @@ import { AlertsService } from '../../core/alerts/alerts.service';
 import * as app from 'tns-core-modules/application';
 import { RadSideDrawer } from 'nativescript-ui-sidedrawer';
 import { RouterExtensions } from 'nativescript-angular/router';
-import { Page } from 'ui/page';
+import { Page } from 'tns-core-modules/ui/page';
 
 @Component({
   moduleId: module.id,

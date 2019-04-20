@@ -21,7 +21,7 @@ export class TargetsTableComponent extends Table implements OnInit {
 
   @Input() targets: ReplaySubject<Array<Target>>;
   @Input() update;
-  @ViewChild('appTable') appTable: TableComponent;
+  @ViewChild('appTable', { static: true }) appTable: TableComponent;
 
   public rows = [
     this.name_row,

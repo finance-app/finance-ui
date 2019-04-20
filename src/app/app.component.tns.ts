@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import * as app from 'application';
+import * as app from 'tns-core-modules/application';
 import { RouterExtensions } from 'nativescript-angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { DrawerTransitionBase, RadSideDrawer, SlideInOnTopTransition } from 'nativescript-ui-sidedrawer';

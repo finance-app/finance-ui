@@ -21,7 +21,7 @@ export class TransactionCategoriesTableComponent extends Table implements OnInit
 
   @Input() transactionCategories: ReplaySubject<Array<TransactionCategory>>;
   @Input() update;
-  @ViewChild('appTable') appTable: TableComponent;
+  @ViewChild('appTable', { static: true }) appTable: TableComponent;
 
   public rows = [
     this.name_row,
