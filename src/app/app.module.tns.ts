@@ -1,7 +1,7 @@
 import { NgModule, NO_ERRORS_SCHEMA, NgModuleFactoryLoader } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 // nativescript
-import { NativeScriptHttpModule } from 'nativescript-angular/http';
+import { NativeScriptHttpClientModule } from 'nativescript-angular/http-client';
 import { NativeScriptModule } from 'nativescript-angular/nativescript.module';
 // app
 import { Config } from './common/index';
@@ -19,7 +19,7 @@ Config.PLATFORM_TARGET = Config.PLATFORMS.MOBILE_NATIVE;
     ],
     imports: [
         NativeScriptModule,
-        NativeScriptHttpModule,
+        NativeScriptHttpClientModule,
         NativeScriptUISideDrawerModule,
         SharedModule,
         ...SHARED_MODULES

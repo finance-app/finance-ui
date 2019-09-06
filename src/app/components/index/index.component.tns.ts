@@ -1,4 +1,4 @@
-import * as app from 'application';
+import * as app from 'tns-core-modules/application';
 import { RadSideDrawer } from 'nativescript-ui-sidedrawer';
 import { Component, Input, ViewChild, ElementRef, OnInit } from '@angular/core';
 
@@ -16,7 +16,7 @@ export class IndexComponent implements OnInit {
   @Input() reset: any;
   @Input() table: any;
 
-  @ViewChild('filtersDrawer') drawerRef: ElementRef;
+  @ViewChild('filtersDrawer', { static: true }) drawerRef: ElementRef;
   private drawer: RadSideDrawer;
   public options: Array<any> = [];
   public sortCurrent: any = null;

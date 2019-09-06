@@ -18,7 +18,7 @@ export function tokenGetter() {
   return getString(environment.tokenCookie) || 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjAsInN1YiI6MX0.lNGignAeNQQdBwJW9EA2riW7sZimJ5f7OXer4gNU81w';
 }
 
-import { getString } from 'application-settings';
+import { getString } from 'tns-core-modules/application-settings';
 
 @NgModule({
   imports: [

@@ -34,37 +34,37 @@ export const AppRoutes: Routes = [
   },
   {
     path: 'accounts',
-    loadChildren: '~/app/accounts/accounts.module#AccountsModule',
+    loadChildren: () => import('~/app/accounts/accounts.module').then(m => m.AccountsModule),
     canActivate: [AuthService],
   },
   {
     path: 'periods',
-    loadChildren: '~/app/periods/periods.module#PeriodsModule',
+    loadChildren: () => import('~/app/periods/periods.module').then(m => m.PeriodsModule),
     canActivate: [AuthService],
   },
   {
     path: 'budgets',
-    loadChildren: '~/app/budgets/budgets.module#BudgetsModule',
+    loadChildren: () => import('~/app/budgets/budgets.module').then(m => m.BudgetsModule),
     canActivate: [AuthService],
   },
   {
     path: 'currencies',
-    loadChildren: '~/app/currencies/currencies.module#CurrenciesModule',
+    loadChildren: () => import('~/app/currencies/currencies.module').then(m => m.CurrenciesModule),
     canActivate: [AuthService],
   },
   {
     path: 'targets',
-    loadChildren: '~/app/targets/targets.module#TargetsModule',
+    loadChildren: () => import('~/app/targets/targets.module').then(m => m.TargetsModule),
     canActivate: [AuthService],
   },
   {
     path: 'transaction_categories',
-    loadChildren: '~/app/transaction-categories/transaction-categories.module#TransactionCategoriesModule',
+    loadChildren: () => import('~/app/transaction-categories/transaction-categories.module').then(m => m.TransactionCategoriesModule),
     canActivate: [AuthService],
   },
   {
     path: 'transactions',
-    loadChildren: '~/app/transactions/transactions.module#TransactionsModule',
+    loadChildren: () => import('~/app/transactions/transactions.module').then(m => m.TransactionsModule),
     canActivate: [AuthService],
   },
   {

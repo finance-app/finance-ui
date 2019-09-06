@@ -23,7 +23,7 @@ export class TransactionsTableComponent extends Table implements OnInit {
   @Input() currencySymbol = '';
   @Input() update;
   @Input() reset;
-  @ViewChild('appTable') appTable: TableComponent;
+  @ViewChild('appTable', { static: true }) appTable: TableComponent;
 
   public rows = [
     {
