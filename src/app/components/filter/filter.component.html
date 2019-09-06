@@ -1,4 +1,4 @@
-<div ngbDropdown class="d-inline-block dropdown btn-group" role="group">
+<div ngbDropdown class="d-inline-block dropdown btn-group" role="group" placement="bottom-left bottom">
   <button class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" [id]="'filter' + property" ngbDropdownToggle>{{ buttonTitle() }}</button>
   <div class="dropdown-menu scrollable-menu" ngbDropdownMenu [attr.aria-labelledby]="'filter'+property">
     <button class="dropdown-item" (click)="!isActiveAllOption() && current.next('')" [class.active]="isActiveAllOption()">All</button>

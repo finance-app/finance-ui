@@ -37,7 +37,7 @@
     </ul>
     <ul class="navbar-nav ml-auto">
       <li class="nav-item dropdown">
-        <div ngbDropdown class="d-inline-block">
+        <div ngbDropdown class="d-inline-block" placement="bottom">
           <a class="nav-link dropdown-toggle" id="periodMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ngbDropdownToggle *ngIf="(timeframeService.currentPeriod | async) || {}; let currentPeriod">
             Period: {{currentPeriod.name || 'All' }}
           </a>
@@ -59,7 +59,7 @@
         </div>
       </li>
       <li class="nav-item dropdown">
-        <div ngbDropdown class="d-inline-block">
+        <div ngbDropdown class="d-inline-block" placement="bottom">
           <a class="nav-link dropdown-toggle" id="userMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ngbDropdownToggle>
             {{auth.currentUser() || 'User' }}
           </a>
