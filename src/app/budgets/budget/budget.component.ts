@@ -10,7 +10,6 @@ import { LocationService } from '../../core/services/location.service';
 import { TimeframeService } from '../../core/services/timeframe.service';
 
 @Component({
-  moduleId: module.id,
   selector: 'budget',
   templateUrl: './budget.component.html',
   styleUrls: ['./budget.component.css']

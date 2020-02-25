@@ -10,7 +10,6 @@ import { CurrenciesService } from './currencies.service';
 import { Index } from '../components/index/index';
 
 @Component({
-  moduleId: module.id,
   selector: 'currencies',
   templateUrl: './currencies.component.html',
   styleUrls: ['./currencies.component.css'],

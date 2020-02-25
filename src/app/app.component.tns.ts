@@ -10,7 +10,6 @@ import { SessionService } from './core/services/session.service';
 import { TimeframeService } from './core/services/timeframe.service';
 
 @Component({
-    moduleId: module.id,
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css']

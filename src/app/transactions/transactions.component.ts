@@ -26,7 +26,6 @@ import { TargetsFilter, TargetsService } from '../targets';
 import { AccountsFilter, AccountsService } from '../accounts';
 
 @Component({
-  moduleId: module.id,
   selector: 'transactions',
   templateUrl: './transactions.component.html',
   styleUrls: ['./transactions.component.css'],

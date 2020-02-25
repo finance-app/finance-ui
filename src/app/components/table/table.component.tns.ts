@@ -5,7 +5,6 @@ import { ObservableArray } from 'tns-core-modules/data/observable-array';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 
 @Component({
-  moduleId: module.id,
   selector: 'app-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css'],

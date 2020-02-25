@@ -12,7 +12,6 @@ import { LocationService } from '../../core/services/location.service';
 import { StorageService } from '../../core/services/storage.service';
 
 @Component({
-  moduleId: module.id,
   selector: 'app-account-form',
   templateUrl: './account-form.component.html',
   styleUrls: ['./account-form.component.css']

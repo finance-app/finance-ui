@@ -7,7 +7,6 @@ import { AuthService } from '../../core/services/auth.service';
 import { AlertsService } from '../../core/alerts/alerts.service';
 
 @Component({
-  moduleId: module.id,
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']

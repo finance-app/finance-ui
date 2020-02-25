@@ -10,7 +10,6 @@ import { TimeframeService } from '../../core/services/timeframe.service';
 import { AccountsService } from '../../accounts/accounts.service';
 
 @Component({
-  moduleId: module.id,
   selector: 'app-overview',
   templateUrl: './overview.component.html',
   styleUrls: ['./overview.component.css']

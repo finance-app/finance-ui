@@ -14,7 +14,6 @@ import { Index } from '../components/index/index';
 import { BudgetsFilter } from '../budgets/budgets-filter';
 
 @Component({
-  moduleId: module.id,
   selector: 'periods',
   templateUrl: './periods.component.html',
   styleUrls: ['./periods.component.css'],

@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  moduleId: module.id,
   selector: 'table-header',
   templateUrl: './table-header.component.html',
   styleUrls: ['./table-header.component.css'],

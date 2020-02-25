@@ -13,7 +13,6 @@ import { Index } from '../components/index/index';
 import { TimeframeFilter } from '../core/filters/timeframe-filter';
 
 @Component({
-  moduleId: module.id,
   selector: 'transaction-categories',
   templateUrl: './transaction-categories.component.html',
   styleUrls: ['./transaction-categories.component.css'],

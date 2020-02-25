@@ -12,7 +12,6 @@ import { TimeframeService } from '../../core/services/timeframe.service';
 //import { Chart } from 'angular-highcharts';
 
 @Component({
-  moduleId: module.id,
   selector: 'period',
   templateUrl: './period.component.html',
   styleUrls: ['./period.component.css']

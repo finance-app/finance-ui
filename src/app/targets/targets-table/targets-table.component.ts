@@ -11,7 +11,6 @@ import { Table } from '../../components/table/table';
 import { TableComponent } from '../../components/table/table.component';
 
 @Component({
-  moduleId: module.id,
   selector: 'targets-table',
   template: '<app-table [rows]="rows" [objects]="targets" [actions]="actions" [cards]="cards" [card_title]="card_title" [card_subtitle]="card_subtitle" [active_row]="active_row.bind(this)" [active_row_class]="active_row_class.bind(this)" [active_row_text]="active_row_text" [active_row_text_class]="active_row_text_class" [update]="update" #appTable></app-table>',
   styleUrls: ['./targets-table.component.css'],

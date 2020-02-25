@@ -9,7 +9,6 @@ import { TransactionsService } from '../transactions.service';
 import { LocationService } from '../../core/services/location.service';
 
 @Component({
-  moduleId: module.id,
   selector: 'transaction',
   templateUrl: './transaction.component.html',
   styleUrls: ['./transaction.component.css']

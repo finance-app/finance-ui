@@ -11,7 +11,6 @@ import { PeriodsService } from '@app/periods';
 import { Chart } from 'angular-highcharts';
 
 @Component({
-  moduleId: module.id,
   selector: 'accounts',
   templateUrl: './accounts.component.html',
   styleUrls: ['./accounts.component.css'],

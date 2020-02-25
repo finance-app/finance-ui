@@ -13,7 +13,6 @@ import { StorageService } from '../../core/services/storage.service';
 import { combineLatest as observableCombineLatest, ReplaySubject, BehaviorSubject } from 'rxjs';
 
 @Component({
-  moduleId: module.id,
   selector: 'app-account-transfer',
   templateUrl: './account-transfer.component.html',
   styleUrls: ['./account-transfer.component.css']

@@ -14,7 +14,6 @@ import { LocationService } from '../../core/services/location.service';
 import { StorageService } from '../../core/services/storage.service';
 
 @Component({
-  moduleId: module.id,
   selector: 'app-budget-form',
   templateUrl: './budget-form.component.html',
   styleUrls: ['./budget-form.component.css']

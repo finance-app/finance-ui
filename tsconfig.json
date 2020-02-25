@@ -1,5 +1,8 @@
 {
     "compileOnSave": false,
+    "angularCompilerOptions": {
+      "enableIvy": false
+    },
     "compilerOptions": {
         "module": "esnext",
         "outDir": "./dist/out-tsc",

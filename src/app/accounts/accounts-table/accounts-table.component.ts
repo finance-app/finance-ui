@@ -11,7 +11,6 @@ import { Table } from '../../components/table/table';
 import { TableComponent } from '../../components/table/table.component';
 
 @Component({
-  moduleId: module.id,
   selector: 'accounts-table',
   template: `<app-table [rows]="rows" [objects]="accounts" [actions]="actions" [cards]="cards" [card_title]="card_title" [update]="update" #appTable></app-table>`,
   styleUrls: ['./accounts-table.component.css'],

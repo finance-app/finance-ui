@@ -9,7 +9,6 @@ import { TargetsService } from '../targets.service';
 import { LocationService } from '../../core/services/location.service';
 
 @Component({
-  moduleId: module.id,
   selector: 'target',
   templateUrl: './target.component.html',
   styleUrls: ['./target.component.css']

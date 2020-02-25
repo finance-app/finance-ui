@@ -6,7 +6,6 @@ import { FilterService } from '../../core/services/filter.service';
 import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
-  moduleId: module.id,
   selector: 'app-filter',
   templateUrl: './filter.component.html',
   styleUrls: ['./filter.component.css']

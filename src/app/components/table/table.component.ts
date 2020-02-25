@@ -4,7 +4,6 @@ import { take } from 'rxjs/operators';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 
 @Component({
-  moduleId: module.id,
   selector: 'app-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css'],

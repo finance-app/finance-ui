@@ -13,7 +13,6 @@ import { LocationService } from '../../core/services/location.service';
 import { StorageService } from '../../core/services/storage.service';
 
 @Component({
-  moduleId: module.id,
   selector: 'app-account-correct',
   templateUrl: './account-correct.component.html',
   styleUrls: ['./account-correct.component.css']

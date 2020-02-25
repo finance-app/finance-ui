@@ -14,7 +14,6 @@ import { AccountsService } from '../../accounts';
 import { LocationService } from '../../core';
 
 @Component({
-  moduleId: module.id,
   selector: 'currency',
   templateUrl: './currency.component.html',
   styleUrls: ['./currency.component.css']

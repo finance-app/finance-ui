@@ -8,7 +8,6 @@ import { TimeframeService } from '../core/services/timeframe.service';
 import { PeriodsService } from '../periods';
 
 @Component({
-  moduleId: module.id,
   selector: 'accounts',
   templateUrl: './accounts.component.html',
   styleUrls: ['./accounts.component.css'],

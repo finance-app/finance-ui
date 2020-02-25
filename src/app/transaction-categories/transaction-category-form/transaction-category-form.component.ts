@@ -12,7 +12,6 @@ import { LocationService } from '../../core/services/location.service';
 import { StorageService } from '../../core/services/storage.service';
 
 @Component({
-  moduleId: module.id,
   selector: 'app-transaction-category-form',
   templateUrl: './transaction-category-form.component.html',
   styleUrls: ['./transaction-category-form.component.css']

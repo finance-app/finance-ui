@@ -9,7 +9,6 @@ import { AccountsService } from '../accounts.service';
 import { LocationService } from '../../core/services/location.service';
 
 @Component({
-  moduleId: module.id,
   selector: 'account',
   templateUrl: './account.component.html',
   styleUrls: ['./account.component.css']

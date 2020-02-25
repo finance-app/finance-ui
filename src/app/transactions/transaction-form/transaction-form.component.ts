@@ -18,7 +18,6 @@ import { AccountsService } from '../../accounts/accounts.service';
 import { StorageService } from '../../core/services/storage.service';
 
 @Component({
-  moduleId: module.id,
   selector: 'app-transaction-form',
   templateUrl: './transaction-form.component.html',
   styleUrls: ['./transaction-form.component.css']

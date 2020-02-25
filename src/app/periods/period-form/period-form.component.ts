@@ -14,7 +14,6 @@ import { TimeframeService } from '../../core/services/timeframe.service';
 import { StorageService } from '../../core/services/storage.service';
 
 @Component({
-  moduleId: module.id,
   selector: 'app-period-form',
   templateUrl: './period-form.component.html',
   styleUrls: ['./period-form.component.css']

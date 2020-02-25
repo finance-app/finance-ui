@@ -8,7 +8,6 @@ import { Table } from '../../components/table/table';
 import { TableComponent } from '../../components/table/table.component';
 
 @Component({
-  moduleId: module.id,
   selector: 'currencies-table',
   template: `<app-table [rows]="rows" [objects]="currencies" [actions]="actions" [cards]="cards" [card_title]="card_title" [update]="update" #appTable></app-table>`,
   styleUrls: ['./currencies-table.component.css']

@@ -10,7 +10,6 @@ import { CurrenciesService } from '../currencies.service';
 import { LocationService } from '../../core/services/location.service';
 
 @Component({
-  moduleId: module.id,
   selector: 'app-currency-form',
   templateUrl: './currency-form.component.html',
   styleUrls: ['./currency-form.component.css']

@@ -14,7 +14,6 @@ import { Index } from '../components/index/index';
 import { CurrenciesFilter } from '../currencies/currencies-filter';
 
 @Component({
-  moduleId: module.id,
   selector: 'budgets',
   templateUrl: './budgets.component.html',
   styleUrls: ['./budgets.component.css'],

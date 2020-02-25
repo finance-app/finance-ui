@@ -5,7 +5,6 @@ import { ActivatedRoute } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 
 @Component({
-  moduleId: module.id,
   selector: 'app-form',
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.css']
@@ -23,7 +22,7 @@ export class FormComponent implements OnInit, AfterViewInit, OnDestroy {
   public requiredFn = Validators.required;
   public subscriptions: Array<any> = [];
   @Input() formData: any;
-  @ViewChild('autofocusField', { static: false }) autofocusField: ElementRef;
+  @ViewChild('autofocusField') autofocusField: ElementRef;
 
   constructor(
     private location: Location,

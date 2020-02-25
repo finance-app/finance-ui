@@ -2,7 +2,6 @@ import { Component, Input, OnInit, OnDestroy, EventEmitter, Output } from '@angu
 import { Subject, ReplaySubject, BehaviorSubject } from 'rxjs';
 
 @Component({
-  moduleId: module.id,
   selector: 'app-sidedrawer-dropdown',
   templateUrl: './sidedrawer-dropdown.component.html',
   styleUrls: ['./sidedrawer-dropdown.component.css'],

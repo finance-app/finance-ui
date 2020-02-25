@@ -4,7 +4,6 @@ import { AuthService, SessionService, TimeframeService } from '@app/core';
 declare const require: any;
 
 @Component({
-    moduleId: module.id,
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css']
