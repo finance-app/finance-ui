@@ -51,6 +51,7 @@
     "highcharts": "^8.0.4",
     "jquery": "^3.4.1",
     "lodash": "^4.17.15",
+    "minimist": ">=1.2.5",
     "moment": "^2.24.0",
     "nativescript-angular": "^8.21.0",
     "nativescript-ngx-fonticon": "^6.0.3",
