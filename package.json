@@ -51,7 +51,7 @@
     "core-js": "^3.6.4",
     "highcharts": "^8.0.4",
     "https-proxy-agent": "^5.0.0",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "kind-of": "^6.0.3",
     "lodash": "^4.17.15",
     "minimist": "^1.2.5",
