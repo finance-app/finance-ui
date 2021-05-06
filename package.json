@@ -49,7 +49,7 @@
     "bootstrap": "^4.4.1",
     "buffer": "^5.5.0",
     "core-js": "^3.6.4",
-    "highcharts": "^8.0.4",
+    "highcharts": "^9.0.0",
     "https-proxy-agent": "^5.0.0",
     "jquery": "^3.5.0",
     "kind-of": "^6.0.3",
