@@ -1,0 +1,14 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+    - master
+
+jobs:
+  container-image:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Build container image
+      uses: docker/build-push-action@v2
