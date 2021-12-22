@@ -6,7 +6,7 @@
       "version": "6.4.1"
     }
   },
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Web client for Finance API",
   "repository": "github:finance-app/finance-ui",
   "scripts": {
