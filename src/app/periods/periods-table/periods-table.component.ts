@@ -38,7 +38,7 @@ export class PeriodsTableComponent extends Table implements OnInit {
     {
       title: 'Budget',
       value: function(p) { return p.budget.name + ' (' + p.budget.currency.name + ')'; },
-      routerLink: function(c) { return ['/budgets', c.id] },
+      routerLink: function(c) { return ['/budgets', c.budget.id]; },
     },
     ...this.balances_rows,
   ];
