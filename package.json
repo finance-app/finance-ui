@@ -13,6 +13,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build-prod": "./node_modules/.bin/ng build --prod --aot --delete-output-path --output-hashing all --extract-css true --source-map false --named-chunks false --build-optimizer --vendor-chunk",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
