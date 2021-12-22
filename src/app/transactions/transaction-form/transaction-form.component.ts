@@ -337,7 +337,7 @@ export class TransactionFormComponent implements OnInit, OnDestroy {
         const patchValue = (period && period.end_date) || moment().format('YYYY-MM-DD');
         this.dateMin.next(period.start_date);
         this.dateMax.next(patchValue);
-        const isValid = moment(formGroup.controls['date'].value, 'YYYY-MM-DD').isBetween(moment(period.start_date, 'YYYY-MM-DD'), moment(patchValue, 'YYYY-MM-DD'));
+        const isValid = moment(formGroup.controls['date'].value, 'YYYY-MM-DD').isBetween(moment(period.start_date, 'YYYY-MM-DD'), moment(patchValue, 'YYYY-MM-DD'), undefined, '[)');
         !isValid && this.load_defaults && formGroup.controls['date'].patchValue(patchValue);
       });
     }));
