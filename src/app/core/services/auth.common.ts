@@ -30,11 +30,11 @@ export abstract class AuthCommon implements CanActivate {
 
     setInterval(function() {
       if (this.loggedIn()) {
-        if (!this.loggedInStatic || this.loggedInStatic == undefined) {
+        if (!this.loggedInStatic || this.loggedInStatic === undefined) {
           this.loggedInObservable.next(true);
         }
       } else {
-        if (this.loggedInStatic || this.loggedInStatic == undefined) {
+        if (this.loggedInStatic || this.loggedInStatic === undefined) {
           this.loggedInObservable.next(false);
         }
       }
