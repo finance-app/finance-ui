@@ -21,32 +21,29 @@ export function tokenGetter() {
 }
 
 @NgModule({
-  imports: [
-    ...IMPORTS,
-    HttpClientModule,
-    NgbModule,
-    FontAwesomeModule,
-    JwtModule.forRoot({
-      config: {
-        tokenGetter: tokenGetter,
-        allowedDomains: environment.whitelistedDomains,
-        disallowedRoutes: environment.blacklistedRoutes
-      }
-    }),
-  ],
-  declarations: [
-    ...DECLARATIONS
-  ],
-  entryComponents: [
-    ...ENTRY_COMPONENTS
-  ],
-  exports: [
-    ...EXPORTS,
-    NgbModule,
-  ],
-  providers: [
-    ...PROVIDERS
-  ]
+    imports: [
+        ...IMPORTS,
+        HttpClientModule,
+        NgbModule,
+        FontAwesomeModule,
+        JwtModule.forRoot({
+            config: {
+                tokenGetter: tokenGetter,
+                allowedDomains: environment.whitelistedDomains,
+                disallowedRoutes: environment.blacklistedRoutes
+            }
+        }),
+    ],
+    declarations: [
+        ...DECLARATIONS
+    ],
+    exports: [
+        ...EXPORTS,
+        NgbModule,
+    ],
+    providers: [
+        ...PROVIDERS
+    ]
 })
 export class CoreModule {
   constructor(
