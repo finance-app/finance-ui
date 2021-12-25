@@ -62,7 +62,6 @@
     "nativescript-toast": "^2.0.0",
     "nativescript-ui-listview": "^8.0.1",
     "nativescript-ui-sidedrawer": "^8.0.0",
-    "ng-bootstrap-form-validation": "^5.0.0",
     "popper.js": "^1.16.1",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^6.5.4",
