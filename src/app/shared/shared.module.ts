@@ -9,11 +9,12 @@ import { ResponsiveModule } from 'ngx-responsive'
 //import { FlashMessagesModule } from 'angular2-flash-messages';
 // Workaround importing this module
 import { FlashMessagesModule } from 'angular2-flash-messages/module/module.js';
-import { AutofocusModule } from 'angular-autofocus-fix';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CapitalizePipe } from './pipes/capitalize.pipe';
 import { ChartModule } from 'angular-highcharts';
 import { RouterModule } from '@angular/router';
+
+import { AutoFocusDirective } from './auto-focus.directive';
 
 @NgModule({
   imports: [
@@ -21,6 +22,7 @@ import { RouterModule } from '@angular/router';
   ],
   declarations: [
     CapitalizePipe,
+    AutoFocusDirective,
   ],
   exports: [
     NgSelectModule,
@@ -30,12 +32,12 @@ import { RouterModule } from '@angular/router';
     HttpClientModule,
     NgbModule,
     FlashMessagesModule,
-    AutofocusModule,
     CapitalizePipe,
     FontAwesomeModule,
     ChartModule,
     RouterModule,
     ResponsiveModule,
+    AutoFocusDirective,
   ],
 })
 export class SharedModule {}
