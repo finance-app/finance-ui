@@ -38,7 +38,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.27",
     "@fortawesome/free-solid-svg-icons": "^5.12.1",
     "@ng-bootstrap/ng-bootstrap": "^8.0.4",
-    "@ng-select/ng-select": "^4.0.4",
+    "@ng-select/ng-select": "^5.1.0",
     "@types/highcharts": "^7.0.0",
     "acorn": "^7.1.1",
     "ajv": "^6.12.0",
