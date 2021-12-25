@@ -33,6 +33,13 @@
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js"
+            ],
+            "allowedCommonJsDependencies": [
+              "lodash/union",
+              "lodash/zipObject",
+              "highcharts/highstock",
+              "highcharts/highmaps",
+              "highcharts"
             ]
           },
           "configurations": {
