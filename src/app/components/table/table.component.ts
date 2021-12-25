@@ -27,7 +27,7 @@ export class TableComponent implements OnInit, OnDestroy {
   public elements: ReplaySubject<Array<any>> = new ReplaySubject<Array<any>>(1);
   private objects_subscription: any;
   public sort_status: any = {};
-  public sort_title: string = 'None';
+  public sort_title = 'None';
   private elements_unsorted: any;
 
   constructor(
@@ -37,24 +37,24 @@ export class TableComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     // Evaluate all row titles
-    for (let i=0; i<this.rows.length; i++) {
-      let row = this.rows[i];
+    for (let i = 0; i < this.rows.length; i++) {
+      const row = this.rows[i];
       row.title = this.evaluate(row.title);
     }
 
     this.objects_subscription = this.objects.subscribe(
       objects => {
         const subject = new ReplaySubject<any>(1);
-        for (let i=0; i<objects.length; i++) {
-          let object = objects[i];
+        for (let i = 0; i < objects.length; i++) {
+          const object = objects[i];
           object.rows = [];
           object.actions = [];
           object.cards = [];
           object.card_title = this.card_title && this.card_title(object);
           object.card_subtitle = this.card_subtitle && this.card_subtitle(object);
 
-          for (let i=0; i<this.rows.length; i++) {
-            let row = this.rows[i];
+          for (let j = 0; j < this.rows.length; j++) {
+            const row = this.rows[j];
             object.rows.push({
               routerLink: row.routerLink && row.routerLink(object),
               queryParams: row.queryParams ? row.queryParams(object) : {},
@@ -63,22 +63,21 @@ export class TableComponent implements OnInit, OnDestroy {
             });
           }
 
-          for (let i=0; i<this.actions.length; i++) {
-            let action = this.actions[i];
+          for (let j = 0; j < this.actions.length; j++) {
+            const action = this.actions[j];
             object.actions.push({
               ngClass: action.ngClass ? action.ngClass(object) : {},
               disabled: action.disabled ? action.disabled(object) : false,
               routerLink: action.routerLink && action.routerLink(object),
               queryParams: action.queryParams && action.queryParams(object),
-              //title: this.evaluate(action.title, object),
               title: action.title,
               icon: action.icon,
-              click: function(c) { action.click && action.click(c); },
+              click: function(c) { if (action.click) { action.click(c); } },
             });
           }
 
-          for (let i=0; i<this.cards.length; i++) {
-            let card = this.cards[i];
+          for (let j = 0; j < this.cards.length; j++) {
+            const card = this.cards[j];
             object.cards.push({
               title: this.evaluate(card.title),
               value: this.value(card, object),
@@ -103,9 +102,9 @@ export class TableComponent implements OnInit, OnDestroy {
 
           this.route.queryParams.pipe(take(1)).subscribe(queryParams => {
             const by = queryParams['order_by'];
-            if (by && by != '') {
+            if (by && by !== '') {
               const row = this.rows.find(r => r.title === by.charAt(0).toUpperCase() + by.slice(1));
-              row && this.sortBy(row, queryParams['order'] !== 'asc');
+              if (row) { this.sortBy(row, queryParams['order'] !== 'asc'); }
             }
           });
         });
@@ -141,15 +140,15 @@ export class TableComponent implements OnInit, OnDestroy {
   }
 
   sortBy(row, order?: boolean) {
-    let control = (order === undefined) ? (this.sort_status[row.title] === undefined ? false : !this.sort_status[row.title]) : order;
+    const control = (order === undefined) ? (this.sort_status[row.title] === undefined ? false : !this.sort_status[row.title]) : order;
     this.elements.pipe(take(1)).subscribe(elements => {
       elements.sort((l, r): number => {
         let lv = this.value(row, l) || '';
         lv = Number(lv) || lv.toLowerCase();
         let rv = this.value(row, r) || '';
         rv = Number(rv) || rv.toLowerCase();
-        if (lv < rv) return control ? 1 : -1;
-        if (lv > rv) return control ? -1 : 1;
+        if (lv < rv) { return control ? 1 : -1; }
+        if (lv > rv) { return control ? -1 : 1; }
         return 0;
       });
     });
