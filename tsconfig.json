@@ -1,14 +1,10 @@
 {
     "compileOnSave": false,
-    "angularCompilerOptions": {
-      "enableIvy": false
-    },
     "compilerOptions": {
         "module": "es2020",
         "outDir": "./dist/out-tsc",
         "declaration": false,
         "moduleResolution": "node",
-        "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
         "allowSyntheticDefaultImports": true,
         "target": "es2015",

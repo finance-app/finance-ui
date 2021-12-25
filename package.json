@@ -13,7 +13,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "build-prod": "./node_modules/.bin/ng build --prod --aot --delete-output-path --output-hashing all --source-map false --named-chunks false --build-optimizer --vendor-chunk",
+    "build-prod": "./node_modules/.bin/ng build --configuration production --aot --delete-output-path --output-hashing all --source-map false --named-chunks false --build-optimizer --vendor-chunk",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
@@ -24,14 +24,14 @@
   "private": false,
   "license": "MIT",
   "dependencies": {
-    "@angular/animations": "^11.2.14",
-    "@angular/common": "^11.2.14",
-    "@angular/compiler": "^11.2.14",
-    "@angular/core": "^11.2.14",
-    "@angular/forms": "^11.2.14",
-    "@angular/platform-browser": "^11.2.14",
-    "@angular/platform-browser-dynamic": "^11.2.14",
-    "@angular/router": "^11.2.14",
+    "@angular/animations": "^12.2.15",
+    "@angular/common": "^12.2.15",
+    "@angular/compiler": "^12.2.15",
+    "@angular/core": "^12.2.15",
+    "@angular/forms": "^12.2.15",
+    "@angular/platform-browser": "^12.2.15",
+    "@angular/platform-browser-dynamic": "^12.2.15",
+    "@angular/router": "^12.2.15",
     "@auth0/angular-jwt": "^5.0.2",
     "@fortawesome/angular-fontawesome": "^0.8.2",
     "@fortawesome/fontawesome-common-types": "^0.2.27",
@@ -68,12 +68,12 @@
     "rxjs-compat": "^6.5.4",
     "tns-core-modules": "^6.4.2",
     "tslib": "^2.0.0",
-    "zone.js": "~0.10.3"
+    "zone.js": "~0.11.4"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^0.1102.17",
-    "@angular/cli": "^11.2.17",
-    "@angular/compiler-cli": "^11.2.14",
+    "@angular-devkit/build-angular": "^12.2.14",
+    "@angular/cli": "^12.2.14",
+    "@angular/compiler-cli": "^12.2.15",
     "@nativescript/schematics": "^1.0.0",
     "@types/electron": "^1.6.10",
     "@types/jasmine": "~3.6.0",
@@ -93,6 +93,6 @@
     "protractor": "~7.0.0",
     "ts-node": "^8.6.2",
     "tslint": "~6.1.0",
-    "typescript": "^4.0.8"
+    "typescript": "<4.4.0"
   }
 }
