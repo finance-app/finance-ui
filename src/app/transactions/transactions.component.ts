@@ -20,7 +20,8 @@ import { Period } from '../periods/period';
 
 import { Index } from '../components/index/index';
 
-import * as _ from 'lodash';
+import union from 'lodash/union';
+import zipObject from 'lodash/zipObject';
 import { TimeframeFilter } from '../core/filters/timeframe-filter';
 import { TargetsFilter, TargetsService } from '../targets';
 import { AccountsFilter, AccountsService } from '../accounts';
@@ -171,11 +172,11 @@ export class TransactionsComponent extends Index implements OnInit, OnDestroy {
       if (current_total) {
         current_total.name = 'Accounts balance';
 
-        let labels = _.union<string>(balances.balances.labels, p.balance_history.labels).sort();
+        let labels = union<string>(balances.balances.labels, p.balance_history.labels).sort();
 
         let series_tmp = {
-          'Period balance': _.zipObject(p.balance_history.labels, p.balance_history.series[0].data),
-          'Accounts balance':  _.zipObject(balances.balances.labels, balances.balances.series.find(s => s.name == 'Accounts balance').data),
+          'Period balance': zipObject(p.balance_history.labels, p.balance_history.series[0].data),
+          'Accounts balance':  zipObject(balances.balances.labels, balances.balances.series.find(s => s.name == 'Accounts balance').data),
         }
 
         let series = [];
