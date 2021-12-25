@@ -58,4 +58,4 @@ export class CoreModule {
     library.addIconPacks(fas);
     throwIfAlreadyLoaded(parentModule, 'CoreModule');
   }
-};
+}
