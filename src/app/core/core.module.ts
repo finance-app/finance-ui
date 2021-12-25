@@ -1,6 +1,6 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { JwtModule } from '@melonwd/angular-jwt';
+import { JwtModule } from '@auth0/angular-jwt';
 
 // Environment
 import { environment } from '@env/environment';
