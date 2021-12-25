@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, ChangeDetectionStrategy, HostListener } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { ActivatedRoute, Router, Params } from '@angular/router';
@@ -29,6 +29,7 @@ export class TableComponent implements OnInit, OnDestroy {
   public sort_status: any = {};
   public sort_title = 'None';
   private elements_unsorted: any;
+  public isMobile = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -36,6 +37,8 @@ export class TableComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+    this.updateMobile(window);
+
     // Evaluate all row titles
     for (let i = 0; i < this.rows.length; i++) {
       const row = this.rows[i];
@@ -186,5 +189,14 @@ export class TableComponent implements OnInit, OnDestroy {
 
   isEmpty(obj: any) {
     return Object.keys(obj).length === 0 && obj.constructor === Object;
+  }
+
+  updateMobile(x: any) {
+    this.isMobile = x.innerWidth < 720;
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.updateMobile(event.target);
   }
 }

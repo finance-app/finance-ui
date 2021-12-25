@@ -7,7 +7,6 @@ import { environment } from '@env/environment';
 
 // Modules with forRoot
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ResponsiveModule } from 'ngx-responsive';
 
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { fas } from '@fortawesome/free-solid-svg-icons';
@@ -27,7 +26,6 @@ export function tokenGetter() {
     HttpClientModule,
     NgbModule,
     FontAwesomeModule,
-    ResponsiveModule.forRoot(),
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,

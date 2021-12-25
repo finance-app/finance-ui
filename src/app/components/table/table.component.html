@@ -1,4 +1,4 @@
-<div class="table-responsive" *showItBootstrap="['md', 'lg', 'xl']">
+<div class="table-responsive" *ngIf="!isMobile">
   <table class="table table-bordered table-striped table-hover">
     <thead class="thead-inverse">
       <tr>
@@ -40,7 +40,7 @@
     </tbody>
   </table>
 </div>
-<ng-container *showItBootstrap="['xs', 'sm']">
+<ng-container *ngIf="isMobile">
   <div ngbDropdown class="d-inline-block dropdown btn-group" role="group">
     <button class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" [id]="'sort'" ngbDropdownToggle>Sort by: {{ sort_title }}</button>
     <div class="dropdown-menu" ngbDropdownMenu [attr.aria-labelledby]="'sort'">
@@ -54,7 +54,7 @@
   </div>
   <br><br>
 </ng-container>
-<div *showItBootstrap="['xs', 'sm']">
+<div *ngIf="isMobile">
   <div class="card mt-1" *ngFor="let object of elements | async; trackBy: trackById" [ngClass]="active_row_class ? active_row_class(object, true) : {'border-success': active_row ? active_row(object) : false}">
     <div class="card-header" [ngClass]="active_row_text_class || {'bg-success': true, 'text-white': true}" *ngIf="active_row ? active_row(object) : false">{{active_row_text || 'Active'}}</div>
     <div class="card-body">
