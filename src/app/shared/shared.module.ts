@@ -5,7 +5,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgSelectModule } from '@ng-select/ng-select';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { FlashMessagesModule } from 'angular2-flash-messages/module/module.js';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CapitalizePipe } from './pipes/capitalize.pipe';
 import { ChartModule } from 'angular-highcharts';
@@ -28,7 +27,6 @@ import { AutoFocusDirective } from './auto-focus.directive';
     ReactiveFormsModule,
     HttpClientModule,
     NgbModule,
-    FlashMessagesModule,
     CapitalizePipe,
     FontAwesomeModule,
     ChartModule,
