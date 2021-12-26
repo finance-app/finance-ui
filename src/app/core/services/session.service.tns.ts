@@ -8,7 +8,7 @@ import { StorageService } from './storage.service';
 
 import { SessionCommon } from './session.common';
 
-import { RouterExtensions } from 'nativescript-angular/router';
+import { RouterExtensions } from '@nativescript/angular';
 
 @Injectable()
 export class SessionService extends SessionCommon {

@@ -9,7 +9,7 @@ import { SessionService } from '../../core/services/session.service';
 import { TimeframeService } from '../../core/services/timeframe.service';
 import { AccountsService } from '../../accounts/accounts.service';
 
-import * as app from 'tns-core-modules/application';
+import * as app from '@nativescript/core/application';
 import { RadSideDrawer } from 'nativescript-ui-sidedrawer';
 
 @Component({

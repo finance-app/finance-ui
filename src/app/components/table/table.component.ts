@@ -89,12 +89,12 @@ export class TableComponent implements OnInit, OnDestroy {
               visible: card.visible ? card.visible(object) : true,
             });
           }
-          subject.next();
+          subject.next(null);
           subject.complete();
         }
 
         if (objects.length === 0) {
-          subject.next();
+          subject.next(null);
           subject.complete();
         }
 
