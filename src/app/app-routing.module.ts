@@ -6,7 +6,7 @@ import { AppRoutes } from './app.routes';
 
 @NgModule({
     imports: [
-        RouterModule.forRoot(AppRoutes)
+        RouterModule.forRoot(AppRoutes, { relativeLinkResolution: 'legacy' })
     ],
     exports: [RouterModule]
 })

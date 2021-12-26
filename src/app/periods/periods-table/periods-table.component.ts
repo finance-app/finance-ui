@@ -38,14 +38,10 @@ export class PeriodsTableComponent extends Table implements OnInit {
     {
       title: 'Budget',
       value: function(p) { return p.budget.name + ' (' + p.budget.currency.name + ')'; },
-      routerLink: function(c) { return ['/budgets', c.id] },
+      routerLink: function(c) { return ['/budgets', c.budget.id]; },
     },
     ...this.balances_rows,
   ];
-
-  public card_title = function(b) { return b.name; }
-
-  public card_subtitle = function(b) { return b.comment; }
 
   public cards = [
     {
@@ -59,20 +55,22 @@ export class PeriodsTableComponent extends Table implements OnInit {
     {
       title: 'Budget',
       value: function(p) { return p.budget.name + ' (' + p.budget.currency.name + ')'; },
-      routerLink: function(c) { return ['/budgets', c.id] },
+      routerLink: function(c) { return ['/budgets', c.id]; },
     },
     ...this.balances_rows,
   ];
 
   public actions = [
     {
-      title: function(b) { return this.timeframeService.isCurrentPeriod(b) ? 'Deselect' : 'Select' }.bind(this),
+      title: function(b) { return this.timeframeService.isCurrentPeriod(b) ? 'Deselect' : 'Select'; }.bind(this),
       icon: 'check',
-      click: function(b) { return this.timeframeService.isCurrentPeriod(b) ? this.timeframeService.selectPeriod() : this.timeframeService.selectPeriod(b) }.bind(this),
+      click: function(b) {
+        return this.timeframeService.isCurrentPeriod(b) ? this.timeframeService.selectPeriod() : this.timeframeService.selectPeriod(b);
+      }.bind(this),
       ngClass: function(b) { return {'text-success': true}; },
     },
     {
-      title: function(b) { return b.end_date ? 'Reopen' : 'Close' }.bind(this),
+      title: function(b) { return b.end_date ? 'Reopen' : 'Close'; }.bind(this),
       icon: 'times',
       click: this.close_or_reopen.bind(this),
       ngClass: function(b) { return {'text-warning': true}; },
@@ -98,6 +96,10 @@ export class PeriodsTableComponent extends Table implements OnInit {
     }
   ];
 
+  public card_title = function(b) { return b.name; };
+
+  public card_subtitle = function(b) { return b.comment; };
+
   constructor(
     public periodsService: PeriodsService,
     public timeframeService: TimeframeService,
@@ -116,7 +118,7 @@ export class PeriodsTableComponent extends Table implements OnInit {
       data => {
         this.periods.pipe(take(1)).subscribe(
           periods => {
-            const index = periods.findIndex(function (x) { return x.id == this.id }, period);
+            const index = periods.findIndex(function (x) { return x.id === this.id; }, period);
             periods[index] = data;
             this.periods.next(periods);
           }
@@ -130,7 +132,7 @@ export class PeriodsTableComponent extends Table implements OnInit {
       data => {
         this.periods.pipe(take(1)).subscribe(
           periods => {
-            const index = periods.findIndex(function (x) { return x.id == this.id }, period);
+            const index = periods.findIndex(function (x) { return x.id === this.id; }, period);
             periods.splice(index, 1);
             this.periods.next([...data, ...periods]);
           }

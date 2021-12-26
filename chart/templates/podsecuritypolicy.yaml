@@ -1,0 +1,55 @@
+{{- if .Values.serviceAccount.create -}}
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: {{ include "finance-ui.fullname" .  }}
+  labels:
+    {{- include "finance-ui.labels" . | nindent 4 }}
+spec:
+  privileged: false
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: false
+  defaultAddCapabilities:
+  - CHOWN
+  - NET_BIND_SERVICE
+  - SETGID
+  - SETUID
+  requiredDropCapabilities:
+  - ALL
+  fsGroup:
+    rule: RunAsAny
+  runAsUser:
+    rule: RunAsAny
+  seLinux:
+    rule: RunAsAny
+  supplementalGroups:
+    rule: RunAsAny
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ include "finance-ui.fullname" .  }}
+  labels:
+    {{- include "finance-ui.labels" . | nindent 4 }}
+rules:
+- apiGroups: ['policy']
+  resources: ['podsecuritypolicies']
+  verbs:     ['use']
+  resourceNames:
+  - {{ include "finance-ui.fullname" .  }}
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: {{ include "finance-ui.fullname" .  }}
+  labels:
+    {{- include "finance-ui.labels" . | nindent 4 }}
+subjects:
+- kind: ServiceAccount
+  name: {{ include "finance-ui.fullname" .  }}
+  namespace: {{ .Release.Namespace }}
+roleRef:
+  kind: Role
+  name: {{ include "finance-ui.fullname" .  }}
+  apiGroup: rbac.authorization.k8s.io
+{{- end -}}

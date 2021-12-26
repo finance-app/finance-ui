@@ -67,9 +67,6 @@ export const AppRoutes: Routes = [
     loadChildren: () => import('~/app/transactions/transactions.module').then(m => m.TransactionsModule),
     canActivate: [AuthService],
   },
-  {
-    path: '**',
-    redirectTo: '',
-    canActivate: [AuthService],
-  }
+  { path: '**',
+    redirectTo: '' }
 ];

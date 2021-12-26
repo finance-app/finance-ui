@@ -1,7 +1,7 @@
 import { share, map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { JwtHelperService } from '@melonwd/angular-jwt';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { ReplaySubject } from 'rxjs';
 import { FinanceApiService } from '../services/finance-api.service';
 import { SessionService } from '../services/session.service';
@@ -30,11 +30,11 @@ export abstract class AuthCommon implements CanActivate {
 
     setInterval(function() {
       if (this.loggedIn()) {
-        if (!this.loggedInStatic || this.loggedInStatic == undefined) {
+        if (!this.loggedInStatic || this.loggedInStatic === undefined) {
           this.loggedInObservable.next(true);
         }
       } else {
-        if (this.loggedInStatic || this.loggedInStatic == undefined) {
+        if (this.loggedInStatic || this.loggedInStatic === undefined) {
           this.loggedInObservable.next(false);
         }
       }

@@ -1,6 +1,8 @@
 import { combineLatest as observableCombineLatest, ReplaySubject, Subscription } from 'rxjs';
 import { take, finalize } from 'rxjs/operators';
+import { Directive } from "@angular/core";
 
+@Directive()
 export class IndexCommon {
 
   public currentParams: Array<any>;

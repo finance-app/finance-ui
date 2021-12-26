@@ -42,7 +42,9 @@ export class FormComponent implements OnInit, AfterViewInit, OnDestroy {
     this.formGroup = new FormGroup(formGroup);
 
     // Pass form to callback if defined
-    this.formData.formCallback && this.formData.formCallback(this.formGroup);
+    if (this.formData.formCallback) {
+      this.formData.formCallback(this.formGroup);
+    }
 
     // Subscribe to load data
     this.subscriptions.push(this.formData.data.subscribe(
@@ -55,9 +57,9 @@ export class FormComponent implements OnInit, AfterViewInit, OnDestroy {
     // FIXME: workaround for checkboxes type, where you can't pass custom variable
     // Iterate over all fields, find ones with 'multiselect' type and append field reference to all options
     for (const field of this.formData.fields) {
-      if (field.type == 'multiselect' || field.type == 'select') {
+      if (field.type === 'multiselect' || field.type === 'select') {
         this.subscriptions.push(field.options.subscribe(options => {
-          for (let option of options) {
+          for (const option of options) {
             option.field = field;
           }
         }));
@@ -74,7 +76,7 @@ export class FormComponent implements OnInit, AfterViewInit, OnDestroy {
           for (const field of this.formData.fields) {
             if (field.defaultValue) {
               this.subscriptions.push(field.defaultValue.subscribe(value => {
-                let _value = field.value ? field.value(value) : value;
+                const _value = field.value ? field.value(value) : value;
                 if (!this.formGroup.controls[field.id].dirty || this.formGroup.controls[field.id].value) {
                   this.formGroup.controls[field.id].patchValue(_value);
                 }
@@ -117,10 +119,14 @@ export class FormComponent implements OnInit, AfterViewInit, OnDestroy {
             data => {
               // Passing default values should be done automatically somehow?
               const values = this.formGroup.value;
-              this.formGroup.reset(this.defaultValues),
-              this.formData.loadDefaults && this.formData.loadDefaults(values);
+              this.formGroup.reset(this.defaultValues);
+              if (this.formData.loadDefaults) {
+                this.formData.loadDefaults(values);
+              }
               this.serverErrors = null;
-              this.autofocusField && this.autofocusField.nativeElement.focus();
+              if (this.autofocusField) {
+                this.autofocusField.nativeElement.focus();
+              }
             },
             error => {
               this.parseRemoteErrors(error);

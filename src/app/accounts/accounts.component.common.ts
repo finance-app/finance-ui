@@ -1,6 +1,6 @@
 import { BehaviorSubject, ReplaySubject } from 'rxjs';
 import { take } from 'rxjs/operators';
-import { Component, OnInit, Optional, OnDestroy } from '@angular/core';
+import { Component, OnInit, Optional, OnDestroy, Directive } from '@angular/core';
 
 // Models
 import { Account } from './account';
@@ -16,6 +16,7 @@ import { Index } from '../components/index/index';
 import { TimeframeFilter } from '../core/filters/timeframe-filter';
 import { CurrenciesFilter } from '../currencies';
 
+@Directive()
 export class AccountsComponentCommon extends Index implements OnInit, OnDestroy {
 
   public accounts: ReplaySubject<Array<Account>> = new ReplaySubject<Array<Account>>(1);

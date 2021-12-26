@@ -1,13 +1,12 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { JwtModule } from '@melonwd/angular-jwt';
+import { JwtModule } from '@auth0/angular-jwt';
 
 // Environment
 import { environment } from '@env/environment';
 
 // Modules with forRoot
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ResponsiveModule } from 'ngx-responsive';
 
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { fas } from '@fortawesome/free-solid-svg-icons';
@@ -22,33 +21,29 @@ export function tokenGetter() {
 }
 
 @NgModule({
-  imports: [
-    ...IMPORTS,
-    HttpClientModule,
-    NgbModule,
-    FontAwesomeModule,
-    ResponsiveModule.forRoot(),
-    JwtModule.forRoot({
-      config: {
-        tokenGetter: tokenGetter,
-        whitelistedDomains: environment.whitelistedDomains,
-        blacklistedRoutes: environment.blacklistedRoutes
-      }
-    }),
-  ],
-  declarations: [
-    ...DECLARATIONS
-  ],
-  entryComponents: [
-    ...ENTRY_COMPONENTS
-  ],
-  exports: [
-    ...EXPORTS,
-    NgbModule,
-  ],
-  providers: [
-    ...PROVIDERS
-  ]
+    imports: [
+        ...IMPORTS,
+        HttpClientModule,
+        NgbModule,
+        FontAwesomeModule,
+        JwtModule.forRoot({
+            config: {
+                tokenGetter: tokenGetter,
+                allowedDomains: environment.whitelistedDomains,
+                disallowedRoutes: environment.blacklistedRoutes
+            }
+        }),
+    ],
+    declarations: [
+        ...DECLARATIONS
+    ],
+    exports: [
+        ...EXPORTS,
+        NgbModule,
+    ],
+    providers: [
+        ...PROVIDERS
+    ]
 })
 export class CoreModule {
   constructor(
@@ -58,4 +53,4 @@ export class CoreModule {
     library.addIconPacks(fas);
     throwIfAlreadyLoaded(parentModule, 'CoreModule');
   }
-};
+}
