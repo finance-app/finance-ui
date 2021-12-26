@@ -1,4 +1,4 @@
-import * as app from 'tns-core-modules/application';
+import * as app from '@nativescript/core/application';
 import { RadSideDrawer } from 'nativescript-ui-sidedrawer';
 import { Component, Input, ViewChild, ElementRef, OnInit } from '@angular/core';
 

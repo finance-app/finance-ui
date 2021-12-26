@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ModalDialogParams } from 'nativescript-angular/directives/dialogs';
+import { ModalDialogParams } from '@nativescript/angular';
 
 @Component({
   selector: 'app-confirmation-modal',

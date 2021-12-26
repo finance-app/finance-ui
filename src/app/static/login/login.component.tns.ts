@@ -6,10 +6,10 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../core/services/auth.service';
 import { AlertsService } from '../../core/alerts/alerts.service';
 
-import * as app from 'tns-core-modules/application';
+import * as app from '@nativescript/core/application';
 import { RadSideDrawer } from 'nativescript-ui-sidedrawer';
-import { RouterExtensions } from 'nativescript-angular/router';
-import { Page } from 'tns-core-modules/ui/page';
+import { RouterExtensions } from '@nativescript/angular';
+import { Page } from '@nativescript/core';
 
 @Component({
   selector: 'app-login',

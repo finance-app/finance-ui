@@ -1,7 +1,6 @@
 import { NO_ERRORS_SCHEMA, NgModule } from '@angular/core';
-import { NativeScriptFormsModule } from 'nativescript-angular/forms';
+import { NativeScriptFormsModule, NativeScriptCommonModule } from '@nativescript/angular';
 import { ReactiveFormsModule } from '@angular/forms';
-import { NativeScriptCommonModule } from 'nativescript-angular/common';
 import { TNSFontIconModule } from 'nativescript-ngx-fonticon';
 import { CapitalizePipe } from './pipes/capitalize.pipe';
 

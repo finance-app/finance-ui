@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ModalDialogService } from 'nativescript-angular/modal-dialog';
+import { ModalDialogService } from '@nativescript/angular';
 
 @Injectable()
 export class ModalService {

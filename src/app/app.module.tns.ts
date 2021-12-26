@@ -1,8 +1,7 @@
 import { NgModule, NO_ERRORS_SCHEMA, NgModuleFactoryLoader } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 // nativescript
-import { NativeScriptHttpClientModule } from 'nativescript-angular/http-client';
-import { NativeScriptModule } from 'nativescript-angular/nativescript.module';
+import { NativeScriptHttpClientModule, NativeScriptModule } from '@nativescript/angular';
 // app
 import { Config } from './common/index';
 import { AppComponent } from './app.component';

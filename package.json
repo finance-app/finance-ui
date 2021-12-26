@@ -1,11 +1,5 @@
 {
   "name": "finance-ui",
-  "nativescript": {
-    "id": "org.nativescript.financeui",
-    "tns-android": {
-      "version": "6.4.1"
-    }
-  },
   "version": "0.1.0",
   "description": "Web client for Finance API",
   "repository": "github:finance-app/finance-ui",
@@ -37,8 +31,11 @@
     "@fortawesome/fontawesome-common-types": "^0.2.27",
     "@fortawesome/fontawesome-svg-core": "^1.2.27",
     "@fortawesome/free-solid-svg-icons": "^5.12.1",
+    "@nativescript/angular": "^12.2.0",
+    "@nativescript/core": "~8.1.1",
     "@ng-bootstrap/ng-bootstrap": "^11.0.0",
     "@ng-select/ng-select": "^8.1.1",
+    "@ngtools/webpack": "^13.1.2",
     "@types/highcharts": "^7.0.0",
     "acorn": "^7.1.1",
     "ajv": "^6.12.0",
@@ -55,7 +52,6 @@
     "lodash": "^4.17.15",
     "minimist": "^1.2.5",
     "moment": "^2.24.0",
-    "nativescript-angular": "^8.21.0",
     "nativescript-ngx-fonticon": "^6.0.3",
     "nativescript-theme-core": "^2.0.24",
     "nativescript-toast": "^2.0.0",
@@ -64,18 +60,18 @@
     "popper.js": "^1.16.1",
     "postcss": "^8.4.5",
     "reflect-metadata": "^0.1.13",
-    "rxjs": "^6.5.4",
+    "rxjs": "^7.4.0",
     "rxjs-compat": "^6.5.4",
-    "tns-core-modules": "^6.4.2",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^13.1.2",
     "@angular/cli": "^13.1.2",
     "@angular/compiler-cli": "^13.1.1",
     "@angular/localize": "^13.1.1",
+    "@nativescript/android": "8.1.1",
     "@nativescript/schematics": "^1.0.0",
+    "@nativescript/webpack": "~5.0.0",
     "@types/electron": "^1.6.10",
     "@types/jasmine": "~3.6.0",
     "@types/jasminewd2": "^2.0.8",
@@ -83,17 +79,17 @@
     "@types/node": "^13.9.1",
     "codelyzer": "^6.0.0",
     "electron": "^8.1.1",
-    "jasmine-core": "~3.6.0",
+    "jasmine-core": "^3.10.1",
     "jasmine-spec-reporter": "~5.0.0",
     "karma": "~6.3.9",
     "karma-chrome-launcher": "~3.1.0",
     "karma-coverage-istanbul-reporter": "~3.0.2",
     "karma-jasmine": "~4.0.0",
-    "karma-jasmine-html-reporter": "^1.5.0",
-    "nativescript-dev-webpack": "^1.5.1",
+    "karma-jasmine-html-reporter": "^1.7.0",
     "protractor": "~7.0.0",
     "ts-node": "^8.6.2",
     "tslint": "~6.1.0",
     "typescript": "4.5.4"
-  }
+  },
+  "main": "./src/main.ns.ts"
 }

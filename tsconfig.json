@@ -1,13 +1,13 @@
 {
     "compileOnSave": false,
     "compilerOptions": {
-        "module": "es2020",
+        "module": "esnext",
         "outDir": "./dist/out-tsc",
         "declaration": false,
         "moduleResolution": "node",
         "experimentalDecorators": true,
         "allowSyntheticDefaultImports": true,
-        "target": "es2015",
+        "target": "es2017",
         "typeRoots": [
             "node_modules/@types"
         ],
@@ -41,7 +41,8 @@
             "core-js/es6/reflect": [
                 "../node_modules/core-js/es"
             ]
-        }
+        },
+        "removeComments": false
     },
     "exclude": [
         "**/*.tns.ts",

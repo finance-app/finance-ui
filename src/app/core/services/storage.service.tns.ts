@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { getString, setString, remove } from 'tns-core-modules/application-settings';
+import { ApplicationSettings } from '@nativescript/core';
 import { Buffer } from 'buffer';
 
 import { StorageCommon } from './storage.common';
@@ -12,15 +12,15 @@ export class StorageService extends StorageCommon {
   }
 
   _setItem(key, data) {
-    return setString(key, data);
+    return ApplicationSettings.setString(key, data);
   }
 
   _getItem(key) {
-    return getString(key);
+    return ApplicationSettings.getString(key);
   }
 
   _removeItem(key) {
-    return remove(key);
+    return ApplicationSettings.remove(key);
   }
 
   btoa(str) {
