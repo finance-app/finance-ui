@@ -37,7 +37,6 @@
     "@ng-bootstrap/ng-bootstrap": "^11.0.0",
     "@ng-select/ng-select": "^8.1.1",
     "@ngtools/webpack": "^13.1.2",
-    "@types/highcharts": "^7.0.0",
     "acorn": "^7.1.1",
     "ajv": "^6.12.0",
     "angular-confirmation-popover": "^6.0.0",
@@ -64,6 +63,7 @@
     "rxjs": "^7.4.0",
     "rxjs-compat": "^6.5.4",
     "tslib": "^2.0.0",
+    "uuid": "^7.0.3",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
@@ -71,9 +71,7 @@
     "@angular/compiler-cli": "^13.1.1",
     "@angular/localize": "^13.1.1",
     "@nativescript/android": "8.1.1",
-    "@nativescript/schematics": "^1.0.0",
     "@nativescript/webpack": "~5.0.0",
-    "@types/electron": "^1.6.10",
     "@types/jasmine": "~3.6.0",
     "@types/jasminewd2": "^2.0.8",
     "@types/lodash": "^4.14.149",
