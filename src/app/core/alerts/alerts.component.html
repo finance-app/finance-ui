@@ -1,3 +1,3 @@
 <p *ngFor="let alert of objectKeys(alertsService.alerts)">
-  <ngb-alert [type]="alertsService.alerts[alert].type" (close)="closeAlert(alert)">{{ alertsService.alerts[alert].message }}</ngb-alert>
+  <ngb-alert [type]="alertsService.alerts[alert].type" (closed)="closeAlert(alert)">{{ alertsService.alerts[alert].message }}</ngb-alert>
 </p>
