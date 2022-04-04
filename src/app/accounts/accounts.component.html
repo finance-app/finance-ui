@@ -1,5 +1,14 @@
 <index title="Accounts">
-  <div [chart]="balancesChart" index-header></div>
+  <div index-header>
+    <div class="row">
+      <div class="col-sm-6">
+        <div [chart]="balancesChart"></div>
+      </div>
+      <div class="col-sm-6">
+        <div [chart]="distributionChart"></div>
+      </div>
+    </div>
+  </div>
   <table-header [filters]="filters" [update]="update.bind(this)" [reset]="reset.bind(this)" path="accounts" index-body></table-header>
   <br index-body>
   <accounts-table [accounts]="accounts" index-body></accounts-table>

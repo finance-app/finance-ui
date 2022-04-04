@@ -19,6 +19,7 @@ import { Chart } from 'angular-highcharts';
 export class AccountsComponent extends AccountsComponentCommon implements OnInit, OnDestroy {
 
   public balancesChart: Chart;
+  public distributionChart: Chart;
 
   constructor(
     public accountsService: AccountsService,
@@ -66,6 +67,44 @@ export class AccountsComponent extends AccountsComponentCommon implements OnInit
 
         this.cdRef.detectChanges();
       }
+    );
+
+    this.accountsService.getAll(options).subscribe(
+      accounts => {
+        const nonZeroAccounts = accounts.filter(account => +account.current_balance !== 0);
+
+        this.distributionChart = new Chart({
+          chart: {
+            type: 'pie'
+          },
+          credits: {
+            enabled: false
+          },
+          title: {
+            text: 'Value distribution over accounts'
+          },
+          tooltip: {
+            pointFormat: '{series.name}: {point.percentage:.1f} % ({point.y})'
+          },
+          plotOptions: {
+            pie: {
+              dataLabels: {
+                enabled: true,
+                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                // To display all labels even on narrow displays.
+                padding: 0,
+              }
+            }
+          },
+          series: [{
+            name: 'Current balance',
+            type: 'pie',
+            data: nonZeroAccounts.map(account => ({name: account.name, y: +account.current_balance})),
+          }],
+        });
+
+        this.cdRef.detectChanges();
+      },
     );
     return subject;
   }
