@@ -34,7 +34,7 @@ export class AccountsTableComponent extends Table implements OnInit {
     {
       title: 'Currency',
       value: function(b) { return b.currency.name; },
-      routerLink: function(b) { return ['/currencies', b.currency.id] },
+      routerLink: function(b) { return ['/currencies', b.currency.id]; },
     },
     {
       title: 'Type',
@@ -44,22 +44,18 @@ export class AccountsTableComponent extends Table implements OnInit {
     },
   ];
 
-  public card_title = function(b) { return b.name; }
-
-  public card_subtitle = function(b) { return b.comment; }
-
   public cards = [
     ...this.balances_rows,
     {
       title: 'Current balance',
       value: this.currentBalanceValue.bind(this),
       ngClass: this.currentBalanceNgClass.bind(this),
-      visible: function(object) { return object.current_balance !== undefined && object.current_balance !== "0.0" },
+      visible: function(object) { return object.current_balance !== undefined && object.current_balance !== '0.0'; },
     },
     {
       title: 'Currency',
       value: function(b) { return b.currency.name; },
-      routerLink: function(b) { return ['/currencies', b.currency.id] },
+      routerLink: function(b) { return ['/currencies', b.currency.id]; },
     },
     {
       title: 'Type',
@@ -103,6 +99,10 @@ export class AccountsTableComponent extends Table implements OnInit {
       click: this.delete.bind(this),
     }
   ];
+
+  public card_title = function(b) { return b.name; };
+
+  public card_subtitle = function(b) { return b.comment; };
 
   constructor(
     public accountsService: AccountsService,
