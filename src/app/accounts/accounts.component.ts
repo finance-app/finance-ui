@@ -25,7 +25,7 @@ export class AccountsComponent extends AccountsComponentCommon implements OnInit
     public currenciesService: CurrenciesService,
     public timeframeService: TimeframeService,
     public periodsService: PeriodsService,
-    private cdRef : ChangeDetectorRef,
+    private cdRef: ChangeDetectorRef,
   ) {
     super(
       accountsService,
@@ -36,7 +36,7 @@ export class AccountsComponent extends AccountsComponentCommon implements OnInit
   }
 
   getAll(params = []): ReplaySubject<any> {
-    let subject = super.getAll(params);
+    const subject = super.getAll(params);
 
     // build all query params
     const options = super.options(params);
@@ -63,6 +63,7 @@ export class AccountsComponent extends AccountsComponentCommon implements OnInit
             },
             series: balances.balances.series
         });
+
         this.cdRef.detectChanges();
       }
     );
