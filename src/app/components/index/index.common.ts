@@ -1,9 +1,9 @@
 import { combineLatest as observableCombineLatest, ReplaySubject, Subscription } from 'rxjs';
 import { take, finalize } from 'rxjs/operators';
-import { Directive } from "@angular/core";
+import { Directive, OnInit, OnDestroy } from '@angular/core';
 
 @Directive()
-export class IndexCommon {
+export class IndexCommonDirective implements OnInit, OnDestroy {
 
   public currentParams: Array<any>;
   public objects: any;
@@ -11,36 +11,38 @@ export class IndexCommon {
   public filters: any;
   public subscriptions: Array<Subscription> = [];
   public getAllSubscription: any = null;
-  private getUpdates: boolean = true;
+  private getUpdates = true;
 
   constructor() { }
 
   ngOnInit() {
-    // If there is at least one filter defined, wait for it to produce and subscribe to future updates
-    if (this.filters.length > 0) {
-      this.subscriptions.push(observableCombineLatest(...this.filters.map(function(f) { return f.observable })).subscribe(
-        params => {
-          const filtered_params = this.filterParams(params);
-          if (this.currentParams === undefined || filtered_params.join('&') != this.filterParams(this.currentParams).join('&')) {
-            this.getUpdates && this.getAll(filtered_params);
-            this.currentParams = filtered_params;
-          }
-        },
-      ));
-    } else {
-      // If there is no filters, just fetch all once
-      this.getUpdates && this.getAll();
+    // If there is no filters, just fetch all at once.
+    if (this.filters.length === 0) {
+      if (this.getUpdates) { this.getAll(); }
+
+      return;
     }
+
+    // If there is at least one filter defined, wait for it to produce and subscribe to future updates.
+    this.subscriptions.push(observableCombineLatest(...this.filters.map(function(f) { return f.observable; })).subscribe(
+      params => {
+        const filtered_params = this.filterParams(params);
+        if (this.currentParams === undefined || filtered_params.join('&') !== this.filterParams(this.currentParams).join('&')) {
+          if (this.getUpdates) { this.getAll(filtered_params); }
+          this.currentParams = filtered_params;
+        }
+      },
+    ));
   }
 
   reset() {
     if (this.filters.length > 0) {
       this.getUpdates = false;
-      for (let i=0; i<this.filters.length; i++) {
-        let filter = this.filters[i];
+      for (let i = 0; i < this.filters.length; i++) {
+        const filter = this.filters[i];
         if (filter.defaultObservable) {
           filter.defaultObservable.pipe(take(1)).subscribe(value => {
-            let new_value = typeof filter.defaultObject === 'function' ? filter.defaultObject(value) : value;
+            const new_value = typeof filter.defaultObject === 'function' ? filter.defaultObject(value) : value;
             filter.current.next(new_value);
           });
         } else {
@@ -53,7 +55,7 @@ export class IndexCommon {
   }
 
   filterParams(params) {
-    return params.filter(function(v) { return v != null });
+    return params.filter(function(v) { return v != null; });
   }
 
   ngOnDestroy() {
@@ -83,10 +85,10 @@ export class IndexCommon {
     );
 
     return subject;
-  };
+  }
 
   options(params = []) {
-    return params.filter(function(v) { return v != null }).join('&');
+    return params.filter(function(v) { return v != null; }).join('&');
   }
 
   update(): ReplaySubject<any> {

@@ -1,8 +1,8 @@
-import { IndexCommon } from './index.common';
-import { Directive } from "@angular/core";
+import { IndexCommonDirective } from './index.common';
+import { Directive } from '@angular/core';
 
 @Directive()
-export class Index extends IndexCommon {
+export class IndexDirective extends IndexCommonDirective {
   constructor() {
     super();
   }

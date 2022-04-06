@@ -18,7 +18,7 @@ import { BudgetsService } from '../budgets/budgets.service';
 //import { Chart } from 'angular-highcharts';
 import { Period } from '../periods/period';
 
-import { Index } from '../components/index/index';
+import { IndexDirective } from '../components/index/index';
 
 import * as _ from 'lodash';
 import { TimeframeFilter } from '../core/filters/timeframe-filter';
@@ -31,7 +31,7 @@ import { AccountsFilter, AccountsService } from '../accounts';
   styleUrls: ['./transactions.component.css'],
 })
 
-export class TransactionsComponent extends Index implements OnInit, OnDestroy {
+export class TransactionsComponent extends IndexDirective implements OnInit, OnDestroy {
 
   public transactions: ReplaySubject<Array<Transaction>> = new ReplaySubject<Array<Transaction>>(1);
   public transactionsSum: string = '0';

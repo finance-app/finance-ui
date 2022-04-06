@@ -9,7 +9,7 @@ import { TransactionCategoriesService } from './transaction-categories.service';
 import { TimeframeService } from '../core/services/timeframe.service';
 import { PeriodsService } from '../periods/periods.service';
 
-import { Index } from '../components/index/index';
+import { IndexDirective } from '../components/index/index';
 import { TimeframeFilter } from '../core/filters/timeframe-filter';
 
 @Component({
@@ -18,7 +18,7 @@ import { TimeframeFilter } from '../core/filters/timeframe-filter';
   styleUrls: ['./transaction-categories.component.css'],
 })
 
-export class TransactionCategoriesComponent extends Index implements OnInit, OnDestroy {
+export class TransactionCategoriesComponent extends IndexDirective implements OnInit, OnDestroy {
 
   public transactionCategories: ReplaySubject<Array<TransactionCategory>> = new ReplaySubject<Array<TransactionCategory>>(1);
   public filters: Array<any> = [

@@ -11,13 +11,13 @@ import { CurrenciesService } from '../currencies';
 import { TimeframeService } from '../core/services/timeframe.service';
 import { PeriodsService } from '../periods';
 
-import { Index } from '../components/index/index';
+import { IndexDirective } from '../components/index/index';
 
 import { TimeframeFilter } from '../core/filters/timeframe-filter';
 import { CurrenciesFilter } from '../currencies';
 
 @Directive()
-export class AccountsComponentCommon extends Index implements OnInit, OnDestroy {
+export class AccountsComponentCommon extends IndexDirective implements OnInit, OnDestroy {
 
   public accounts: ReplaySubject<Array<Account>> = new ReplaySubject<Array<Account>>(1);
   public filters: any = [

@@ -10,7 +10,7 @@ import { PeriodsService } from './periods.service';
 import { CurrenciesService } from '../currencies/currencies.service';
 import { TimeframeService } from '../core/services/timeframe.service';
 
-import { Index } from '../components/index/index';
+import { IndexDirective } from '../components/index/index';
 import { BudgetsFilter } from '../budgets/budgets-filter';
 
 @Component({
@@ -19,7 +19,7 @@ import { BudgetsFilter } from '../budgets/budgets-filter';
   styleUrls: ['./periods.component.css'],
 })
 
-export class PeriodsComponent extends Index implements OnInit, OnDestroy {
+export class PeriodsComponent extends IndexDirective implements OnInit, OnDestroy {
 
   public periods: ReplaySubject<Array<Period>> = new ReplaySubject<Array<Period>>(1);
   public filters: any = [

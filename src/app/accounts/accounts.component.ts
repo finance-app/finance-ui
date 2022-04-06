@@ -4,9 +4,9 @@ import { ReplaySubject } from 'rxjs';
 
 // Services
 import { AccountsService } from './accounts.service';
-import { CurrenciesService } from '@app/currencies';
+import { CurrenciesService } from '../currencies';
 import { TimeframeService } from '../core/services/timeframe.service';
-import { PeriodsService } from '@app/periods';
+import { PeriodsService } from '../periods';
 
 import { Chart } from 'angular-highcharts';
 

@@ -9,7 +9,7 @@ import { BudgetsService } from './budgets.service';
 import { CurrenciesService } from '../currencies/currencies.service';
 import { TimeframeService } from '../core/services/timeframe.service';
 
-import { Index } from '../components/index/index';
+import { IndexDirective } from '../components/index/index';
 
 import { CurrenciesFilter } from '../currencies/currencies-filter';
 
@@ -19,7 +19,7 @@ import { CurrenciesFilter } from '../currencies/currencies-filter';
   styleUrls: ['./budgets.component.css'],
 })
 
-export class BudgetsComponent extends Index implements OnInit, OnDestroy {
+export class BudgetsComponent extends IndexDirective implements OnInit, OnDestroy {
 
   public budgets: ReplaySubject<Array<Budget>> = new ReplaySubject<Array<Budget>>(1);
 
