@@ -1,15 +1,17 @@
 <div *ngIf="transaction">
   <div class="text-center">
-    <h3>Transaction {{transaction.name}}</h3>
+    <h3>Transaction {{transaction.source.model_name === 'Target' ? '+' + transaction.value : '-' + transaction.value}} from {{ transaction.source.name }} to {{ transaction.destination.name }} on {{ transaction.date }}</h3>
   </div>
   <br>
   <button type="button" class="btn btn-primary mr-2 mb-2" routerLink="./edit"><fa-icon icon="edit"></fa-icon><span class="d-none d-sm-inline"> Edit</span></button>
   <button type="button" class="btn btn-danger mr-2 mb-2" (click)="delete(transaction)"><fa-icon icon="trash-alt"></fa-icon><span class="d-none d-sm-inline"> Delete</span></button>
   <button type="button" class="btn btn-secondary pull-right mr-2 mb-2" (click)="locationService.back()"><fa-icon icon="undo"></fa-icon> Back</button>
   <br><br>
-  Name: {{ transaction.name }}<br>
+  Value: {{ transaction.value }}<br>
+  Date: {{ transaction.date }}<br>
+  Category: <a [routerLink]="['/transaction_categories', transaction.transaction_category.id]">{{ transaction.transaction_category.name }}</a><br>
+  Source: <a [routerLink]="[transaction.source.model_name === 'Target' ? '/targets' : '/accounts', transaction.source.id]">{{ transaction.source.name }}</a><br>
+  Destination: <a [routerLink]="[transaction.destination.model_name === 'Target' ? '/targets' : '/accounts', transaction.destination.id]">{{ transaction.destination.name }}</a><br>
   Comment: {{ transaction.comment }}<br>
-  Incomes: <span [ngClass]="{'text-success': transaction.incomes_balance > 0}">{{transaction.incomes_balance > 0 ? '+' + transaction.incomes_balance : '0.0'}}</span><br>
-  Expenses: <span [ngClass]="{'text-danger': transaction.expenses_balance < 0}">{{transaction.expenses_balance ? transaction.expenses_balance : '0.0'}}</span><br>
-  Balance: <span [ngClass]="{'text-success': transaction.balance > 0, 'text-danger': transaction.balance < 0}">{{transaction.balance ? (transaction.balance > 0 ? '+' + transaction.balance : transaction.balance) : '0.0'}}</span><br>
+  Type: {{ transaction.type }}<br>
 </div>
