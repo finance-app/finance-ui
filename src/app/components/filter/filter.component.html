@@ -1,5 +1,5 @@
-<div ngbDropdown class="d-inline-block dropdown btn-group" role="group" placement="bottom-left bottom">
-  <button class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" [id]="'filter' + property" ngbDropdownToggle>{{ buttonTitle() }}</button>
+<div ngbDropdown class="d-inline-block" placement="bottom-left bottom">
+  <button class="btn btn-secondary dropdown-toggle mr-2 mb-2" data-toggle="dropdown" [id]="'filter' + property" ngbDropdownToggle>{{ buttonTitle() }}</button>
   <div class="dropdown-menu scrollable-menu" ngbDropdownMenu [attr.aria-labelledby]="'filter'+property">
     <button class="dropdown-item" (click)="!isActiveAllOption() && current.next('')" [class.active]="isActiveAllOption()">All</button>
     <button class="dropdown-item" *ngFor="let option of options | async" [class.active]="isActiveOption(option)" (click)="!isActiveOption(option) && current.next(option)">{{ optionString(option) }}</button>

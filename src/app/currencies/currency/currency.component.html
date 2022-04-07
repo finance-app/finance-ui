@@ -3,9 +3,9 @@
     <h3>Currency {{currency.name}}</h3>
   </div>
   <br>
-  <button type="button" class="btn btn-primary" routerLink="./edit"><fa-icon icon="edit"></fa-icon> Edit</button>
-  <button type="button" class="btn btn-danger" (click)="delete(currency)"><fa-icon icon="trash-alt"></fa-icon> Delete</button>
-  <button type="button" class="btn btn-secondary pull-right" (click)="locationService.back()"><fa-icon icon="undo"></fa-icon> Back</button>
+  <button type="button" class="btn btn-primary mr-2 mb-2" routerLink="./edit"><fa-icon icon="edit"></fa-icon> Edit</button>
+  <button type="button" class="btn btn-danger mr-2 mb-2" (click)="delete(currency)"><fa-icon icon="trash-alt"></fa-icon> Delete</button>
+  <button type="button" class="btn btn-secondary pull-right mr-2 mb-2" (click)="locationService.back()"><fa-icon icon="undo"></fa-icon> Back</button>
   <br><br>
   Name: {{ currency.name }}<br>
   Symbol: {{ currency.symbol }}<br>

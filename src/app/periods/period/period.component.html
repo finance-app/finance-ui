@@ -3,11 +3,11 @@
     <h3>Period {{period.name}}</h3>
   </div>
   <br>
-  <button type="button" class="btn btn-success" (click)="timeframeService.isCurrentPeriod(period) ? timeframeService.selectPeriod() : timeframeService.selectPeriod(period)"><fa-icon icon="check"></fa-icon> {{ timeframeService.isCurrentPeriod(period) ? 'Deselect' : 'Select' }}</button>
-  <button type="button" class="btn btn-primary" routerLink="./edit"><fa-icon icon="edit"></fa-icon><span class="d-none d-sm-inline"> Edit</span></button>
-  <button type="button" class="btn btn-warning" disabled><fa-icon icon="archive"></fa-icon><span class="d-none d-sm-inline"> Archive</span></button>
-  <button type="button" class="btn btn-danger" (click)="delete(period)"><fa-icon icon="trash-alt"></fa-icon><span class="d-none d-sm-inline"> Delete</span></button>
-  <button type="button" class="btn btn-secondary pull-right" (click)="locationService.back()"><fa-icon icon="undo"></fa-icon> Back</button>
+  <button type="button" class="btn btn-success mr-2 mb-2" (click)="timeframeService.isCurrentPeriod(period) ? timeframeService.selectPeriod() : timeframeService.selectPeriod(period)"><fa-icon icon="check"></fa-icon> {{ timeframeService.isCurrentPeriod(period) ? 'Deselect' : 'Select' }}</button>
+  <button type="button" class="btn btn-primary mr-2 mb-2" routerLink="./edit"><fa-icon icon="edit"></fa-icon><span class="d-none d-sm-inline"> Edit</span></button>
+  <button type="button" class="btn btn-warning mr-2 mb-2" disabled><fa-icon icon="archive"></fa-icon><span class="d-none d-sm-inline"> Archive</span></button>
+  <button type="button" class="btn btn-danger mr-2 mb-2" (click)="delete(period)"><fa-icon icon="trash-alt"></fa-icon><span class="d-none d-sm-inline"> Delete</span></button>
+  <button type="button" class="btn btn-secondary pull-right mr-2 mb-2" (click)="locationService.back()"><fa-icon icon="undo"></fa-icon> Back</button>
   <br><br>
   Name: {{ period.name }}<br>
   Comment: {{ period.comment }}<br>

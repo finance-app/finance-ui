@@ -3,9 +3,9 @@
     <h3>Target {{target.name}}</h3>
   </div>
   <br>
-  <button type="button" class="btn btn-primary" routerLink="./edit"><fa-icon icon="edit"></fa-icon><span class="d-none d-sm-inline"> Edit</span></button>
-  <button type="button" class="btn btn-danger" (click)="delete(target)"><fa-icon icon="trash-alt"></fa-icon><span class="d-none d-sm-inline"> Delete</span></button>
-  <button type="button" class="btn btn-secondary pull-right" (click)="locationService.back()"><fa-icon icon="undo"></fa-icon> Back</button>
+  <button type="button" class="btn btn-primary mr-2 mb-2" routerLink="./edit"><fa-icon icon="edit"></fa-icon><span class="d-none d-sm-inline"> Edit</span></button>
+  <button type="button" class="btn btn-danger mr-2 mb-2" (click)="delete(target)"><fa-icon icon="trash-alt"></fa-icon><span class="d-none d-sm-inline"> Delete</span></button>
+  <button type="button" class="btn btn-secondary pull-right mr-2 mb-2" (click)="locationService.back()"><fa-icon icon="undo"></fa-icon> Back</button>
   <br><br>
   Name: {{ target.name }}<br>
   Comment: {{ target.comment }}<br>
