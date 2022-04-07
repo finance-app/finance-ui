@@ -42,22 +42,20 @@ export class TransactionsTableComponent extends Table implements OnInit {
     {
       title: 'Source',
       value: function(p) { return p.source ? p.source.name : ''; },
-      routerLink: function(p) { return p.source ? [(p.source.model_name == 'Target' ? '/targets' : '/accounts'), p.source.id] : false; },
+      routerLink: function(p) { return p.source ? [(p.source.model_name === 'Target' ? '/targets' : '/accounts'), p.source.id] : false; },
     },
     {
       title: 'Destination',
       value: function(p) { return p.destination ? p.destination.name : ''; },
-      routerLink: function(p) { return p.destination ? [(p.destination.model_name == 'Target' ? '/targets' : '/accounts'), p.destination.id] : false; },
+      routerLink: function(p) {
+        return p.destination ? [(p.destination.model_name === 'Target' ? '/targets' : '/accounts'), p.destination.id] : false;
+      },
     },
     this.comment_row,
     {
       title: 'Type',
     },
   ];
-
-  public card_title = function(b) { return this.value(b) + (b.destination ? (' to ' + b.destination.name) : '') + ' on ' + b.date; }.bind(this);
-
-  public card_subtitle = function(b) { return b.comment; }
 
   public cards = [
     {
@@ -68,7 +66,7 @@ export class TransactionsTableComponent extends Table implements OnInit {
     {
       title: 'Source',
       value: function(p) { return p.source ? p.source.name : ''; },
-      routerLink: function(p) { return p.source ? [(p.source.model_name == 'Target' ? '/targets' : '/accounts'), p.source.id] : false; },
+      routerLink: function(p) { return p.source ? [(p.source.model_name === 'Target' ? '/targets' : '/accounts'), p.source.id] : false; },
     },
     {
       title: 'Type',
@@ -90,6 +88,12 @@ export class TransactionsTableComponent extends Table implements OnInit {
     }
   ];
 
+  public card_title = function(b) {
+    return this.value(b) + (b.destination ? (' to ' + b.destination.name) : '') + ' on ' + b.date;
+  }.bind(this);
+
+  public card_subtitle = function(b) { return b.comment; };
+
   constructor(
     public transactionsService: TransactionsService,
   ) {
@@ -107,14 +111,14 @@ export class TransactionsTableComponent extends Table implements OnInit {
   }
 
   value(p: Transaction) {
-    return (this.isIncome(p) ? '-' : '+') + p.value + (this.currencySymbol != '' ? (' ' + this.currencySymbol) : '');
+    return (this.isIncome(p) ? '-' : '+') + p.value + (this.currencySymbol !== '' ? (' ' + this.currencySymbol) : '');
   }
 
   isIncome(transaction: Transaction) {
-    return transaction.destination ? (transaction.destination.model_name == 'Target') : (transaction.source.model_name == 'Account');
+    return transaction.destination ? (transaction.destination.model_name === 'Target') : (transaction.source.model_name === 'Account');
   }
 
   title() {
-    return "Value" + (this.currencySymbol != '' ? " (" + this.currencySymbol + ")" : '');
+    return 'Value' + (this.currencySymbol !== '' ? ' (' + this.currencySymbol + ')' : '');
   }
 }
