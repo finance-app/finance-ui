@@ -7,7 +7,7 @@ import { Currency } from './currency';
 // Services
 import { CurrenciesService } from './currencies.service';
 
-import { Index } from '../components/index/index';
+import { IndexDirective } from '../components/index/index';
 
 @Component({
   selector: 'currencies',
@@ -15,7 +15,7 @@ import { Index } from '../components/index/index';
   styleUrls: ['./currencies.component.css'],
 })
 
-export class CurrenciesComponent extends Index implements OnInit {
+export class CurrenciesComponent extends IndexDirective implements OnInit {
 
   public currencies: ReplaySubject<Array<Currency>> = new ReplaySubject<Array<Currency>>(1);
   public filters = [];

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AuthService, SessionService, TimeframeService } from '@app/core';
+import { AuthService, SessionService, TimeframeService } from './core';
 
 declare const require: any;
 
@@ -10,7 +10,7 @@ declare const require: any;
 })
 export class AppComponent {
 
-  public navbarCollapsed: boolean = true;
+  public navbarCollapsed = true;
 
   constructor(
     public auth: AuthService,

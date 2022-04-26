@@ -15,7 +15,7 @@ import { TransactionCategoriesService } from '../transaction-categories/transact
 import { TimeframeService } from '../core/services/timeframe.service';
 import { PeriodsService } from '../periods/periods.service';
 
-import { Index } from '../components/index/index';
+import { IndexDirective } from '../components/index/index';
 import { TimeframeFilter } from '../core/filters/timeframe-filter';
 
 @Component({
@@ -24,7 +24,7 @@ import { TimeframeFilter } from '../core/filters/timeframe-filter';
   styleUrls: ['./targets.component.css'],
 })
 
-export class TargetsComponent extends Index implements OnInit, OnDestroy {
+export class TargetsComponent extends IndexDirective implements OnInit, OnDestroy {
 
   public targets: ReplaySubject<Array<Target>> = new ReplaySubject<Array<Target>>(1);
   public periods: ReplaySubject<Array<Period>> = new ReplaySubject<Array<Period>>(1);
