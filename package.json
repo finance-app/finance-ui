@@ -51,7 +51,7 @@
     "kind-of": "^6.0.3",
     "lodash": "^4.17.15",
     "minimist": "^1.2.5",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "nativescript-ngx-fonticon": "^6.0.3",
     "nativescript-theme-core": "^2.0.24",
     "nativescript-toast": "^2.0.0",
